@@ -8,7 +8,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./design.component.css']
 })
 export class DesignComponent implements OnInit {
-  contents = ["one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three",];
+  contents = ["Insert 1", "insert 2", "Insert 3", "Insert 4", "insert 5", "Insert 6", "Insert 7", "insert 8", "Insert 9", "Insert 10"];
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.contents, event.previousIndex, event.currentIndex);
   }
@@ -17,10 +17,10 @@ export class DesignComponent implements OnInit {
   animalControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
   animals: Animal[] = [
-    {name: 'Dog', sound: 'Woof!'},
-    {name: 'Cat', sound: 'Meow!'},
-    {name: 'Cow', sound: 'Moo!'},
-    {name: 'Fox', sound: 'Wa-pa-pa-pa-pa-pa-pow!'},
+    {name: 'one'},
+    {name: 'two'},
+    {name: 'three'},
+    {name: 'four'},
   ];
 
   constructor() { }
@@ -32,5 +32,4 @@ export class DesignComponent implements OnInit {
 
 interface Animal {
   name: string;
-  sound: string;
 }
