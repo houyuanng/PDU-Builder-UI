@@ -31,6 +31,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatSelectModule } from '@angular/material/select'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { GreeterComponent } from './greeter/greeter.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EditMaterialComponent,
     DesignComponent,
     UserManualComponent,
+    GreeterComponent,
   ],
   imports: [
     BrowserModule,
