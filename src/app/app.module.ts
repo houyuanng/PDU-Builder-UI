@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AboutComponent } from './about/about.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -32,7 +33,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreeterComponent } from './greeter/greeter.component';
-
 
 @NgModule({
   declarations: [
@@ -68,7 +68,8 @@ import { GreeterComponent } from './greeter/greeter.component';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule
   ],
 
   providers: [],

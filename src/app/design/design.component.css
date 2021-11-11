@@ -1,3 +1,28 @@
+/* selecting part of the screen */
+
+.selects{
+  align-content: left;
+}
+
+.inserts{
+  width: 20px;
+  flex-direction: column-reverse;
+  align-content: center;
+}
+button{
+  width: 300px;
+  height: 10;
+}
+  /* stuff for drop down menus of choosing a specification */
+.Profiles{
+  position: relative;
+  left: 30px;
+}
+.Categories{
+    position: relative;
+    left: 30px;
+}
+
 /* for the dragging tiles of the PDU modules */
 .example-list {
     width: 100%;
@@ -9,6 +34,11 @@
     background: white;
     border-radius: 4px;
     overflow: hidden;
+  }
+
+  img{
+    width: 100px;
+    height: 100px;
   }
   
   .example-box {
@@ -50,14 +80,3 @@
   .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
-
-
-  /* stuff for drop down menus of choosing a specification */
-  .options{
-    position: relative;
-    left: 30px;
-}
-.answer{
-    position: relative;
-    left: 30px;
-}

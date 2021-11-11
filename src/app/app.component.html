@@ -1,22 +1,14 @@
 <mat-toolbar color="primary" class="menu-bar">  
-  <h1>  
-    PDU Builder
+  <h1 class="logo-button">  
+    <button mat-button routerLink="/">PDU Builder</button>  
   </h1>  
+  <div class="menu-options">
     <button mat-button routerLink="/">Home</button>  
     <button mat-button routerLink="/design">Design</button>
     <button mat-button routerLink="/orders">Orders</button>  
     <button mat-button routerLink="/configuration">Configuration</button>  
     <button mat-button routerLink="/about">About</button> 
     <button mat-button routerLink="/user-manual">User manual</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
-
-<ul class="flex-container">
-<li class="flex-item">1</li>
-<li class="flex-item">2</li>
-<li class="flex-item">3</li>
-<li class="flex-item">4</li>
-<li class="flex-item">5</li>
-<li class="flex-item">6</li>
-</ul>
-

@@ -1,11 +1,10 @@
 img{
- height: 500px;
- width: 700px;
- position: relative;
- margin-left: 50mm;
+    display: flex;
+    align-items: center;
 }
 
 .update-configure-docs-button{
-    position: relative;
-    margin-left: 250mm;
+    display: flex;
+    align-content: flex-end;
+    flex-direction: row-reverse;
 }
