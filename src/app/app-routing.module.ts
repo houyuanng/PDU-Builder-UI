@@ -19,7 +19,7 @@ const routes: Routes = [
   // { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: '', redirectTo: 'greeter', pathMatch: 'full'},
   { path: 'greeter', component: GreeterComponent },
-  
+
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'configuration', component: ConfigurationComponent },
@@ -32,7 +32,6 @@ const routes: Routes = [
   { path: 'design', component: DesignComponent },
   { path: 'user-manual', component: UserManualComponent },
   { path: 'orders', component: OrdersComponent },
-
 ];
 
 @NgModule({

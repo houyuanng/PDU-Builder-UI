@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HelloRequest, HelloReply } from 'src/Generated/greet_pb';
 import { GreeterClient, ServiceError } from 'src/Generated/greet_pb_service';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './greeter.component.html',
   styleUrls: ['./greeter.component.css']
 })
-export class GreeterComponent implements OnInit {
+export class GreeterComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription = new Subscription();
   public response: string = "no test response yet...";
 
@@ -24,7 +24,7 @@ export class GreeterComponent implements OnInit {
       this.response = response!.getMessage();
     });
   }
-
+  
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
