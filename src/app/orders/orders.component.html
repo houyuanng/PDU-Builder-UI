@@ -1,0 +1,40 @@
+<table cdk-table [dataSource]="content">
+    <ng-container cdkColumnDef="orderId">
+      <th cdk-header-cell *cdkHeaderCellDef> Order id </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[0]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="companyName">
+      <th cdk-header-cell *cdkHeaderCellDef> Company name </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="lastEdit">
+      <th cdk-header-cell *cdkHeaderCellDef> Last edit </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[2]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="viewOrder">
+      <th cdk-header-cell *cdkHeaderCellDef> View order </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="viewBOM">
+      <th cdk-header-cell *cdkHeaderCellDef> View BOM </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="edit">
+      <th cdk-header-cell *cdkHeaderCellDef> View BOM </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+    </ng-container>
+  
+    <ng-container cdkColumnDef="delete">
+      <th cdk-header-cell *cdkHeaderCellDef> delete </th>
+      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+    </ng-container>
+  
+    <!-- Header and Row Declarations -->
+    <tr cdk-header-row *cdkHeaderRowDef="['orderId', 'companyName', 'lastEdit', 'viewOrder','viewBOM', 'edit', 'delete']; sticky: true"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: ['orderId', 'companyName', 'lastEdit', 'viewOrder','viewBOM', 'edit', 'delete']"></tr>
+  </table>

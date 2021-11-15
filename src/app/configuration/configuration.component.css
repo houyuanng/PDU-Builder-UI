@@ -1,0 +1,11 @@
+section {
+    display: table;
+  }
+  
+  .btn-group {
+    display: contents;
+    font-size: 14px;
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 100px;
+  }

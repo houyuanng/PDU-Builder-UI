@@ -1,0 +1,11 @@
+img{
+ height: 500px;
+ width: 700px;
+ position: relative;
+ margin-left: 50mm;
+}
+
+.update-configure-docs-button{
+    position: relative;
+    margin-left: 250mm;
+}
