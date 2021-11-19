@@ -1,3 +1,4 @@
+<div class="row-everything">
 <!-- PDU design with sliding inserts -->
 <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
     <div class="example-box" *ngFor="let content of contents" cdkDrag>
@@ -6,45 +7,95 @@
 </div>
 
 <div class="selects">
-  <!-- choose inserts -->
-  <div class="inserts">
-    <button mat-button >insert 1</button>
-    <button mat-button >insert 2</button>
-    <button mat-button >insert 3</button>
-    <button mat-button >insert 4</button>
-    <button mat-button >insert 5</button>
-    <button mat-button >insert 6</button>
-  </div>
-  
-  <!-- Drop down menu for Profiles -->
-  <div class="Profiles">
-    <p> </p>
-    <p>Profile</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Choose a profile</mat-label>
-      <mat-select [formControl]="animalControl" required>
-        <mat-option>--</mat-option>
-        <mat-option *ngFor="let animal of animals" [value]="animal">
-          {{animal.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="animalControl.hasError('required')">Please choose a profile</mat-error>
-    </mat-form-field>
+  <div class="profiles-categories">
+    <!-- Drop down menu for Profiles -->
+    <div class="Profiles">
+      <p> </p>
+      <p>Profile</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a profile</mat-label>
+        <mat-select [formControl]="animalControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="animalControl.hasError('required')">Please choose a profile</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Drop down menu for Category -->
+    <div class="Categories">
+      <p> </p>
+      <p>Category</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose category of inserts</mat-label>
+        <mat-select [formControl]="animalControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="animalControl.hasError('required')">Please choose something</mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
-  <!-- Drop down menu for Category -->
-  <div class="Categories">
-    <p> </p>
-    <p>Category</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Choose category of inserts</mat-label>
-      <mat-select [formControl]="animalControl" required>
-        <mat-option>--</mat-option>
-        <mat-option *ngFor="let animal of animals" [value]="animal">
-          {{animal.name}}
-        </mat-option>
-      </mat-select>
-      <mat-error *ngIf="animalControl.hasError('required')">Please choose something</mat-error>
-    </mat-form-field>
+  <!-- choose inserts -->
+  <div class="inserts-section">
+    <div class="inserts">
+      <button mat-raised-button >insert 1</button>
+      <button mat-raised-button >insert 2</button>
+      <button mat-raised-button >insert 3</button>
+      <button mat-raised-button >insert 4</button>
+      <button mat-raised-button >insert 5</button>
+      <button mat-raised-button >insert 6</button>
+    </div>
+    <div class="inserts-names">
+      <button mat-raised-button >insert 1</button>
+      <button mat-raised-button >insert 2</button>
+      <button mat-raised-button >insert 3</button>
+      <button mat-raised-button >insert 4</button>
+      <button mat-raised-button >insert 5</button>
+      <button mat-raised-button >insert 6</button>
+    </div>
   </div>
+
+  <div class="specifications-amount">
+     <!-- Drop down menu for Profiles -->
+     <div class="Profiles">
+      <p> </p>
+      <p>Option</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [formControl]="animalControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="animalControl.hasError('required')">Please choose a profile</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Drop down menu for Category -->
+    <div class="Categories">
+      <p> </p>
+      <p>Option</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [formControl]="animalControl" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let animal of animals" [value]="animal">
+            {{animal.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="animalControl.hasError('required')">Please choose something</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="block1"></div>
+  <div class="block1"></div>
+
+</div>
 </div>

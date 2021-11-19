@@ -1,31 +1,36 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HelloRequest, HelloReply } from 'src/Generated/greet_pb';
-import { GreeterClient, ServiceError } from 'src/Generated/greet_pb_service';
+import { Greeter, GreeterClient, ServiceError } from 'src/Generated/greet_pb_service';
 import { Subscription } from 'rxjs';
+import {grpc} from "@improbable-eng/grpc-web";
 
 @Component({
   selector: 'app-greeter',
   templateUrl: './greeter.component.html',
   styleUrls: ['./greeter.component.css']
 })
-export class GreeterComponent implements OnInit, OnDestroy {
+export class GreeterComponent {
   private subscriptions: Subscription = new Subscription();
-  public response: string = "no test response yet...";
+  public response: {} = {};
+  public ngOnInit() {
 
-  ngOnInit(): void {
-    const client = new GreeterClient('https://localhost:5001');
-    const req = new HelloRequest();
-    req.setName("World!");
-    client.sayHello(req, (err: ServiceError|null, response: HelloReply|null) => {
-      if (err) {
-        this.response = `Error: ` + err.message + ':' + response;
-        return;
+    const getRequests = new HelloRequest();
+
+    grpc.unary(Greeter.SayHello, {
+      request: getRequests,
+      host: "https://localhost:5001", 
+      onEnd: res => {
+        const { status, message } = res;
+        if (status === grpc.Code.OK && message) {
+          var result = message.toObject() as HelloReply.AsObject;
+          this.response = result;
+          console.log("============================the grpc code: " + grpc.Code);
+        }
+        else{
+          console.log("============================the grpc code: " + grpc.Code);
+        }
       }
-      this.response = response!.getMessage();
     });
   }
-  
-  ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-  }
 }
+    

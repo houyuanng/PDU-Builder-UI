@@ -8,7 +8,7 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./design.component.css']
 })
 export class DesignComponent implements OnInit {
-  contents = ["https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "Insert 4", "insert 5", "Insert 6", "Insert 7", "insert 8", "Insert 9", "Insert 10"];
+  contents = ["https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"];
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.contents, event.previousIndex, event.currentIndex);
   }
