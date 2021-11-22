@@ -16,8 +16,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { GreeterComponent } from './greeter/greeter.component';
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: '', redirectTo: 'greeter', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full'},
+  // { path: '', redirectTo: 'greeter', pathMatch: 'full'},
   { path: 'greeter', component: GreeterComponent },
 
   { path: 'home', component: HomeComponent },

@@ -1,10 +1,15 @@
-img{
+.home-conten{
     display: flex;
-    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 100%;
+}
+
+.logo-image{
+    display: flex;
 }
 
 .update-configure-docs-button{
     display: flex;
-    align-content: flex-end;
-    flex-direction: row-reverse;
+    flex-direction: row;
 }

@@ -1,11 +1,25 @@
-section {
-    display: table;
+.buttons {
+    display: flex;
+    flex-direction: row;
+    padding: 50px;
+    gap: 10px;
   }
   
-  .btn-group {
-    display: contents;
+  .new {
+    display: flex;
+    flex-direction: column;
     font-size: 14px;
-    margin-left: 20px;
-    margin-top: 10px;
-    width: 100px;
+    gap: 10px;
+  }
+
+  .edit{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .help{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
   }
