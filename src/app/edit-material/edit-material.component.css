@@ -1,0 +1,48 @@
+.title-new{
+    display: flex;
+    padding: 30pt;
+    padding-left: 100px;
+    padding-bottom: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding: 30px;
+}
+
+.section-input-process-time {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+}
+
+.inputs-processes {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.input-process {
+    width: 180px;
+}
+.input-process-pricing {
+    width: 85px;
+}
+
+input { 
+    width: 290px;
+}
+
+.section-material {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+}
+
+.section-profile {
+    display: flex;
+    flex-direction: column;
+    width: 290px;
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-insert',
@@ -8,7 +9,8 @@ import { Component, OnInit } from '@angular/core';
 export class EditInsertComponent implements OnInit {
 
   constructor() { }
-
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
   ngOnInit(): void {
   }
 

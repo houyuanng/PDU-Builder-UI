@@ -1,1 +1,111 @@
-<p>edit-insert works!</p>
+<h1 class="title">New insert</h1>
+
+<div class="content">
+    <div class="section-insert-category-profile-processtime">
+        <P>Add new insert</P>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Give insert name">
+        </mat-form-field>
+
+        <form class="select-category">
+            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Number</mat-label>
+            <input type="text"
+                    placeholder="Category"
+                    aria-label="Category"
+                    matInput
+                    [formControl]="myControl"
+                    [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of options" [value]="option">
+                {{option}}
+                </mat-option>
+            </mat-autocomplete>
+            </mat-form-field>
+        </form>
+
+        <!-- this dont work properly yet,radio does not check -->
+        <div class="section-profiles">
+            <p>Profile constraint</p>
+            <mat-radio-group class="radio-profiles">
+                <mat-radio-button [value]=1>oec</mat-radio-button>
+                <mat-radio-button [value]=1>oec</mat-radio-button>
+                <mat-radio-button [value]=2>oec</mat-radio-button>
+                <mat-radio-button [value]=1>oec</mat-radio-button>
+            </mat-radio-group>
+        </div>
+
+        <div class="section-process-time">
+            <p>Add process time</p>
+
+            <div class="row-processtimes">
+                <form class="example-form">
+                    <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Number</mat-label>
+                    <input type="text"
+                            class="input-menu-process-time"
+                            placeholder="Process time"
+                            aria-label="Number"
+                            matInput
+                            [formControl]="myControl"
+                            [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of options" [value]="option">
+                        {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+
+                <mat-form-field appearance="fill">
+                    <input class="input-process-time-mins" matInput placeholder="Fill in amount of minutes">
+                </mat-form-field>
+            </div>
+
+            <button class="button-plus-one" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon"> + 
+            </button>
+            
+        </div>
+    </div>
+
+    <div class="section-add-component">
+        <p>Add component to this insert</p>
+
+        <div class="row-component-conf">
+            <form>
+                <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Number</mat-label>
+                <input type="text"
+                        class="input-component"
+                        placeholder="Add component"
+                        aria-label="Add component"
+                        matInput
+                        [formControl]="myControl"
+                        [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of options" [value]="option">
+                    {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+                </mat-form-field>
+            </form>
+        
+            <mat-form-field class="formfield-input-amount" appearance="fill">
+                <input class="input-component-amount" matInput placeholder="1">
+            </mat-form-field>
+
+            <button class="button-remove-component" mat-raised-button>del</button>
+        </div>
+
+            <button class="button-plus-one" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon"> + 
+            </button>
+    </div>
+
+    <div class="buttons-upload-images">
+        <p>Upload images</p>
+        <button class="button-upload-image" mat-raised-button>Upload schematic <br> image</button>
+        <button class="button-upload-image" mat-raised-button>Upload real image</button>
+    </div>
+    <button class="button-upload-image" mat-raised-button>Save</button>
+  </div>

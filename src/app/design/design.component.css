@@ -25,6 +25,12 @@
   flex-direction: column-reverse;
   align-content: center;
 }
+.inserts-names {
+  width: 200px;
+  flex-direction: column-reverse;
+  align-content: center;
+}
+
 button{
   display: flex;
   width: 120px;
@@ -42,8 +48,8 @@ button{
 
 /* for the dragging tiles of the PDU modules */
 .example-list {
-    width: 100%;
-    max-width: 100%;
+    width: min-content;
+    /* max-width: 100%; */
     border: solid 1px #ccc;
     height: 100px;
     display: flex;
@@ -54,12 +60,14 @@ button{
   }
 
   img{
-    width: 100px;
+    width: auto;
     height: 100px;
   }
   
   .example-box {
-    padding: 20px 10px;
+    height: 100px;
+    width: auto;
+    /* padding: 20px 10px; */
     border-right: solid 1px #ccc;;
     color: rgba(0, 0, 0, 0.87);
     display: flex;

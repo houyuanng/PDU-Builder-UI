@@ -1,4 +1,4 @@
-.title-new-category{
+.title-new {
     display: flex;
     padding: 30pt;
     padding-left: 100px;
@@ -33,4 +33,9 @@
 
 input {
     width: 290px;
+}
+
+.button-plus-one {
+    display: flex;
+    justify-content: center;
 }

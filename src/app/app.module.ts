@@ -33,8 +33,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreeterComponent } from './greeter/greeter.component';
-import {MatMenuModule} from '@angular/material/menu'; 
-
+import { MatMenuModule } from '@angular/material/menu'; 
+import { MatRadioModule } from '@angular/material/radio'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
 
 
 @NgModule({
@@ -73,7 +74,9 @@ import {MatMenuModule} from '@angular/material/menu';
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatRadioModule
   ],
 
   providers: [],

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'app-new-insert',
@@ -8,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class NewInsertComponent implements OnInit {
 
   constructor() { }
-
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
   ngOnInit(): void {
   }
 
+}
+export class AutocompleteSimpleExample {
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
 }

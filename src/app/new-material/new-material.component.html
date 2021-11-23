@@ -1,1 +1,60 @@
-<p>new-material works!</p>
+<h1 class="title-new">New Material</h1>
+
+<div class="content"> 
+
+    <div class="section-input-process-time">
+        <p>Add process time</p>
+
+        <div class="inputs-processes">
+            <mat-form-field appearance="fill">
+                <input class="input-process" matInput placeholder="Montagetijd, zaagtijd, etc">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <input class="input-process-pricing" matInput placeholder="Price per minute">
+            </mat-form-field>
+        </div>
+    </div>
+
+
+    <div class="section-profile">
+
+        <p>Add profile reference number</p>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Voer referentie nummer van materiaal in">
+        </mat-form-field>
+
+        <mat-card>
+            <mat-card-title>ProfileName</mat-card-title>
+            <mat-card-subtitle>ReferenceNumber <br>
+                price per meter
+            </mat-card-subtitle>
+            <mat-card-actions>
+                <button mat-button>Search database</button>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+
+    <div class="section-material">
+        <p>Add material reference number</p>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Voer referentie nummer van profiel in">
+        </mat-form-field>
+
+        <mat-card>
+            <mat-card-title>MaterialName</mat-card-title>
+            <mat-card-subtitle>ReferenceNumber <br>
+                price per unit
+            </mat-card-subtitle>
+            <mat-card-actions>
+                <button mat-button>Search database</button>
+            </mat-card-actions>
+        </mat-card>
+
+    </div>
+
+</div>
+<button class="button-save" mat-raised-button>Opslaan </button>
+
