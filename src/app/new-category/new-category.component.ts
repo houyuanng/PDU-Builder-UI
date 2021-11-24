@@ -9,7 +9,23 @@ export class NewCategoryComponent implements OnInit {
 
   constructor() { }
 
+  public inputCategoryName: string = "";
+  public output: string = ""
+  public event_save: string = "";
+
   ngOnInit(): void {
+
   }
 
+
+  // event binding for category input and submit key pressed
+  onKeyUp_categoryName(event: any) {
+    this.inputCategoryName = event.target.value;
+  }
+
+  onSubmit() {
+    this.event_save = "clicked";
+    this.output = this.inputCategoryName;
+
+  }
 }

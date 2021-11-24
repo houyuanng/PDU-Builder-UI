@@ -7,10 +7,15 @@
     <div class="category-name-column">
         <p class="label-category-name">Category name</p>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Enter category name">
+            <input matInput placeholder="Enter category name" (keyup)="onKeyUp_categoryName($event)">
         </mat-form-field>
+        <p>
+            {{inputCategoryName}}
+        </p>
+
+
     </div>
-
-    <button class="button-save-category" mat-raised-button>Opslaan </button>
-
+    <button (click)="onSubmit()" class="button-save-category" mat-raised-button>Opslaan </button>
+    <p>{{event_save}}</p>
+    <p>{{output}}</p>
 </div>

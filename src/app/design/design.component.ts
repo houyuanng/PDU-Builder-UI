@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -8,20 +8,52 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./design.component.css']
 })
 export class DesignComponent implements OnInit {
+ 
   folder: string = "/images/Insert real/";
-  // contents = ["https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png", "https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png"];
-  contents = [
-    this.folder + "032-8666 10 amp small.jpg", 
-    this.folder + "053-8642 small.jpg", 
-    this.folder + "053-8642 small.jpg", 
-    this.folder + "CEM tek.jpg", 
-    this.folder + "C13 lockable.jpg", 
-    this.folder + "053-8642 small.jpg", 
-    this.folder + "012-8701 small.jpg", 
-    this.folder + "22-8673 small.jpg"
+  public samples = [
+    "032-8666 10 amp small.jpg", 
+    "CEM tek.jpg", 
+    "C13 lockable.jpg", 
+    "053-8642 small.jpg", 
+    "012-8701 small.jpg", 
+    "22-8673 small.jpg"
   ]
+
+  public contents: string[] = [];
+
+  selectedProfile ='something';
+  chosenProfile: Content = {name: ""};
+  public save = false;
+  test: string = "";
+  public sequence = ["", "", "", "", "", "", "", ""];
+
+  selectProfile(){
+    this.chosenProfile = this.profiles.values;
+
+  }
+
+  blurEvent(event: any) {
+    this.chosenProfile = event.target.value;
+  }
+
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.contents, event.previousIndex, event.currentIndex);
+  }
+
+  clickSave(){
+    // this.save = true;
+    //  for some reason the tiles can only get in order when they are called individually. calling the whole array does not work :/
+    for (let i = 0; i < this.contents.length; i++){
+      this.sequence[i] = this.contents[i];
+    }
+
+    this.test = this.sequence[0];
+  }
+
+  yes: string = "";
+  clickAddInsert(insert: string) {
+    this.yes=insert;
+    this.contents.push(insert);
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);

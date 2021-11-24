@@ -7,12 +7,14 @@
 
         <div class="inputs-processes">
             <mat-form-field appearance="fill">
-                <input class="input-process" matInput placeholder="Montagetijd, zaagtijd, etc">
+                <input class="input-process" matInput placeholder="Montagetijd, zaagtijd, etc" (keyup)="onKeyUp_processName($event)">
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <input class="input-process-pricing" matInput placeholder="Price per minute">
+                <input class="input-process-pricing" matInput placeholder="Price per minute" (keyup)="onKeyUp_processTime($event)">
+                <!-- add a numeric constraint where it only accepts numbers -->
             </mat-form-field>
+
         </div>
     </div>
 
@@ -21,16 +23,16 @@
 
         <p>Add profile reference number</p>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Voer referentie nummer van materiaal in">
+            <input matInput placeholder="Voer referentie nummer van materiaal in" (keyup)="onKeyUp_materialReferenceNumber($event)">
         </mat-form-field>
-
+        <p>{{inputMaterialReferenceNumber}}</p>
         <mat-card>
-            <mat-card-title>ProfileName</mat-card-title>
-            <mat-card-subtitle>ReferenceNumber <br>
-                price per meter
+            <mat-card-title>{{viewMaterialName}}</mat-card-title>
+            <mat-card-subtitle>{{inputMaterialReferenceNumber}} <br>
+                {{viewMaterialPrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button>Search database</button>
+                <button mat-button (click)="click_searchMaterial()">Search database</button>
             </mat-card-actions>
         </mat-card>
 
@@ -40,21 +42,33 @@
         <p>Add material reference number</p>
 
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Voer referentie nummer van profiel in">
+            <input matInput placeholder="Voer referentie nummer van profiel in" (keyup)="onKeyUp_profileReferenceNumber($event)">
         </mat-form-field>
-
+        <p>{{inputProfileReferenceNumber}}</p>
         <mat-card>
-            <mat-card-title>MaterialName</mat-card-title>
-            <mat-card-subtitle>ReferenceNumber <br>
-                price per unit
+            <mat-card-title>{{viewProfileName}}</mat-card-title>
+            <mat-card-subtitle>{{inputProfileReferenceNumber}} <br>
+                {{viewProfilePrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button>Search database</button>
+                <button mat-button (click)="click_searchProfile()">Search database</button>
             </mat-card-actions>
         </mat-card>
 
     </div>
 
 </div>
-<button class="button-save" mat-raised-button>Opslaan </button>
+<button class="button-save" mat-raised-button (click)="click_saveItems()">Opslaan </button>
 
+
+<p>process name: [{{inputProcessName}}] time: [{{inputProcessTime}}]</p>
+<br>
+<p>material reference number: [{{inputMaterialReferenceNumber}}]</p>
+<p>profile name: [{{viewProfileName}}] Price per cm: [{{viewProfilePrice}}]</p>
+<p>material search: [{{clickSearchMaterial}}]</p>
+<br>
+<p>profile reference number: [{{inputProfileReferenceNumber}}]</p>
+<p>material name: [{{viewMaterialName}}] Price per unit: [{{viewMaterialPrice}}]</p>
+<p>profile search: [{{clickSearchProfile}}]</p>
+<br>
+<p>save button press [{{clickSave}}]</p>
