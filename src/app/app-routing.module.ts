@@ -14,6 +14,7 @@ import { DesignComponent } from './design/design.component';
 import { UserManualComponent } from './user-manual/user-manual.component'; 
 import { OrdersComponent } from './orders/orders.component';
 import { GreeterComponent } from './greeter/greeter.component';
+import { OrderInformationComponent } from './design/order-information/order-information.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -32,6 +33,8 @@ const routes: Routes = [
   { path: 'design', component: DesignComponent },
   { path: 'user-manual', component: UserManualComponent },
   { path: 'orders', component: OrdersComponent },
+  { path: 'design/order-information', component: OrderInformationComponent },
+  
 ];
 
 @NgModule({

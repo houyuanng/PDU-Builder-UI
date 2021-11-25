@@ -1,9 +1,10 @@
 <div class="row-everything">
+<p>{{sequence}}</p>
 
 <!-- PDU design with sliding inserts -->
 <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let content of contents" cdkDrag>
-      <img [src]="folder+content" alt="your image"/>
+    <div class="example-box" *ngFor="let insert of sequence" cdkDrag>
+      <img [src]="folder+insert" alt="your image"/>
     </div>
 </div>
 
@@ -91,7 +92,8 @@
     </div>
 
     <button mat-raised-button (click)="clickSave()">Save</button>
-
+    <button mat-raised-button routerLink="/design/order-information">Fill in order information </button>
+    <button mat-raised-button (click)="clickClear()">Clear</button>
   </div>
 
   <p>{{yes}}</p>

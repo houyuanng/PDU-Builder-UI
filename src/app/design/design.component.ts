@@ -18,18 +18,37 @@ export class DesignComponent implements OnInit {
     "012-8701 small.jpg", 
     "22-8673 small.jpg"
   ]
+  
+  // {name: "OEC 660"},
+  // {name: "OEC 670"},
+  // {name: "OEC 690"},
+  // {name: "OEC 800"},
 
+  public sampleInserts: InsertStuffs[] = [
+    {insertName: "032-8666 10 amp small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
+    {insertName: "CEM tek.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?"], answer: ["answer 2?", "answer 2?", "answer 3?"]},
+    {insertName: "C13 lockable.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 3?", "answer 2?", "answer 3?"]},
+    {insertName: "053-8642 small.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
+    {insertName: "012-8701 small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?"], answer: ["answer 2?", "answer 2?", "answer 3?"]},
+    {insertName: "22-8673 small.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 3?", "answer 2?", "answer 3?"]}
+    ];
+  
   public contents: string[] = [];
 
   selectedProfile ='something';
   chosenProfile: Content = {name: ""};
   public save = false;
   test: string = "";
-  public sequence = ["", "", "", "", "", "", "", ""];
+  public sequence: string[] = [];
+
+
+  getUnique(data: string[]) {
+
+  }
 
   selectProfile(){
-    this.chosenProfile = this.profiles.values;
-
+    // this.chosenProfile = this.profiles.values;
+    this.chosenProfile = this.sequence.values;
   }
 
   blurEvent(event: any) {
@@ -37,15 +56,19 @@ export class DesignComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.contents, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.sequence, event.previousIndex, event.currentIndex);
+  }
+
+  clickClear(){
+    this.sequence = [];
   }
 
   clickSave(){
     // this.save = true;
     //  for some reason the tiles can only get in order when they are called individually. calling the whole array does not work :/
-    for (let i = 0; i < this.contents.length; i++){
-      this.sequence[i] = this.contents[i];
-    }
+    // for (let i = 0; i < this.contents.length; i++){
+    //   this.sequence[i] = this.contents[i];
+    // }
 
     this.test = this.sequence[0];
   }
@@ -53,7 +76,7 @@ export class DesignComponent implements OnInit {
   yes: string = "";
   clickAddInsert(insert: string) {
     this.yes=insert;
-    this.contents.push(insert);
+    this.sequence.push(insert);
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);
@@ -110,4 +133,12 @@ interface Animal {
 
 interface Content {
   name: string;
+}
+
+interface InsertStuffs {
+  insertName: string;
+  profileConstraint: string[];
+  category: string;
+  question: string[];
+  answer: string[];
 }

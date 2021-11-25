@@ -35,7 +35,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreeterComponent } from './greeter/greeter.component';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatRadioModule } from '@angular/material/radio'; 
-import {MatAutocompleteModule} from '@angular/material/autocomplete'; 
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { OrderInformationComponent } from './design/order-information/order-information.component'; 
 
 
 @NgModule({
@@ -54,6 +55,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     DesignComponent,
     UserManualComponent,
     GreeterComponent,
+    OrderInformationComponent,
   ],
   imports: [
     BrowserModule,
