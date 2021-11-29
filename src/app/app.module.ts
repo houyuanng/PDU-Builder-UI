@@ -37,7 +37,9 @@ import { GreeterComponent } from './greeter/greeter.component';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatRadioModule } from '@angular/material/radio'; 
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import { OrderInformationComponent } from './design/order-information/order-information.component'; 
+import { OrderInformationComponent } from './design/order-information/order-information.component';
+import { ViewBomComponent } from './view-bom/view-bom.component';
+import { ViewSummaryComponent } from './view-summary/view-summary.component'; 
 
 
 @NgModule({
@@ -57,6 +59,8 @@ import { OrderInformationComponent } from './design/order-information/order-info
     UserManualComponent,
     GreeterComponent,
     OrderInformationComponent,
+    ViewBomComponent,
+    ViewSummaryComponent,
   ],
   imports: [
     BrowserModule,

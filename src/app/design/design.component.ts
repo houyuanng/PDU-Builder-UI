@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-design',
@@ -9,6 +11,8 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class DesignComponent implements OnInit {
  
+  private subscriptions: Subscription = new Subscription();
+  
   folder: string = "/images/Insert real/";
   public samples = [
     "032-8666 10 amp small.jpg", 

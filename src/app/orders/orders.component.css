@@ -1,13 +1,23 @@
-table {
-    width: 80%;
+.content{
+  padding: 20px;
+}
+
+.orderTable {
+    width: 70%;
   }
   
   .mat-header-cell {
     flex-direction: column;
-    justify-content: left;
+    justify-content: center;
   }
   
   .mat-cell {
     text-align: center;
-    justify-content:center;
+    justify-content: center;
   }
+
+  /* .cdk-header-cell{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  } */

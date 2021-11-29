@@ -1,3 +1,9 @@
+<div>
+<p *ngFor="let data of Categories"> prices of the stuff [{{data.category}}] and [{{data.thumbnail_addr}}]</p>
+<p>{{Categories[0]}}</p>
+<p>new name is [{{newName}}]</p>
+</div>
+
 <h1 class="title-new">Edit category</h1>
 
 <div class="content">
@@ -12,10 +18,8 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Rename the category">
+            <input matInput placeholder="Rename the category" (keyup)="onSubmit_renameCategory($event)">
         </mat-form-field>
     </div>
-
-    <button class="button-save-category" mat-raised-button>Opslaan </button>
-
+    <button class="button-save-category" mat-raised-button (click)="clickSave()">Opslaan </button>
 </div>
