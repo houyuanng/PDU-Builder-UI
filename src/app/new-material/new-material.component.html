@@ -1,5 +1,5 @@
-<h1 class="title-new">New Material</h1>
 
+<h1 class="title-new">New Material</h1>
 <div class="content"> 
 
     <div class="section-input-process-time">
@@ -18,21 +18,21 @@
         </div>
     </div>
 
-
     <div class="section-profile">
-
         <p>Add profile reference number</p>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Voer referentie nummer van materiaal in" (keyup)="onKeyUp_materialReferenceNumber($event)">
+            <input matInput 
+            placeholder="Voer referentie nummer van profiel in" 
+            (keyup)="onKeyUp_profileReferenceNumber($event)">
         </mat-form-field>
-        <p>{{inputMaterialReferenceNumber}}</p>
+        <p>{{inputProfileReferenceNumber}}</p>
         <mat-card>
-            <mat-card-title>{{viewMaterialName}}</mat-card-title>
-            <mat-card-subtitle>{{inputMaterialReferenceNumber}} <br>
-                {{viewMaterialPrice}}
+            <mat-card-title>{{viewProfileName}}</mat-card-title>
+            <mat-card-subtitle>{{inputProfileReferenceNumber}} <br>
+                € {{viewProfilePrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button (click)="click_searchMaterial()">Search database</button>
+                <button mat-button (click)="click_searchProfile()">Search database</button>
             </mat-card-actions>
         </mat-card>
 
@@ -40,18 +40,17 @@
 
     <div class="section-material">
         <p>Add material reference number</p>
-
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Voer referentie nummer van profiel in" (keyup)="onKeyUp_profileReferenceNumber($event)">
+            <input matInput placeholder="Voer referentie nummer van materiaal in" (keyup)="onKeyUp_materialReferenceNumber($event)">
         </mat-form-field>
-        <p>{{inputProfileReferenceNumber}}</p>
+        <p>{{inputMaterialReferenceNumber}}</p>
         <mat-card>
-            <mat-card-title>{{viewProfileName}}</mat-card-title>
-            <mat-card-subtitle>{{inputProfileReferenceNumber}} <br>
-                {{viewProfilePrice}}
+            <mat-card-title>{{viewMaterialName}}</mat-card-title>
+            <mat-card-subtitle>{{inputMaterialReferenceNumber}} <br>
+                € {{viewMaterialPrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button (click)="click_searchProfile()">Search database</button>
+                <button mat-button (click)="click_searchMaterial()">Search database</button>
             </mat-card-actions>
         </mat-card>
 
@@ -72,3 +71,4 @@
 <p>profile search: [{{clickSearchProfile}}]</p>
 <br>
 <p>save button press [{{clickSave}}]</p>
+

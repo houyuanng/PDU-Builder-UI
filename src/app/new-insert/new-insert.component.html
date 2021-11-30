@@ -1,4 +1,9 @@
 <h1 class="title">New insert</h1>
+<p> output: </p>
+<!-- <p>{{retGetData[0].material_name}}</p> -->
+<p> retGetData: {{retGetData[20].material_name}}</p>
+<p> testVal: {{favoriteSeason}}</p>
+<p *ngFor="let profile of profiles"> profile names: {{profile.NAME}}</p>
 
 <div class="content">
     <div class="section-insert-category-profile-processtime">
@@ -26,17 +31,18 @@
             </mat-form-field>
         </form>
 
-        <!-- this dont work properly yet,radio does not check -->
-        <div class="section-profiles">
-            <p>Profile constraint</p>
-            <mat-radio-group class="radio-profiles">
-                <mat-radio-button [value]=1>oec</mat-radio-button>
-                <mat-radio-button [value]=1>oec</mat-radio-button>
-                <mat-radio-button [value]=2>oec</mat-radio-button>
-                <mat-radio-button [value]=1>oec</mat-radio-button>
-            </mat-radio-group>
-        </div>
-
+        <!-- example radio buttons with seasons -->
+        <label id="radio-profiles-label">Pick your favorite OEC</label>
+        <mat-radio-group
+          aria-labelledby="radio-profiles-label"
+          class="radio-profiles"
+          [(ngModel)]="favoriteSeason">
+          <mat-radio-button class="radio-profiles" *ngFor="let season of profiles" [value]="season">
+            {{season.NAME}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <div>Your favorite season is: {{favoriteSeason}}</div>
+        
         <div class="section-process-time">
             <p>Add process time</p>
 
