@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -85,7 +85,6 @@ import { ViewSummaryComponent } from './view-summary/view-summary.component';
     MatAutocompleteModule,
     MatRadioModule,
     HttpClientModule
-
   ],
 
   providers: [],

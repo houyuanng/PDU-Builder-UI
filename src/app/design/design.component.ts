@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CdkDrag, CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDrag, CdkDragDrop, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-design',
@@ -11,6 +12,13 @@ import { Subscription } from 'rxjs';
 })
 export class DesignComponent implements OnInit {
  
+  constructor(private http: HttpClient) { }
+  inserts_url = "https://localhost:5001/api/inserts";
+  public get_insertsData: any;
+  public dataCount: number = 0;
+  public test: any;
+  public categories: any;
+
   private subscriptions: Subscription = new Subscription();
   
   folder: string = "/images/Insert real/";
@@ -42,12 +50,20 @@ export class DesignComponent implements OnInit {
   selectedProfile ='something';
   chosenProfile: Content = {name: ""};
   public save = false;
-  test: string = "";
+  // test: string = "";
   public sequence: string[] = [];
 
+  ngOnInit(): void {
+    const getProcesVal = this.http.get(this.inserts_url).subscribe
+    (data => {this.get_insertsData = data;
+      this.dataCount = Object.keys(data).length;
+      this.test = _.uniqBy(this.get_insertsData, 'category');
+      this.categories = _.uniqBy(this.get_insertsData, 'category');
+    });
+  }
 
-  getUnique(data: string[]) {
-
+  groupStuff() {
+    this.test = _.uniq(this.get_insertsData)
   }
 
   selectProfile(){
@@ -92,15 +108,15 @@ export class DesignComponent implements OnInit {
   ];
 
   categoryNonEmptyControl = new FormControl('', Validators.required);
-  categories: Content[] = [
-    {name: "cat1"},
-    {name: "cat2"},
-    {name: "cat3"},
-    {name: "cat4"},
-    {name: "cat5"},
-    {name: "cat6"},
-    {name: "cat7"},
-  ]
+  // categories: Content[] = [
+  //   {name: "cat1"},
+  //   {name: "cat2"},
+  //   {name: "cat3"},
+  //   {name: "cat4"},
+  //   {name: "cat5"},
+  //   {name: "cat6"},
+  //   {name: "cat7"},
+  // ]
 
   qControls = new FormControl('', Validators.required);
   questions: Content[] = [
@@ -124,11 +140,11 @@ export class DesignComponent implements OnInit {
     {name: 'four'},
   ];
 
-  constructor() { }
+ 
+}
 
-  ngOnInit(): void {
-  }
-
+interface Category {
+  category: string;
 }
 
 interface Animal {

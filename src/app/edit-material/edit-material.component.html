@@ -1,3 +1,5 @@
+<p>output: {{test}}</p>
+
 <h1 class="title-new">Edit Material</h1>
 
 <div class="content"> 
@@ -6,17 +8,17 @@
         <p>Search process time</p>
 
             <mat-form-field appearance="fill">
-                <input class="input-process" matInput placeholder="Zoek proces tijd">
+                <input class="input-process" matInput (keyup)="inputEventSearchProcess($event)" placeholder="Zoek proces tijd">
             </mat-form-field>
 
             <div class="inputs-processes">
 
             <mat-form-field appearance="fill">
-                <input class="input-process" matInput placeholder="Proces tijd bewerken">
+                <input class="input-process" matInput (keyup)="inputEventEditProcessName($event)" placeholder="Proces naam bewerken">
             </mat-form-field>
 
             <mat-form-field appearance="fill">
-                <input class="input-process-pricing" matInput placeholder="bewerk prijs">
+                <input class="input-process-pricing" matInput (keyup)="inputEventEditProcessPrice($event)" placeholder="bewerk prijs">
             </mat-form-field>
         </div>
     </div>
@@ -26,7 +28,7 @@
 
         <p>Search profile</p>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Zoek naam of referentie nummer">
+            <input matInput (keyup)="inputEventSearchProfile($event)" placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>
@@ -35,7 +37,7 @@
                 price per meter
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button>Delete</button>
+                <button mat-button (click)="clickEventDeleteProfile($event)">Delete</button>
             </mat-card-actions>
         </mat-card>
 
@@ -45,7 +47,7 @@
         <p>Search material</p>
 
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Zoek naam of referentie nummer">
+            <input matInput (keyup)="inputEventSearchMaterial($event)" placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>
@@ -54,7 +56,7 @@
                 price per unit
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button>Delete</button>
+                <button mat-button (click)="clickEventDeleteMaterial($event)">Delete</button>
             </mat-card-actions>
         </mat-card>
 
@@ -62,5 +64,46 @@
 
 </div>
 
-<button class="button-save" mat-raised-button>Opslaan </button>
+<button class="button-save" mat-raised-button (click)="clickEventSave($event)">Opslaan </button>
 
+
+<div class="out">
+    <div class="GET-data">
+        <p>data: []</p>
+    </div>
+
+    <div class="ui-buttons">
+        <p>--BUTTONS--</p>
+        <p>save : [{{stateSave}}]</p>
+        <p>delete profile : [{{stateDeleteProfile}}]</p>
+        <p>delete material : [{{stateDeleteMaterial}}]</p>
+
+    </div>
+
+    <div class="out-process">
+        <p>--PROCESS--</p>
+        <p>raw : [{{raw_processInput}}]</p>
+        <p>search : [{{inputSearchProcess}}]</p>
+        <p>edit name : [{{inputEditProcessName}}]</p>
+        <p>edit price : [{{inputEditProcessPrice}}]</p>
+    </div>
+
+    <div class="out-profile">
+        <p>--PROFILE--</p>
+        <p>raw : [{{raw_profileInput}}]</p>
+        <p>search : [{{inputSearchProfile}}]</p>
+        <p>name : [{{viewProfileName}}]</p>
+        <p>price : [{{viewProfilePrice}}]</p>
+        <p>description : {{viewDesc}}</p>
+    </div>
+
+    <div class="out-material">
+        <p>--MATERIAL--</p>
+        <p>raw : [{{raw_materialInput}}]</p>
+        <p>search : [{{inputSearchMaterial}}]</p>
+        <p>name : [{{viewMaterialName}}]</p>
+        <p>price : [{{viewMaterialPrice}}]</p>
+    </div>
+</div>
+
+<p>fifhwiehfiwfihP: {{get_materialsData[8].price}}</p>

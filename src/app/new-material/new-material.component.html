@@ -1,4 +1,3 @@
-
 <h1 class="title-new">New Material</h1>
 <div class="content"> 
 
@@ -16,6 +15,8 @@
             </mat-form-field>
 
         </div>
+        <p>{{processMessage}}</p>
+
     </div>
 
     <div class="section-profile">
@@ -59,8 +60,7 @@
 </div>
 <button class="button-save" mat-raised-button (click)="click_saveItems()">Opslaan </button>
 
-
-<p>process name: [{{inputProcessName}}] time: [{{inputProcessTime}}]</p>
+<p>process name: [{{inputProcessName}}] time: [{{inputProcessPrice}}]</p>
 <br>
 <p>material reference number: [{{inputMaterialReferenceNumber}}]</p>
 <p>profile name: [{{viewProfileName}}] Price per cm: [{{viewProfilePrice}}]</p>

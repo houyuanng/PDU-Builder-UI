@@ -1,3 +1,5 @@
+<p *ngFor="let t of categories">output: {{t.category}}</p>
+
 <div class="row-everything">
 <p>{{sequence}}</p>
 
@@ -37,7 +39,7 @@
         <mat-select [formControl]="categoryNonEmptyControl" required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let category of categories" [value]="category">
-            {{category.name}}
+            {{category.category}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="categoryNonEmptyControl.hasError('required')">Please choose something</mat-error>

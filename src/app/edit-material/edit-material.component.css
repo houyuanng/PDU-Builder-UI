@@ -46,3 +46,11 @@ input {
     flex-direction: column;
     width: 290px;
 }
+
+.out{
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    justify-content: space-evenly;
+    gap: 100px;
+}

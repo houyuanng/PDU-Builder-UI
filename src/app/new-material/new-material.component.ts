@@ -1,6 +1,8 @@
+//edit the function names `clickEvent...`, `inputEvent...`
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { materialize } from 'rxjs/operators';
 
 @Component({
@@ -12,54 +14,69 @@ export class NewMaterialComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  url = "https://localhost:5001/api/masterdatabase";
-  public retGetData: any = {};
-  public dataLen: number = 0;
+  url_materialsdb = "https://localhost:5001/api/masterdatabase";
+  url_process = "https://localhost:5001/api/process"
 
+  public get_materialsData: any = {};
+  public materialsDataCount: number = 0;
+  public foundMaterial: boolean = false;
+  public materialIndex: number = 0;
+  public inputMaterialReferenceNumber: string = "Material reference number";
+  public viewMaterialName: string = "Material name";
+  public viewMaterialPrice: number = 0.00;
+  public clickSearchMaterial: boolean = false;
+
+  public get_processData: any = {};
   public inputProcessName: string = "";
-  public inputProcessTime: string = "";
+  public inputProcessPrice: number = 0.00;
+  public processDataCount: number = 0;
+  public processExist: boolean = false;
+  public processMessage: string = "";
   
   public inputProfileReferenceNumber: string = "Profile reference number";
   public viewProfileName: string = "Profile name";
   public viewProfilePrice: number = 0.00;
   public clickSearchProfile: boolean = false;
-  public foundMaterial: boolean = false;
-  public materialIndex: number = 0;
-
-  public inputMaterialReferenceNumber: string = "Material reference number";
-  public viewMaterialName: string = "Material name";
-  public viewMaterialPrice: number = 0.00;
-  public clickSearchMaterial: boolean = false;
   public foundProfile: boolean = false;
-  public profileIndex: number = 0;
+  public profileIndex: number = 0;  
 
   public clickSave: boolean = false;
 
+  public test: any = "";
+
+  write(test: any){
+    this.test = test;
+  }
+
   ngOnInit(): void {
-    const postVal = this.http.get(this.url).subscribe
-    (data => {this.retGetData = data;
-      this.dataLen = Object.keys(data).length;
+    const getProcesVal = this.http.get(this.url_process).subscribe
+    (data => {this.get_processData = data;
+      this.processDataCount = Object.keys(data).length;
+    });
+
+    const getMaterialsVal = this.http.get(this.url_materialsdb).subscribe
+    (data => {this.get_materialsData = data;
+      this.materialsDataCount = Object.keys(data).length;
+
     });
   }
 
   onKeyUp_processName(event: any) {
-    if (event.keyCode === 13){  
-      this.inputProcessName = event.target.value; 
-    }
+      this.inputProcessName = event.target.value;
+      let exist = this.searchProcess(event.target.value);
   }
 
   onKeyUp_processTime(event: any) {
     if (event.keyCode === 13){  
-      this.inputProcessTime = event.target.value;
+      this.inputProcessPrice = event.target.value;
     }
   }
 
-  // i dont get why the function with [if the input reference number dont match, to clear the viewing outputs] dont work
   onKeyUp_profileReferenceNumber(event: any) {
     this.inputProfileReferenceNumber = event.target.value;
     this.searchProfile(event.target.value);
   }
-  
+
 
   onKeyUp_materialReferenceNumber(event: any) {
     this.inputMaterialReferenceNumber = event.target.value;
@@ -88,29 +105,26 @@ export class NewMaterialComponent implements OnInit {
     }
     if (this.inputProcessName != "") {
       let sendProcess: string;
-      if (this.inputProcessTime != ""){
-        sendProcess = this.inputProcessName + "," + this.inputProcessTime;
+      if (this.inputProcessPrice != 0){
+        sendProcess = this.inputProcessName + "," + this.inputProcessPrice;
       }
       else {
         sendProcess = this.inputProcessName + "," + "0";  // if time is empty then its 0 minutes
       }
     }
-    
-    // send this over http
   }
 
-  public test: string = "";
   searchMaterial(input: number) {
-    for (let i = 0; i < this.dataLen; i++){
-      if (input == this.retGetData[i].itemId) {
+    for (let i = 0; i < this.materialsDataCount; i++){
+      if (input == this.get_materialsData[i].itemId) {
         this.foundMaterial = true;
         this.materialIndex = i;
       }
     }
 
     if (this.foundMaterial){
-      this.viewMaterialName = this.retGetData[this.materialIndex].material_name;
-      this.viewMaterialPrice = this.retGetData[this.materialIndex].price;
+      this.viewMaterialName = this.get_materialsData[this.materialIndex].material_name;
+      this.viewMaterialPrice = this.get_materialsData[this.materialIndex].price;
       this.foundMaterial = false;
     } else {
       this.viewMaterialName = "";
@@ -118,17 +132,34 @@ export class NewMaterialComponent implements OnInit {
     }
   }
 
+  searchProcess(inputProcess: string) {
+    for (let i = 0; i < this.processDataCount; i++){
+      if (inputProcess == this.get_processData[i].process) {
+        this.processExist = true;
+      }
+    }
+    if (this.processExist) {
+      this.write("this already exists, try again!")
+      this.processMessage = "Process already exists! Please add a new process!";
+      this.processExist = false;
+    }
+    else{
+      this.write("this is a new process, saving");
+      this.processMessage = "";
+    }
+  }
+
   searchProfile(input: number) {
-    for (let i = 0; i < this.dataLen; i++){
-      if (input == this.retGetData[i].itemId) {
+    for (let i = 0; i < this.materialsDataCount; i++){
+      if (input == this.get_materialsData[i].itemId) {
         this.foundProfile = true;
         this.profileIndex = i;
       }
     }
 
     if (this.foundProfile){
-      this.viewProfileName = this.retGetData[this.profileIndex].material_name;
-      this.viewProfilePrice = this.retGetData[this.profileIndex].price;
+      this.viewProfileName = this.get_materialsData[this.profileIndex].material_name;
+      this.viewProfilePrice = this.get_materialsData[this.profileIndex].price;
       this.foundProfile = false;
     } else {
       this.viewProfileName = "";
@@ -157,13 +188,12 @@ export class NewMaterialComponent implements OnInit {
         DESCRIPTION : "PROFILE"
       }];
 
-      // newProcess = [
-      //   {
-      //     PROCESS; thi
-      //   }
-      // ];
+    newProcess = [
+      {
+        PROCESS: this.inputProcessName,
+        PRICE: this.inputProcessPrice
+      }];
   }
-
 }
 
 interface Material {
@@ -175,6 +205,6 @@ interface Material {
 
 interface Process {
   PROCESS: string;
-  MINUTES: number;
+  PRICE: number;
 }
 
