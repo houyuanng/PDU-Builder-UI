@@ -1,7 +1,6 @@
-<p *ngFor="let t of categories">output: {{t.category}}</p>
+<p>test: {{test}}</p>
 
 <div class="row-everything">
-<p>{{sequence}}</p>
 
 <!-- PDU design with sliding inserts -->
 <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
@@ -20,7 +19,7 @@
         <mat-select [formControl]="profileNonEmptyControl" required (selectionChange)="selectProfile()">
           <mat-option>None</mat-option>
           <mat-option *ngFor="let profile of profiles" [value]="profile">
-          {{profile.name}}
+          {{profile}}
           </mat-option>
         <!-- </mat-select> -->
 
@@ -62,34 +61,18 @@
 
   <div class="specifications-amount">
      <!-- Drop down menu for Profiles -->
-     <div class="Profiles">
+     <div class="Options"  *ngFor="let question of questions">
       <p> </p>
-      <p>Option</p>
+      <p>{{question}}</p>
       <mat-form-field appearance="fill">
         <mat-label>Choose an option</mat-label>
         <mat-select [formControl]="qControls" required>
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let question of questions" [value]="question">
-            {{question.name}}
+          <mat-option *ngFor="let answer of answers" [value]="answer">
+            {{answer}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="qControls.hasError('required')">Please choose a profile</mat-error>
-      </mat-form-field>
-    </div>
-
-    <!-- Drop down menu for Category -->
-    <div class="Categories">
-      <p> </p>
-      <p>Option</p>
-      <mat-form-field appearance="fill">
-        <mat-label>Choose an option</mat-label>
-        <mat-select [formControl]="animalControl" required>
-          <mat-option>--</mat-option>
-          <mat-option *ngFor="let animal of animals" [value]="animal">
-            {{animal.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="animalControl.hasError('required')">Please choose something</mat-error>
       </mat-form-field>
     </div>
 

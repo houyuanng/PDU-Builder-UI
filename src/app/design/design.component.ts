@@ -4,6 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as _ from "lodash";
+import { iteratee, result } from 'lodash';
 
 @Component({
   selector: 'app-design',
@@ -13,9 +14,14 @@ import * as _ from "lodash";
 export class DesignComponent implements OnInit {
  
   constructor(private http: HttpClient) { }
+  
   inserts_url = "https://localhost:5001/api/inserts";
+  specs_url = "https://localhost:5001/api/specs";
+
   public get_insertsData: any;
-  public dataCount: number = 0;
+  public get_specData: any;
+  public inserts_dataCount: number = 0;
+  public spec_dataCount: number = 0;
   public test: any;
   public categories: any;
 
@@ -30,11 +36,6 @@ export class DesignComponent implements OnInit {
     "012-8701 small.jpg", 
     "22-8673 small.jpg"
   ]
-  
-  // {name: "OEC 660"},
-  // {name: "OEC 670"},
-  // {name: "OEC 690"},
-  // {name: "OEC 800"},
 
   public sampleInserts: InsertStuffs[] = [
     {insertName: "032-8666 10 amp small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
@@ -50,20 +51,63 @@ export class DesignComponent implements OnInit {
   selectedProfile ='something';
   chosenProfile: Content = {name: ""};
   public save = false;
-  // test: string = "";
   public sequence: string[] = [];
+  public profiles: string[] = [];
+
+  qControls = new FormControl('', Validators.required);
+  public questions: string[] = [];
+  public answers: string[] = [];
+
+  write(data: any){
+    this.test = data;
+  }
 
   ngOnInit(): void {
     const getProcesVal = this.http.get(this.inserts_url).subscribe
     (data => {this.get_insertsData = data;
-      this.dataCount = Object.keys(data).length;
-      this.test = _.uniqBy(this.get_insertsData, 'category');
-      this.categories = _.uniqBy(this.get_insertsData, 'category');
+      this.inserts_dataCount = Object.keys(data).length;
+      this.getProfiles();
+      this.getCategories(data);
+    });
+
+    const getSpecsVal = this.http.get(this.specs_url).subscribe
+    (data => {this.get_specData = data;
+      this.spec_dataCount = Object.keys(data).length;
+      this.getQuestionsAndAnswers(data);
     });
   }
 
-  groupStuff() {
-    this.test = _.uniq(this.get_insertsData)
+
+  getProfiles() {
+    let profileString: string = "";
+    for (let i = 0; i < this.inserts_dataCount; i++){
+      profileString += this.get_insertsData[i].profileConstraint;
+      profileString += "-";
+
+      if (i == this.inserts_dataCount-1){
+        profileString += this.get_insertsData[i].profileConstraint;
+      }
+    }
+
+    let profileObj: string[] = [];
+    profileObj = profileString.split("-");
+
+    let distinctProfiles = _.uniq(profileObj);
+
+    this.profiles = distinctProfiles;
+
+
+  }
+
+  getQuestionsAndAnswers(data: any) {
+    for (let i = 0; i < this.spec_dataCount; i++){
+      this.answers[i] = this.get_specData[i].options;
+      this.questions[i] = this.get_specData[i].question;
+    }
+  }
+
+  getCategories(data: any) {
+    this.categories = _.uniqBy(data, 'category');
   }
 
   selectProfile(){
@@ -100,36 +144,10 @@ export class DesignComponent implements OnInit {
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);
-  profiles: Content[] = [
-    {name: "OEC660"},
-    {name: "OEC670"},
-    {name: "OEC690"},
-    {name: "OEC800"},
-  ];
+
 
   categoryNonEmptyControl = new FormControl('', Validators.required);
-  // categories: Content[] = [
-  //   {name: "cat1"},
-  //   {name: "cat2"},
-  //   {name: "cat3"},
-  //   {name: "cat4"},
-  //   {name: "cat5"},
-  //   {name: "cat6"},
-  //   {name: "cat7"},
-  // ]
 
-  qControls = new FormControl('', Validators.required);
-  questions: Content[] = [
-    {name: "spec1"},
-    {name: "spec2"},
-    {name: "spec3"},
-    {name: "spec4"},
-    {name: "spec5"},
-    {name: "spec6"},
-    {name: "spe87"},
-    {name: "spec9"},
-    {name: "spec10"}
-  ];
 
   animalControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
@@ -162,3 +180,19 @@ interface InsertStuffs {
   question: string[];
   answer: string[];
 }
+
+  // categories: Content[] = [
+  //   {name: "cat1"},
+  //   {name: "cat2"},
+  //   {name: "cat3"},
+  //   {name: "cat4"},
+  //   {name: "cat5"},
+  //   {name: "cat6"},
+  //   {name: "cat7"},
+  // ]
+  // profiles: Content[] = [
+  //   {name: "OEC660"},
+  //   {name: "OEC670"},
+  //   {name: "OEC690"},
+  //   {name: "OEC800"},
+  // ];
