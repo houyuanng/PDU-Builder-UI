@@ -1,6 +1,3 @@
-<p>test: {{groupedInserts[chosenCategory].category}}</p>
-<p>{{test}}</p>
-<p *ngFor="let i of groupedInserts[chosenCategory].inserts"> insert --- {{i}}</p>
 
 <div class="row-everything">
 
@@ -56,7 +53,6 @@
     </div>
   </div>
 
-
   <!-- <div class="inserts-section">    
     <div class="group-button-insertImages">
       <button class="buttons-images" *ngFor="let sample of groupedInserts" mat-raised-button (click)="clickAddInsert(sample.inserts[0])">
@@ -87,7 +83,15 @@
     <button mat-raised-button routerLink="/design/order-information">Fill in order information </button>
     <button mat-raised-button (click)="clickClear()">Clear</button>
   </div>
+  
+      
+  <div class="outputs">
+    <p>can save: {{save}}</p>
+    <p *ngFor="let i of test">test: {{i}}</p>
+    <p>amount of inserts: {{sequence.length}}</p>
+    <p>inserts on PDU:</p>
+    <p *ngFor="let i of sequence">{{i}}</p>
+  </div>
 
-  <p>{{yes}}</p>
 </div>
 </div>

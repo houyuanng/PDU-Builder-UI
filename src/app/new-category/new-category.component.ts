@@ -20,7 +20,9 @@ export class NewCategoryComponent implements OnInit {
 
   // event binding for category input and submit key pressed
   onKeyUp_categoryName(event: any) {
-    this.inputCategoryName = event.target.value;
+    if (event.key == 'Enter'){
+      this.inputCategoryName = event.target.value;
+    }
   }
 
   onSubmit() {

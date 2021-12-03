@@ -39,7 +39,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OrderInformationComponent } from './design/order-information/order-information.component';
 import { ViewBomComponent } from './view-bom/view-bom.component';
-import { ViewSummaryComponent } from './view-summary/view-summary.component'; 
+import { ViewSummaryComponent } from './view-summary/view-summary.component';
+import { EditDetailsComponent } from './design/order-information/edit-details/edit-details.component'; 
 
 
 @NgModule({
@@ -61,6 +62,7 @@ import { ViewSummaryComponent } from './view-summary/view-summary.component';
     OrderInformationComponent,
     ViewBomComponent,
     ViewSummaryComponent,
+    EditDetailsComponent,
   ],
   imports: [
     BrowserModule,

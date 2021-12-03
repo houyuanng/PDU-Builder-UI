@@ -32,29 +32,11 @@ export class DesignComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
   
   folder: string = "/images/Insert real/";
-  public samples = [
-    "032-8666 10 amp small.jpg", 
-    "CEM tek.jpg", 
-    "C13 lockable.jpg", 
-    "053-8642 small.jpg", 
-    "012-8701 small.jpg", 
-    "22-8673 small.jpg"
-  ]
-
-  public sampleInserts: InsertFormat[] = [
-    {insertName: "032-8666 10 amp small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
-    {insertName: "CEM tek.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?"], answer: ["answer 2?", "answer 2?", "answer 3?"]},
-    {insertName: "C13 lockable.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 3?", "answer 2?", "answer 3?"]},
-    {insertName: "053-8642 small.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
-    {insertName: "012-8701 small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?"], answer: ["answer 2?", "answer 2?", "answer 3?"]},
-    {insertName: "22-8673 small.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 3?", "answer 2?", "answer 3?"]}
-    ];
   
-  public contents: string[] = [];
-
   selectedProfile ='something';
   chosenProfile: Content = {name: ""};
   public save = false;
+  public prevSequence: string[] = [];
   public sequence: string[] = [];
   public profiles: string[] = [];
 
@@ -123,7 +105,6 @@ export class DesignComponent implements OnInit {
       this.groupedInserts[i] = { category: this.categories[i], inserts: inserts}
       inserts = [];
       insertsBuffer = [];
-
     }
   }
 
@@ -185,7 +166,7 @@ export class DesignComponent implements OnInit {
 
   selectProfile(){
     // this.chosenProfile = this.profiles.values;
-    this.chosenProfile = this.sequence.values;
+    // this.chosenProfile = this.sequence.values;
   }
 
   blurEvent(event: any) {
@@ -201,38 +182,28 @@ export class DesignComponent implements OnInit {
   }
 
   clickSave(){
-    // this.save = true;
-    //  for some reason the tiles can only get in order when they are called individually. calling the whole array does not work :/
-    // for (let i = 0; i < this.contents.length; i++){
-    //   this.sequence[i] = this.contents[i];
-    // }
-
-    this.test = this.sequence[0];
+    if (this.save){
+      let prevSequence = this.sequence
+      // this.prevSequence = this.sequence;
+      this.write(prevSequence);
+      this.save = false;
+    }
+    else {
+      this.write(this.sequence);
+    }
   }
 
-  yes: string = "";
   clickAddInsert(insert: string) {
-    this.yes=insert;
     this.sequence.push(insert);
+    this.save = true;
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);
-
-
   categoryNonEmptyControl = new FormControl('', Validators.required);
-
-
-  animalControl = new FormControl('', Validators.required);
   selectFormControl = new FormControl('', Validators.required);
-  animals: Animal[] = [
-    {name: 'one'},
-    {name: 'two'},
-    {name: 'three'},
-    {name: 'four'},
-  ];
-
- 
+  
 }
+
 interface InsertsPerCategory {
   category: string;
   inserts: string[];
@@ -241,10 +212,6 @@ interface InsertsPerCategory {
 interface QandA {
   question: string;
   answers: string[];
-}
-
-interface Animal {
-  name: string;
 }
 
 interface Content {
