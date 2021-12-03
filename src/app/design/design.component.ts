@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import * as _ from "lodash";
 import { iteratee, result } from 'lodash';
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
+// import { group } from 'console';
 
 @Component({
   selector: 'app-design',
@@ -18,6 +19,8 @@ export class DesignComponent implements OnInit {
   
   inserts_url = "https://localhost:5001/api/inserts";
   specs_url = "https://localhost:5001/api/specs";
+
+  public chosenCategory: number = 0;
 
   public get_insertsData: any;
   public get_specData: any;
@@ -64,22 +67,21 @@ export class DesignComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const getProcesVal = this.http.get(this.inserts_url).subscribe
+    const getInsertsVal = this.http.get(this.inserts_url).subscribe
     (data => {this.get_insertsData = data;
       this.inserts_dataCount = Object.keys(data).length;
       // this.getQuestionsAndAnswers("049-8642 small2.jpg", data);
-
       this.getProfiles();
       this.getCategories(data);
       this.getInsertsInCategory();
       this.getFormattedInserts();
-
     });
 
     const getSpecsVal = this.http.get(this.specs_url).subscribe
     (data => {this.get_specData = data;
       this.spec_dataCount = Object.keys(data).length;
       this.getQuestionsAndAnswers();
+
     });
   }
 
@@ -107,19 +109,21 @@ export class DesignComponent implements OnInit {
   public groupedInserts: InsertsPerCategory[] = [];
 
   getInsertsInCategory()  {  
-  let insertsBuffer: string[] = [];
-  let inserts: string[] = [];
+    let insertsBuffer: string[] = [];
+    let inserts: string[] = [];
 
-    for (let i = 0; i < this.inserts_dataCount; i++){
-      for (let j = 0; j < this.categories.length; j++) {
-        if (this.get_insertsData[i].category == this.categories[j]){
-
-          let hold = this.get_insertsData[i].insert_name;
-          inserts = insertsBuffer.concat(hold);          
-          this.groupedInserts[j] = ({ category: this.categories[j], inserts: inserts})
+    for (let i = 0; i < this.categories.length; i++){
+      for (let j = 0; j < this.inserts_dataCount; j++){
+        if (this.categories[i] == this.get_insertsData[j].category){
+          let newInsert = this.get_insertsData[j].insert_name
+          inserts = insertsBuffer.concat(newInsert);
           insertsBuffer = inserts;
         }
       }
+      this.groupedInserts[i] = { category: this.categories[i], inserts: inserts}
+      inserts = [];
+      insertsBuffer = [];
+
     }
   }
 
@@ -177,7 +181,6 @@ export class DesignComponent implements OnInit {
     });
 
     this.categories = uniques;
-
   }
 
   selectProfile(){

@@ -1,11 +1,6 @@
-<p>test: {{test}}</p>
-<p *ngFor="let i of test"> insert --- {{i.inserts}}</p>
-
-
-<!-- <div *ngFor="let i of test">
-  <p> <br> <br>category: {{i.category}}</p>
-  <p *ngFor="let j of i.inserts"> insert --- {{j}}</p>
-</div> -->
+<p>test: {{groupedInserts[chosenCategory].category}}</p>
+<p>{{test}}</p>
+<p *ngFor="let i of groupedInserts[chosenCategory].inserts"> insert --- {{i}}</p>
 
 <div class="row-everything">
 
@@ -40,10 +35,10 @@
       <p>Category</p>
       <mat-form-field appearance="fill">
         <mat-label>Choose category of inserts</mat-label>
-        <mat-select [formControl]="categoryNonEmptyControl" required>
+        <mat-select [formControl]="categoryNonEmptyControl" required [(ngModel)]="chosenCategory">
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let category of categories" [value]="category">
-            {{category}}
+          <mat-option *ngFor="let group of groupedInserts; index as i" [value]="i">
+            {{group.category}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="categoryNonEmptyControl.hasError('required')">Please choose something</mat-error>
@@ -53,30 +48,23 @@
 
   <!-- choose inserts -->
   <div class="inserts-section">    
-    <!-- <div class="group-buttons-insertNames">
-      <button class="buttons-inserts-names" *ngFor="let content of contents" mat-raised-button>{{content}}</button>
-    </div> -->
     <div class="group-button-insertImages">
-      <button class="buttons-images" *ngFor="let sample of samples" mat-raised-button (click)="clickAddInsert(sample)">
+      <button class="buttons-images" *ngFor="let sample of groupedInserts[chosenCategory].inserts" mat-raised-button (click)="clickAddInsert(sample)">
         <img class="inserts-images" src={{folder}}{{sample}} alt="your image"/>
         <p>{{sample}}</p>
       </button>
     </div>
   </div>
 
-  
-  <!-- choose inserts -->
-  <div class="inserts-section">    
-    <!-- <div class="group-buttons-insertNames">
-      <button class="buttons-inserts-names" *ngFor="let content of contents" mat-raised-button>{{content}}</button>
-    </div> -->
+
+  <!-- <div class="inserts-section">    
     <div class="group-button-insertImages">
-      <button class="buttons-images" *ngFor="let sample of samples" mat-raised-button (click)="clickAddInsert(sample)">
-        <img class="inserts-images" src={{folder}}{{sample}} alt="your image"/>
+      <button class="buttons-images" *ngFor="let sample of groupedInserts" mat-raised-button (click)="clickAddInsert(sample.inserts[0])">
+        <img class="inserts-images" src={{folder}}{{sample.inserts[0]}} alt="your image"/>
         <p>{{sample}}</p>
       </button>
     </div>
-  </div>
+  </div> -->
 
   <div class="specifications-amount">
      <!-- Drop down menu for Profiles -->
