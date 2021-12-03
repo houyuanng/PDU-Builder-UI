@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as _ from "lodash";
 import { iteratee, result } from 'lodash';
+import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 
 @Component({
   selector: 'app-design',
@@ -37,7 +38,7 @@ export class DesignComponent implements OnInit {
     "22-8673 small.jpg"
   ]
 
-  public sampleInserts: InsertStuffs[] = [
+  public sampleInserts: InsertFormat[] = [
     {insertName: "032-8666 10 amp small.jpg", profileConstraint: ["OEC 660"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 1?", "answer 2?", "answer 3?"]},
     {insertName: "CEM tek.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?"], answer: ["answer 2?", "answer 2?", "answer 3?"]},
     {insertName: "C13 lockable.jpg", profileConstraint: ["OEC 660", "OEC 670", "OEC 690", "OEC 800"], category: "cat1", question: ["question 1?", "question 2?"], answer: ["answer 3?", "answer 2?", "answer 3?"]},
@@ -66,14 +67,19 @@ export class DesignComponent implements OnInit {
     const getProcesVal = this.http.get(this.inserts_url).subscribe
     (data => {this.get_insertsData = data;
       this.inserts_dataCount = Object.keys(data).length;
+      // this.getQuestionsAndAnswers("049-8642 small2.jpg", data);
+
       this.getProfiles();
       this.getCategories(data);
+      this.getInsertsInCategory();
+      this.getFormattedInserts();
+
     });
 
     const getSpecsVal = this.http.get(this.specs_url).subscribe
     (data => {this.get_specData = data;
       this.spec_dataCount = Object.keys(data).length;
-      this.getQuestionsAndAnswers(data);
+      this.getQuestionsAndAnswers();
     });
   }
 
@@ -95,19 +101,83 @@ export class DesignComponent implements OnInit {
     let distinctProfiles = _.uniq(profileObj);
 
     this.profiles = distinctProfiles;
-
-
   }
 
-  getQuestionsAndAnswers(data: any) {
-    for (let i = 0; i < this.spec_dataCount; i++){
+  public something: any;
+  public groupedInserts: InsertsPerCategory[] = [];
+
+  getInsertsInCategory()  {  
+  let insertsBuffer: string[] = [];
+  let inserts: string[] = [];
+
+    for (let i = 0; i < this.inserts_dataCount; i++){
+      for (let j = 0; j < this.categories.length; j++) {
+        if (this.get_insertsData[i].category == this.categories[j]){
+
+          let hold = this.get_insertsData[i].insert_name;
+          inserts = insertsBuffer.concat(hold);          
+          this.groupedInserts[j] = ({ category: this.categories[j], inserts: inserts})
+          insertsBuffer = inserts;
+        }
+      }
+    }
+  }
+
+  public questionsAndAnswers: QandA[] = [];
+
+  // this dont work because idk how to send requests to ask for a specific one
+  getQuestionsAndAnswers() {
+    // let questionsAndAnswers: QandA[] = [];
+    let answersBuffer: string[] = [];
+    let answers: string[] = [];
+
+    // for (let i = 0; i < this.spec_dataCount; i++){
+    //   if (this.get_specData[i].insert_name == insert){
+    //     let holder = this.get_specData[i].options;
+    //     answers = answersBuffer.concat(holder);
+
+    //     questionsAndAnswers[i] = ({ question: this.get_specData[i].options, answers: answers});
+    //     answersBuffer = answers;
+
+    //     // this.answers[i] = this.get_specData[i].options;
+    //     // this.questions[i] = this.get_specData[i].question;
+    //   }
+    // }
+
+    for (let i = 0; i < this.spec_dataCount; i++) {
+      this.questionsAndAnswers[i] = { question: this.get_specData[i].question, answers: this.get_specData[i].options}
+      
+
       this.answers[i] = this.get_specData[i].options;
       this.questions[i] = this.get_specData[i].question;
     }
   }
 
+  public allInserts: InsertFormat[] = [];
+  getFormattedInserts() {
+    for (let i = 0; i < this.inserts_dataCount; i++) {
+      this.allInserts.push({
+        insertName: this.get_insertsData[i].insert_name,
+        profileConstraint: this.get_insertsData[i].profileConstraint,
+        category: this.get_insertsData[i].category,
+        question: this.get_insertsData[i].category,
+        answer: this.get_insertsData[i].category
+
+      });
+    }
+  }
+
   getCategories(data: any) {
-    this.categories = _.uniqBy(data, 'category');
+    const uniques = data.map(
+      (obj: any) => { 
+        return obj.category 
+      }
+    ).filter((item: any, index:any, arr:any) => { 
+      return arr.indexOf(item) == index 
+    });
+
+    this.categories = uniques;
+
   }
 
   selectProfile(){
@@ -160,9 +230,14 @@ export class DesignComponent implements OnInit {
 
  
 }
-
-interface Category {
+interface InsertsPerCategory {
   category: string;
+  inserts: string[];
+}
+
+interface QandA {
+  question: string;
+  answers: string[];
 }
 
 interface Animal {
@@ -173,7 +248,7 @@ interface Content {
   name: string;
 }
 
-interface InsertStuffs {
+interface InsertFormat {
   insertName: string;
   profileConstraint: string[];
   category: string;

@@ -1,4 +1,11 @@
 <p>test: {{test}}</p>
+<p *ngFor="let i of test"> insert --- {{i.inserts}}</p>
+
+
+<!-- <div *ngFor="let i of test">
+  <p> <br> <br>category: {{i.category}}</p>
+  <p *ngFor="let j of i.inserts"> insert --- {{j}}</p>
+</div> -->
 
 <div class="row-everything">
 
@@ -28,8 +35,6 @@
       </mat-form-field>
     </div>
 
-    <p>{{chosenProfile.name}}</p>
-
     <!-- Drop down menu for Category -->
     <div class="Categories">
       <p>Category</p>
@@ -38,7 +43,7 @@
         <mat-select [formControl]="categoryNonEmptyControl" required>
           <mat-option>--</mat-option>
           <mat-option *ngFor="let category of categories" [value]="category">
-            {{category.category}}
+            {{category}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="categoryNonEmptyControl.hasError('required')">Please choose something</mat-error>
@@ -46,6 +51,20 @@
     </div>
   </div>
 
+  <!-- choose inserts -->
+  <div class="inserts-section">    
+    <!-- <div class="group-buttons-insertNames">
+      <button class="buttons-inserts-names" *ngFor="let content of contents" mat-raised-button>{{content}}</button>
+    </div> -->
+    <div class="group-button-insertImages">
+      <button class="buttons-images" *ngFor="let sample of samples" mat-raised-button (click)="clickAddInsert(sample)">
+        <img class="inserts-images" src={{folder}}{{sample}} alt="your image"/>
+        <p>{{sample}}</p>
+      </button>
+    </div>
+  </div>
+
+  
   <!-- choose inserts -->
   <div class="inserts-section">    
     <!-- <div class="group-buttons-insertNames">
