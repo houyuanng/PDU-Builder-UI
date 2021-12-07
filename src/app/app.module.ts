@@ -40,9 +40,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OrderInformationComponent } from './design/order-information/order-information.component';
 import { ViewBomComponent } from './view-bom/view-bom.component';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
-import { EditDetailsComponent } from './design/order-information/edit-details/edit-details.component'; 
 import { MatInputModule } from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox'; 
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
+import { OrderBomComponent } from './orders/order-bom/order-bom.component'; 
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     OrderInformationComponent,
     ViewBomComponent,
     ViewSummaryComponent,
-    EditDetailsComponent,
+    OrderSummaryComponent,
+    OrderBomComponent,
   ],
   imports: [
     BrowserModule,

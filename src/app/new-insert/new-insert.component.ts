@@ -87,6 +87,15 @@ export class NewInsertComponent implements OnInit {
           profiles.push(materialRow.material_name);
       }
     }
+
+    //this.profilesStates has to always have the same object length as profiles, gotta make it so that it always does somehow
+    if (this.profileStates.length !== profiles.length){
+      this.profileStates = [];
+      for (let i = 0; i < profiles.length; i++){
+        this.profileStates.push(new ProfileConstraint);
+      }
+    }
+    console.log(this.profileStates.length);
     return profiles?? [];
   }
 
@@ -139,23 +148,7 @@ export class NewInsertComponent implements OnInit {
     }
     console.log(this.bomInsert);
   }
-
-  // clickDeleteMaterial(index: number){
-  //   console.log("deleted: " + index + " materialFields: " + this.materialFields);
-  //   this.materialFieldCount -= 1;
-    
-  //   this.materialFields = [];
-  //   for (let i = 0; i < this.materialFieldCount; i++) {
-  //     if (i != index) {
-  //       this.materialFields.push(i);
-  //       // delete this.bomInsert[index];
-  //     }
-  //     else {
-  //       console.log("index " + index + " being deleted");
-  //     }
-  //   }    
-  // }
-
+   
   clickAddMaterial() {
     this.bomInsert.push(new MaterialForInsert)
     // this.materialFields.push(this.materialFieldCount);
@@ -175,11 +168,17 @@ export class NewInsertComponent implements OnInit {
     console.log(this.bomInsert);
   }
 
-  selectedprocess(event: any, index: number) {
+  public profileStates: ProfileConstraint[] = [];
+  selectedProfile(event: boolean, index: number, profile: string) {
+    this.profileStates[index].selected = event;
+    console.log(this.profileStates);
+  }
+
+  selectedProcess(event: any, index: number) {
     console.log("entered");
     console.log(10);
-
   }
+
   input_processMinutes(event: any, index: number){
     let minutes = event.target.value;
     this.processBom[index].minutes = minutes;
@@ -227,4 +226,9 @@ class InsertInformation {
 class MaterialForInsert {
   material_name: string = "";
   amount: string = "";
+}
+
+class ProfileConstraint{
+  profile: string = "";
+  selected: boolean = false;
 }

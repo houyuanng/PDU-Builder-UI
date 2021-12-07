@@ -10,7 +10,7 @@ export class OrderInformationComponent implements OnInit {
   public test: any;
 
   // order number get from generation somewhere
-  public orderNumber: number = 0;
+  public orderNumber: number = 503;
 
   public company:string = "";
   public contactPerson: string = "";
@@ -24,9 +24,6 @@ export class OrderInformationComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  write(data: any) {
-    this.test = data;
-  }
   // onKeyUp_categoryName(event: any) {
   //   this.inputCategoryName = event.target.value;
   // }
@@ -72,7 +69,7 @@ export class OrderInformationComponent implements OnInit {
       phoneNumber: this.phoneNumber,
       email: this.email
     }
-    this.write(orderInfo);
+    console.log(orderInfo);
   }
 
 }

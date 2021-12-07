@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
+import { now } from 'lodash';
 
 @Component({
   selector: 'app-orders',
@@ -11,9 +12,8 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class OrdersComponent implements OnInit {
   private subscriptions: Subscription = new Subscription();
-  public dataGET: any;
+  public get_ordersData: any;
   public datatPOST: any;
-
 
   constructor(private http: HttpClient) { }
 
@@ -41,10 +41,11 @@ export class OrdersComponent implements OnInit {
   public ngOnInit() {
     const url = "https://localhost:5001/api/orders";
     const retVal = this.http.get(url).subscribe
-    (data => {this.dataGET = data;
+    (data => {this.get_ordersData = data as Order[];
+    }, (error: any) => {
+      console.error(error);
     });
   }
-
 }
 
 interface iOrders{
@@ -57,20 +58,14 @@ interface iOrders{
   delete: boolean;
 }
 
-
-  // MOCK DATA:
-  // content = ["one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three", "one", "two", "three"];
-
-  // orders = ["order 1", "order 3", "order 2", "order 4", "order 5", "order 55", "order 6", "order 7", "order 8", "order 9", "order 10", "order 11", "order 12", "order 13"]
-
-  // public orders: iOrders[] = [
-  //   {orderId: 0, companyName: "name 1", lastEdit: Date.now(), viewOrderString: "a", viewBomString: "u", viewSummaryString: "t", delete: false},
-  //   {orderId: 1, companyName: "name 2", lastEdit: Date.now(), viewOrderString: "q", viewBomString: "y", viewSummaryString: "jr", delete: false},
-  //   {orderId: 2, companyName: "name 2", lastEdit: Date.now(), viewOrderString: "w", viewBomString: "t", viewSummaryString: "j", delete: false},
-  //   {orderId: 3, companyName: "name 1", lastEdit: Date.now(), viewOrderString: "e", viewBomString: "ft", viewSummaryString: "j", delete: false},
-  //   {orderId: 4, companyName: "name 3", lastEdit: Date.now(), viewOrderString: "e", viewBomString: "h", viewSummaryString: "s", delete: false},
-  //   {orderId: 5, companyName: "name 3", lastEdit: Date.now(), viewOrderString: "r", viewBomString: "b", viewSummaryString: "s", delete: false},
-  //   {orderId: 6, companyName: "name 4", lastEdit: Date.now(), viewOrderString: "t", viewBomString: "s", viewSummaryString: "s", delete: false},
-  //   {orderId: 7, companyName: "name 5", lastEdit: Date.now(), viewOrderString: "y", viewBomString: "h", viewSummaryString: "s", delete: false},
-  //   {orderId: 8, companyName: "name 6", lastEdit: Date.now(), viewOrderString: "u", viewBomString: "j", viewSummaryString: "j", delete: false},
-  // ];
+class Order {
+  order_id: number = 0;
+  real_design_img_addr: string = "";
+  schem_design_img_addr: string = "";
+  length_in_mm: number = 0;
+  BOM_addr: string = "";
+  company_name: string = "";
+  last_edit: string = "";
+  xl_calculation_addr: string = "";
+  insert_id_sequence_addr: string = "";
+}
