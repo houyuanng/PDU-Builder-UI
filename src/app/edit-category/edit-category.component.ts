@@ -12,7 +12,7 @@ export class EditCategoryComponent{
   constructor(private http: HttpClient) {};
   private subscriptions: Subscription = new Subscription();
 
-  public Categories: any;
+  public get_categories: Category[] = [];
   public newName: string = "";
 
   ngOnInit() {
@@ -31,11 +31,16 @@ export class EditCategoryComponent{
   public getData() {
     const url = "https://localhost:5001/api/categories";
     const retVal = this.http.get(url).subscribe
-    (data => {this.Categories = data;
+    (data => {this.get_categories = data as Category[];
     });
   }
 
   clickSave(){
   this.newName = "clicked on save";
   }
+}
+
+class Category {
+  category: string = "";
+  thumbnail_addr: string = "";
 }

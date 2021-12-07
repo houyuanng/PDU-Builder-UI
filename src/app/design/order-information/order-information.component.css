@@ -17,6 +17,7 @@ input {
 .body-content{
     display: flex;
     flex-direction: row;
+    gap: 30px;
 }
 
 .button-BOM{

@@ -1,5 +1,3 @@
-<p>test: {{test}}</p>
-
 <div class="allContent">
     <h1>Order #503</h1>
 
@@ -64,8 +62,23 @@
     </mat-form-field> -->
     </div>
         <div class="button-BOM">
-            <button mat-raised-button (click)="clickCreateOrder()">Maak order</button>
+            <button mat-raised-button (click)="clickCreateOrder()">Plaats bestelling</button>
         </div>
+        
+
+
+        <h1>OUTPUT</h1>
+        order number: [{{test.orderNumber}}] <br>
+        bedrijf: [{{test.companyName}}] <br>
+        contact: [{{test.contactPerson}}]<br>
+        hoeveelheid: [{{test.amount}}]<br>
+        Omschrijving: [{{test.description}}] <br>
+        telefoon: [{{test.phoneNumber}}] <br>
+        email: [{{test.email}}] <br>
+
+
     </div>
+
+    
 
 </div>

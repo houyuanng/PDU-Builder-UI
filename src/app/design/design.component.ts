@@ -1,12 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import {CdkDrag, CdkDragDrop, CdkDropListGroup, moveItemInArray} from '@angular/cdk/drag-drop';
+import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as _ from "lodash";
-import { iteratee, result } from 'lodash';
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
 // import { group } from 'console';
+
+class Inserts {
+  insert_name: string = "";
+  BOM_per_unit: string = "";
+  length_in_mm: number = 0;
+  category: string = "";
+  specification_txt_addr: string = "";
+  profileConstraint: string = "";
+  positionOnPDU: string = "";
+  technicalConstraint: string = "";
+  processes_file_addr: string = "";
+}
 
 @Component({
   selector: 'app-design',
@@ -22,11 +33,11 @@ export class DesignComponent implements OnInit {
 
   public chosenCategory: number = 0;
 
-  public get_insertsData: any;
+  public get_insertsData: Inserts[] = [];
   public get_specData: any;
   public inserts_dataCount: number = 0;
   public spec_dataCount: number = 0;
-  public test: any;
+  public test: string[] = [];
   public categories: any;
 
   private subscriptions: Subscription = new Subscription();
@@ -35,7 +46,6 @@ export class DesignComponent implements OnInit {
   
   selectedProfile ='something';
   chosenProfile: Content = {name: ""};
-  public save = false;
   public prevSequence: string[] = [];
   public sequence: string[] = [];
   public profiles: string[] = [];
@@ -48,22 +58,36 @@ export class DesignComponent implements OnInit {
     this.test = data;
   }
 
-  ngOnInit(): void {
-    const getInsertsVal = this.http.get(this.inserts_url).subscribe
-    (data => {this.get_insertsData = data;
-      this.inserts_dataCount = Object.keys(data).length;
-      // this.getQuestionsAndAnswers("049-8642 small2.jpg", data);
-      this.getProfiles();
-      this.getCategories(data);
-      this.getInsertsInCategory();
-      this.getFormattedInserts();
-    });
+  getInserts(chosenCategory: number) : string[] {
+    console.log("called getInserts with: " + chosenCategory);
+    var inserts = this.groupedInserts[chosenCategory]?.inserts ?? [];
+    console.warn(inserts);
+    return inserts;
+  }
 
+  ngOnInit(): void {
+    const getInsertsVal = this.http.get(this.inserts_url)
+    .subscribe((data) => 
+      {
+        this.get_insertsData = data as Inserts[];
+        this.inserts_dataCount = Object.keys(data).length;
+        // this.getQuestionsAndAnswers("049-8642 small2.jpg", data);
+        this.getProfiles();
+        this.getCategories(data as Inserts[]);
+        this.getInsertsInCategory();
+        this.getFormattedInserts();
+      }, (error: any) => {
+        console.error(error);
+      }
+    );
+    
     const getSpecsVal = this.http.get(this.specs_url).subscribe
-    (data => {this.get_specData = data;
+    (data => {
+      this.get_specData = data;
       this.spec_dataCount = Object.keys(data).length;
       this.getQuestionsAndAnswers();
-
+    }, (error: any) => {
+      console.error(error);
     });
   }
 
@@ -91,20 +115,13 @@ export class DesignComponent implements OnInit {
   public groupedInserts: InsertsPerCategory[] = [];
 
   getInsertsInCategory()  {  
-    let insertsBuffer: string[] = [];
-    let inserts: string[] = [];
-
-    for (let i = 0; i < this.categories.length; i++){
-      for (let j = 0; j < this.inserts_dataCount; j++){
-        if (this.categories[i] == this.get_insertsData[j].category){
-          let newInsert = this.get_insertsData[j].insert_name
-          inserts = insertsBuffer.concat(newInsert);
-          insertsBuffer = inserts;
-        }
+    for(const category of this.categories) {
+      let inserts: string[] = [];
+      for(const insert of this.get_insertsData) {
+        if(insert.category == category)
+        inserts.push(insert.insert_name);
       }
-      this.groupedInserts[i] = { category: this.categories[i], inserts: inserts}
-      inserts = [];
-      insertsBuffer = [];
+      this.groupedInserts.push({ category: category, inserts: inserts} as InsertsPerCategory);
     }
   }
 
@@ -140,24 +157,23 @@ export class DesignComponent implements OnInit {
 
   public allInserts: InsertFormat[] = [];
   getFormattedInserts() {
-    for (let i = 0; i < this.inserts_dataCount; i++) {
+    for (const insert of this.get_insertsData) {
       this.allInserts.push({
-        insertName: this.get_insertsData[i].insert_name,
-        profileConstraint: this.get_insertsData[i].profileConstraint,
-        category: this.get_insertsData[i].category,
-        question: this.get_insertsData[i].category,
-        answer: this.get_insertsData[i].category
-
+        insertName: insert.insert_name,
+        profileConstraint: [insert.profileConstraint],
+        category: insert.category,
+        question: [insert.category],
+        answer: [insert.category]
       });
     }
   }
 
-  getCategories(data: any) {
-    const uniques = data.map(
-      (obj: any) => { 
-        return obj.category 
+  getCategories(inserts: Inserts[]) {
+    const uniques = inserts.map(
+      (insert: Inserts) => { 
+        return insert.category 
       }
-    ).filter((item: any, index:any, arr:any) => { 
+    ).filter((item: string, index: number, arr: string[]) => { 
       return arr.indexOf(item) == index 
     });
 
@@ -170,7 +186,7 @@ export class DesignComponent implements OnInit {
   }
 
   blurEvent(event: any) {
-    this.chosenProfile = event.target.value;
+    this.chosenProfile.name = event.target.value as string;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -182,20 +198,13 @@ export class DesignComponent implements OnInit {
   }
 
   clickSave(){
-    if (this.save){
-      let prevSequence = this.sequence
-      // this.prevSequence = this.sequence;
-      this.write(prevSequence);
-      this.save = false;
-    }
-    else {
-      this.write(this.sequence);
-    }
+    this.prevSequence = Object.assign([], this.sequence);
+    this.write(this.prevSequence);
+  
   }
 
   clickAddInsert(insert: string) {
     this.sequence.push(insert);
-    this.save = true;
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);

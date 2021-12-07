@@ -1,118 +1,115 @@
-<h1 class="title">New insert</h1>
-<p> output: </p>
-<!-- <p>{{retGetData[0].material_name}}</p> -->
-<p> retGetData: {{retGetData[20].material_name}}</p>
-<p> testVal: {{favoriteSeason}}</p>
-<p *ngFor="let profile of profiles"> profile names: {{profile.NAME}}</p>
+<p>{{chosenCategory}}</p>
 
 <div class="content">
-    <div class="section-insert-category-profile-processtime">
-        <P>Add new insert</P>
 
+<h1 class="title">New insert</h1>
+
+<div class="input-content">
+    <div class="section-insert-category-profile-processtime">
+        <P>Insert name</P>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Give insert name">
+            <input matInput placeholder="Give insert name" (keyup)="input_insertName($event)">
         </mat-form-field>
 
         <p>Add insert to a category</p>
         <form>
             <mat-form-field appearance="fill">
-            <mat-label>Number</mat-label>
+            <mat-label>Category</mat-label>
             <input type="text"
                     placeholder="Category"
                     aria-label="Category"
                     matInput
-                    [formControl]="myControl"
+                    [(ngModel)]="chosenCategory"
+                    [ngModelOptions]="{standalone: true}"
                     [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of options" [value]="option">
-                {{option}}
+                <mat-option *ngFor="let option of get_categoriesData" [value]="option.category">
+                {{option.category}}
                 </mat-option>
             </mat-autocomplete>
             </mat-form-field>
         </form>
 
-        <!-- example radio buttons with seasons -->
-        <label id="radio-profiles-label">Pick your favorite OEC</label>
-        <mat-radio-group
-          aria-labelledby="radio-profiles-label"
-          class="radio-profiles"
-          [(ngModel)]="favoriteSeason">
-          <mat-radio-button class="radio-profiles" *ngFor="let season of profiles" [value]="season">
-            {{season.NAME}}
-          </mat-radio-button>
-        </mat-radio-group>
-        <div>Your favorite season is: {{favoriteSeason}}</div>
-        
+        <div class="check-profiles" >
+        <p>profiles that fit this insert:</p>
+        <mat-checkbox *ngFor="let profile of parseProfiles()" [value]="profile"> {{profile}}</mat-checkbox>
+        </div>
+
         <div class="section-process-time">
             <p>Add process time</p>
 
-            <div class="row-processtimes">
+            <div class="row-processtimes" *ngFor="let i of processBom; index as index">
                 <form>
                     <mat-form-field appearance="fill">
-                    <mat-label>Number</mat-label>
+                    <mat-label>Process</mat-label>
                     <input type="text"
-                            class="input-menu-process-time"
+                            class="input-process"
                             placeholder="Process time"
                             aria-label="Number"
                             matInput
-                            [formControl]="myControl"
                             [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of options" [value]="option">
-                        {{option}}
+                        <mat-option *ngFor="let option of get_processData" [value]="option.process" (selectedOption)="selectedprocess(option.process, index)">
+                        {{option.process}}
                         </mat-option>
                     </mat-autocomplete>
                     </mat-form-field>
                 </form>
-
-                <mat-form-field appearance="fill">
-                    <input class="input-process-time-mins" matInput placeholder="Fill in amount of minutes">
+                <mat-form-field appearance="fill" (keyup)="input_processMinutes($event, index)">
+                    <input class="input-process-time-mins" matInput placeholder="Minutes">
                 </mat-form-field>
             </div>
 
-            <button class="button-plus-one" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon"> + 
+            <button class="button-plus-one" mat-mini-fab color="primary" (click)="clickAddProcess()"> + 
             </button>
             
         </div>
     </div>
 
     <div class="section-add-component">
-        <p>Add component to this insert</p>
+        <p>Add material to this insert</p>
 
-        <div class="row-component-conf">
-            <form>
-                <mat-form-field appearance="fill">
-                <mat-label>Number</mat-label>
+        <div class="row-component-conf" *ngFor="let fields of bomInsert; index as j">
+            <!-- <div> -->
+            <form> 
+                <mat-form-field appearance="fill" class="input-component">
+                <mat-label>Material</mat-label>
                 <input type="text"
-                        class="input-component"
                         placeholder="Add component"
                         aria-label="Add component"
                         matInput
-                        [formControl]="myControl"
+                        
                         [matAutocomplete]="auto">
-                <mat-autocomplete #auto="matAutocomplete">
-                    <mat-option *ngFor="let option of options" [value]="option">
-                    {{option}}
+                <!-- idk why it dont show the selected one :/ -->
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedMaterial($event.option.value, j)">
+                    <mat-option *ngFor="let i of materials()" [value]="i" >
+                    {{i}}
                     </mat-option>
                 </mat-autocomplete>
                 </mat-form-field>
             </form>
-        
-            <mat-form-field class="formfield-input-amount" appearance="fill">
-                <input class="input-component-amount" matInput placeholder="1">
+        <!-- </div>
+        <div> -->
+            <mat-form-field class="input-amount" appearance="fill" (keyup)="materialAmount($event, j)">
+                <input matInput placeholder="1" type="number">
             </mat-form-field>
-
-            <button class="button-remove-component" mat-raised-button>del</button>
+        <!-- </div>
+        <div> -->
+            <button class="button-remove-component" mat-raised-button (click)="clickDeleteMaterial(j)">-</button>
+        <!-- </div> -->
         </div>
 
-            <button class="button-plus-one" mat-mini-fab color="primary" aria-label="Example icon button with a plus one icon"> + 
+         <button class="button-plus-one" mat-mini-fab color="primary" (click)="clickAddMaterial()"> + 
             </button>
     </div>
 
     <div class="buttons-upload-images">
         <p>Upload images</p>
-        <button class="button-upload-image" mat-raised-button>Upload schematic <br> image</button>
-        <button class="button-upload-image" mat-raised-button>Upload real image</button>
+
+
+        <button class="button-upload-real-image" mat-raised-button>Upload schematic <br> image</button>
+        <button class="button-upload-schem-image" mat-raised-button>Upload real image</button>
     </div>
-    <button class="button-upload-image" mat-raised-button>Save</button>
-  </div>
+    <button class="button-save-image" mat-raised-button (click)="clickSave()">Save</button>
+</div>
+</div>

@@ -1,7 +1,7 @@
 .menu-bar{
     display: flex;
     height: 100%;
-    width: 230px;
+    width: 15%;
     justify-content: left;
     align-items: flex-start;
     float: left;

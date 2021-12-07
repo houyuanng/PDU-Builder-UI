@@ -33,49 +33,33 @@ export class OrderInformationComponent implements OnInit {
 
 
   input_companyName(event: any) {
-    if (event.key == 'Enter'){
-      this.company = event.target.value;
-      this.write(event.target.value);
-    }
+    this.company = event.target.value;
+    
   }
 
   input_contactPerson(event: any) {
-    if (event.key == 'Enter'){
-      this.contactPerson = event.target.value;
-      this.write(event.target.value);
-    }
+    this.contactPerson = event.target.value;
+    
   }
 
   input_amount(event: any) {
-    if (event.key == 'Enter'){
-      this.amount = event.target.value;
-      this.write(event.target.value);
-    }
+    this.amount = event.target.value;
+    
   }
 
   input_description(event: any) {
-    if (event.key == 'Enter'){
-      this.description = event.target.value;
-      this.write(event.target.value);
-    }
+    this.description = event.target.value;
   }
   input_number(event: any) {
-    if (event.key == 'Enter'){
-      this.phoneNumber = event.target.value;
-      this.write(event.target.value);
-    }
+    this.phoneNumber = event.target.value;
   }
 
   input_email(event: any) {
-    if (event.key == 'Enter'){
-      this.email = event.target.value;
-      this.write(event.target.value);
-    }
+    this.email = event.target.value;
   }
 
   // send stuff over to database
   clickCreateOrder() {
-    this.write("clicked");
 
     let orderInfo: OrderInformation;
 
@@ -88,8 +72,8 @@ export class OrderInformationComponent implements OnInit {
       phoneNumber: this.phoneNumber,
       email: this.email
     }
+    this.write(orderInfo);
   }
-
 
 }
 

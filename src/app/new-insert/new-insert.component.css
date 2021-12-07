@@ -6,11 +6,18 @@
 }
 
 .content {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 100%;
+  }
+
+  .input-content{
     display: flex;
     flex-direction: row;
     gap: 40px;
-    width: 80%;
     height: 100%;
+    width: 100%;
     padding: 30px;  
   }
 
@@ -22,11 +29,24 @@
   gap: 10px;
   }
 
-.button-upload-image {
+.button-upload-schem-image {
   width: 150px;
   height: 150px;
   font-size: 10pt;
   color: darkgray;
+  }
+
+.button-upload-real-image {
+  width: 150px;
+  height: 150px;
+  font-size: 10pt;
+  color: darkgray;
+  }
+  
+  .button-save-image {
+    width: 100px;
+    height: 50px;
+    font-size: 10pt;
   }
 
   .mat-radio-button ~ .mat-radio-button {
@@ -53,11 +73,11 @@
     gap: 5px;
   }
 
-  .radio-profiles {
+  .check-profiles {
     display: flex;
     flex-direction: column;
     gap: 10px;
-  }
+    justify-content: flex-start;  }
 
   .section-process-time {
     display: flex;
@@ -76,7 +96,7 @@
     width: 75px;
   }
 
-  .input-menu-process-time {
+  .input-process {
     width: 200px;
   }
 
@@ -84,26 +104,23 @@
   .section-add-component {
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 500px;
   }
 
   .row-component-conf {
     display: flex;
     flex-direction: row;
     justify-content: left;
-    gap: 40px;
-    width: 300px;
+    gap: 10px;
+    width: 500px;
   }
 
   .input-component{
-    width: 200px;
+    width: 400px;
   }
 
-  .formfield-input-amount{
-    width: 10px;
-  }
-  .input-component-amount {
-    width: 30px;
+  .input-amount{
+    width: 70px;
   }
 
   .button-remove-component {

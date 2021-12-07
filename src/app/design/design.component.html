@@ -46,7 +46,7 @@
   <!-- choose inserts -->
   <div class="inserts-section">    
     <div class="group-button-insertImages">
-      <button class="buttons-images" *ngFor="let sample of groupedInserts[chosenCategory].inserts" mat-raised-button (click)="clickAddInsert(sample)">
+      <button class="buttons-images" *ngFor="let sample of getInserts(chosenCategory)" mat-raised-button (click)="clickAddInsert(sample)">
         <img class="inserts-images" src={{folder}}{{sample}} alt="your image"/>
         <p>{{sample}}</p>
       </button>
@@ -86,7 +86,6 @@
   
       
   <div class="outputs">
-    <p>can save: {{save}}</p>
     <p *ngFor="let i of test">test: {{i}}</p>
     <p>amount of inserts: {{sequence.length}}</p>
     <p>inserts on PDU:</p>

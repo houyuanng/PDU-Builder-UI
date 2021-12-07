@@ -19,6 +19,8 @@ export class GreeterComponent {
   public response: {} = {};
   public retPostData: any;
   public retGetData: any;
+  public matData: any;
+  public test: any;
 
   public PostData() {
     // const url = "http://localhost:49528/api/Home";
@@ -37,12 +39,35 @@ export class GreeterComponent {
     // (data => {this.retGetData = data;
     // });
 
+    let something: Material = {
+      NAME: "hou yuan",
+      PRICE: 1000000,
+      REFERENCE_ID: "546841321",
+      DESCRIPTION: "profile"
+    };
+
     const postVal = this.http.post(url, {fstVarValue: '111'}).subscribe
     (data => {this.retPostData = data;
     });
+    
+    const postMatVal = this.http.post("https://localhost:5001/api/materials", {something}).subscribe
+    (data => {this.matData = data;
+    }, (error: any) => {
+      console.error(error);
+    });
+
   }
 }
 
 interface Send{
   fstVal: string;
 }
+
+
+interface Material {
+  NAME: string;
+  PRICE: number;
+  REFERENCE_ID: string;
+  DESCRIPTION: string;
+}
+

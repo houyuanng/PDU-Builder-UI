@@ -41,7 +41,8 @@ import { OrderInformationComponent } from './design/order-information/order-info
 import { ViewBomComponent } from './view-bom/view-bom.component';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import { EditDetailsComponent } from './design/order-information/edit-details/edit-details.component'; 
-
+import { MatInputModule } from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox'; 
 
 @NgModule({
   declarations: [
@@ -86,7 +87,9 @@ import { EditDetailsComponent } from './design/order-information/edit-details/ed
     MatMenuModule,
     MatAutocompleteModule,
     MatRadioModule,
-    HttpClientModule
+    HttpClientModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
 
   providers: [],
