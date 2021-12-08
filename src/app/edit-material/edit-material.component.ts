@@ -98,7 +98,6 @@ export class EditMaterialComponent implements OnInit {
 
   clickEventDeleteMaterial(event: any){
     this.stateDeleteMaterial = true;
-
   }
   
   clickEventSave(event: any){

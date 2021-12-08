@@ -43,7 +43,8 @@ import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import { MatInputModule } from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
-import { OrderBomComponent } from './orders/order-bom/order-bom.component'; 
+import { OrderBomComponent } from './orders/order-bom/order-bom.component';
+import { SpecificationComponent } from './new-insert/specification/specification.component'; 
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { OrderBomComponent } from './orders/order-bom/order-bom.component';
     ViewBomComponent,
     ViewSummaryComponent,
     OrderSummaryComponent,
-    OrderBomComponent
+    OrderBomComponent,
+    SpecificationComponent
   ],
   imports: [
     BrowserModule,

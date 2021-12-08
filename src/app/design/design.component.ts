@@ -61,7 +61,6 @@ export class DesignComponent implements OnInit {
   getInserts(chosenCategory: number) : string[] {
     console.log("called getInserts with: " + chosenCategory);
     var inserts = this.groupedInserts[chosenCategory]?.inserts ?? [];
-    console.warn(inserts);
     return inserts;
   }
 
