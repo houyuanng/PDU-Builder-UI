@@ -38,6 +38,9 @@ export class NewInsertComponent implements OnInit {
 
   public chosenCategory: string= "";
 
+  public profileStates: ProfileConstraint[] = [];
+
+
   ngOnInit() {
     // get materials 
     const retMaterialsVal = this.http.get(this.materialUrl).subscribe
@@ -95,7 +98,6 @@ export class NewInsertComponent implements OnInit {
         this.profileStates.push(new ProfileConstraint);
       }
     }
-    console.log(this.profileStates.length);
     return profiles?? [];
   }
 
@@ -168,7 +170,6 @@ export class NewInsertComponent implements OnInit {
     console.log(this.bomInsert);
   }
 
-  public profileStates: ProfileConstraint[] = [];
   selectedProfile(event: boolean, index: number, profile: string) {
     this.profileStates[index].selected = event;
     console.log(this.profileStates);
@@ -176,7 +177,6 @@ export class NewInsertComponent implements OnInit {
 
   selectedProcess(event: any, index: number) {
     console.log("entered");
-    console.log(10);
   }
 
   input_processMinutes(event: any, index: number){

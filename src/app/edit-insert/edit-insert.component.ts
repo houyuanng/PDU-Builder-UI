@@ -36,6 +36,9 @@ export class EditInsertComponent implements OnInit {
   public processFields: number[] = [];
   public materialFields: number[] = [];
 
+  public profileStates: ProfileConstraint[] = [];
+
+
   // these are just set values to show
   public chosenCategory: string= "1";
 
@@ -102,7 +105,7 @@ export class EditInsertComponent implements OnInit {
   
   input_insertName(event: any){
     this.newInsertInput = event.target.value;
-    this.write(event.target.value);
+    console.log("new name of insert: " + this.newInsertInput);
   }
 
   parseProfiles() : string[]{
@@ -111,7 +114,18 @@ export class EditInsertComponent implements OnInit {
         if (materialRow.description == "PROFILE") {
           profiles.push(materialRow.material_name);
       }
+    }    
+    //this.profilesStates has to always have the same object length as profiles, gotta make it so that it always does somehow
+    if (this.profileStates.length !== profiles.length){
+      this.profileStates = [];
+      for (let i = 0; i < profiles.length; i++){
+        this.profileStates.push(new ProfileConstraint);
+        if (i == 1){
+          this.profileStates[i].selected = true;
+        }
+      }
     }
+    console.log(this.profileStates.length);
     return profiles?? [];
   }
 
@@ -226,7 +240,11 @@ export class EditInsertComponent implements OnInit {
     let minutes = event.target.value;
     this.processBom[index].minutes = minutes;
     console.log(this.processBom);
-
+  }
+  
+  selectedProfile(event: boolean, index: number, profile: string) {
+    this.profileStates[index].selected = event;
+    console.log(this.profileStates);
   }
 
 }
@@ -283,4 +301,9 @@ class RealImages {
 class MaterialForInsert {
   material_name: string = "";
   amount: string = "";
+}
+
+class ProfileConstraint{
+  profile: string = "";
+  selected: boolean = false;
 }

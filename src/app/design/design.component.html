@@ -86,9 +86,14 @@
   
       
   <div class="outputs">
-    <p *ngFor="let i of test">test: {{i}}</p>
+    <p>saved sequence: </p>
+    <mat-divider></mat-divider>
+    <p *ngFor="let i of test"> {{i}}</p>
+    <p>----------------------------------------------------</p>
     <p>amount of inserts: {{sequence.length}}</p>
+    <p>----------------------------------------------------</p>
     <p>inserts on PDU:</p>
+    <mat-divider></mat-divider>
     <p *ngFor="let i of sequence">{{i}}</p>
   </div>
 

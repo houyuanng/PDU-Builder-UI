@@ -65,7 +65,7 @@ import { OrderBomComponent } from './orders/order-bom/order-bom.component';
     ViewBomComponent,
     ViewSummaryComponent,
     OrderSummaryComponent,
-    OrderBomComponent,
+    OrderBomComponent
   ],
   imports: [
     BrowserModule,

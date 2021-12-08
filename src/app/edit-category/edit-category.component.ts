@@ -22,10 +22,12 @@ export class EditCategoryComponent{
 
   public onSubmit_renameCategory(event: any) {
     this.newName = event.target.value;
-    if (event.key == 'Enter'){
-      this.newName = "event.target.value";
-      return event.target.value;
-    }
+    console.log(this.newName);
+  }
+
+  public onSubmit_searchCategory(event: any) {
+    this.newName = event.target.value;
+    console.log(this.newName);
   }
 
   public getData() {

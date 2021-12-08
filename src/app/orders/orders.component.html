@@ -27,13 +27,13 @@
     <ng-container cdkColumnDef="viewBom">
       <th cdk-header-cell *cdkHeaderCellDef> View Bom </th>
                                                                                 <!-- at some point, route to orderId -->
-      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewBom(row.order_id)" routerLink="orders/order-bom"> View BOM</button> </td>
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewBom(row.order_id)" routerLink="/orders/order-bom/"> View BOM</button> </td>
       <!-- {{row.viewBomString}} -->
     </ng-container>
 
     <ng-container cdkColumnDef="viewSum">
       <th cdk-header-cell *cdkHeaderCellDef> view order summary </th>
-      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewSummary(row.order_id)" routerLink="orders/order-summary"> view summary</button> </td>
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewSummary(row.order_id)" routerLink="/orders/order-summary/"> view summary</button> </td>
       <!-- {{row.viewSummaryString}} -->
     </ng-container>
 

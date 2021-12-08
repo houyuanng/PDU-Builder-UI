@@ -1,1 +1,27 @@
-<h1>Order # {{orderNumber}}</h1>
+<div class="content">
+    <h1>Order # {{defineOrders()[0].order_id}}</h1>
+
+    <div class="PDU-images">
+        <img src={{defineOrders()[0].real_design_img_addr}} alt="real PDU sample">
+        <img src={{defineOrders()[0].schem_design_img_addr}} alt="schematic PDU sample">
+    </div>
+
+    <div class="summary-table">
+        <table cdk-table [dataSource]="tableContents()" class="orderTable">
+            <ng-container cdkColumnDef="item">
+                <th cdk-header-cell *cdkHeaderCellDef> </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.names}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="content">
+                <th cdk-header-cell *cdkHeaderCellDef> </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.content}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="prices">
+                <th cdk-header-cell *cdkHeaderCellDef> </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.prices}} </td>
+            </ng-container>
+          <tr cdk-header-row *cdkHeaderRowDef="['item', 'content', 'prices']; sticky: true"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: ['item', 'content', 'prices']"></tr>
+    </table>
+    </div>
+</div>

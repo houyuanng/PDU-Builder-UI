@@ -15,8 +15,8 @@ import { UserManualComponent } from './user-manual/user-manual.component';
 import { OrdersComponent } from './orders/orders.component';
 import { GreeterComponent } from './greeter/greeter.component';
 import { OrderInformationComponent } from './design/order-information/order-information.component';
-import { ViewSummaryComponent } from './view-summary/view-summary.component';
-import { ViewBomComponent } from './view-bom/view-bom.component';
+import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
+import { OrderBomComponent } from './orders/order-bom/order-bom.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -36,10 +36,9 @@ const routes: Routes = [
   { path: 'user-manual', component: UserManualComponent },
   { path: 'orders', component: OrdersComponent },
   { path: 'design/order-information', component: OrderInformationComponent },
-  { path: 'orders/order-summary', component: ViewSummaryComponent },
-  { path: 'orders/order-bom', component: ViewBomComponent },
-  
-  
+  { path: 'orders/order-summary', component: OrderSummaryComponent },
+  { path: 'orders/order-bom', component: OrderBomComponent }
+    
 ];
 
 @NgModule({

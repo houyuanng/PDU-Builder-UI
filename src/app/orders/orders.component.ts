@@ -32,6 +32,7 @@ export class OrdersComponent implements OnInit {
 
   public clickViewSummary(orderId: number) {
     this.summary = orderId;
+    console.log(this.summary);
   }
 
   public clickDelete(orderId: number) {

@@ -5,28 +5,31 @@
     <div class="group-information-inputs">
 
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_companyName($event)">Bedrijf
+            <mat-label>Bedrijf</mat-label>
+            <input matInput (keyup)="input_companyName($event)">
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_contactPerson($event)">Contact persoon
+            <mat-label>Contact persoon</mat-label>
+            <input matInput (keyup)="input_contactPerson($event)">
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_amount($event)">Hoeveelheid
+            <mat-label>Hoeveelheid</mat-label>
+            <input matInput (keyup)="input_amount($event)">
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_description($event)">Omschrijving
+            <mat-label>Omschrijving</mat-label>
+            <input matInput (keyup)="input_description($event)">
         </mat-form-field>
+
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_number($event)">Telefoon
+            <mat-label>Telefoon</mat-label>
+            <span matPrefix>+31 &nbsp;</span>
+            <input matInput (keyup)="input_number($event)">
         </mat-form-field>
+
         <mat-form-field appearance="fill">
-            <mat-label>Input</mat-label>
-            <input matInput (keyup)="input_email($event)">Email
+            <mat-label>Email</mat-label>
+            <input matInput (keyup)="input_email($event)" placeholder="Ex. someone@example.com">
         </mat-form-field>
 
 
@@ -62,7 +65,7 @@
     </mat-form-field> -->
     </div>
         <div class="button-BOM">
-            <button mat-raised-button (click)="clickCreateOrder()">Plaats bestelling</button>
+            <button mat-raised-button (click)="clickCreateOrder()" routerLink="/home">Plaats bestelling</button>
         </div>
     </div>
 </div>

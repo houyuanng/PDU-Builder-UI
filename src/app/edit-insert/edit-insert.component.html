@@ -6,7 +6,7 @@
     <div class="section-insert-category-profile-processtime">
         <P>Insert name</P>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Give insert name" (keyup)="input_insertName($event)">
+            <input matInput placeholder="Give insert name" (keyup)="input_insertName($event)" value="{{currentInsertName}}">
         </mat-form-field>
 
         <p>Add insert to a category</p>
@@ -30,7 +30,7 @@
 
         <div class="check-profiles" >
         <p>profiles that fit this insert:</p>
-        <mat-checkbox *ngFor="let profile of parseProfiles()" [value]="profile" (check)="getProfileConstraints($event)"> {{profile}}</mat-checkbox>
+        <mat-checkbox *ngFor="let profile of parseProfiles(); index as i" [checked]="profileStates[i].selected" [value]="profile" (change)="selectedProfile($event.checked, i, profile)"> {{profile}}</mat-checkbox>
         </div>
 
         <div class="section-process-time">
@@ -104,7 +104,6 @@
     <div class="buttons-upload-images">
         <p>Upload images</p>
 
-e
         <button class="button-upload-real-image" mat-raised-button (selectdOption)="getProfileConstraints('l')">Upload schematic <br> image</button>
         <button class="button-upload-schem-image" mat-raised-button>Upload real image</button>
     </div>
