@@ -5,6 +5,7 @@ import {map, startWith} from 'rxjs/operators';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import { UrlTree } from '@angular/router';
+import mergeImages from 'merge-images';
 
 @Component({
   selector: 'app-greeter',
@@ -22,6 +23,8 @@ export class GreeterComponent {
   public matData: any;
   public test: any;
 
+  public something: Promise<string> | undefined;
+
   public PostData() {
     // const url = "http://localhost:49528/api/Home";
     const url = "https://localhost:5001/api/materials";
@@ -33,41 +36,18 @@ export class GreeterComponent {
   public testPostdata: any;
   public ngOnInit() {
     const url = "https://localhost:5001/api/orders";
+    this.something = mergeImages([
+      "/images/Insert real/012-8701 small.jpg",
+      "/images/Insert real/032-8666 10 amp small.jpg", 
+      "/images/Insert real/032-8666 10 amp small.jpg",
+      {src: "/images/Insert real/012-8701 small.jpg",  x: 0, y: 30}
+    ]).then(b64 => document.querySelector('img')!.src = b64);
 
-    // const url = "http://localhost:49528/api/Home";
-    // const retVal = this.http.get(url).subscribe
-    // (data => {this.retGetData = data;
-    // });
-
-    let something: Material = {
-      NAME: "hou yuan",
-      PRICE: 1000000,
-      REFERENCE_ID: "546841321",
-      DESCRIPTION: "profile"
-    };
-
-    const postVal = this.http.post(url, {fstVarValue: '111'}).subscribe
-    (data => {this.retPostData = data;
-    });
-    
-    const postMatVal = this.http.post("https://localhost:5001/api/materials", {something}).subscribe
-    (data => {this.matData = data;
-    }, (error: any) => {
-      console.error(error);
-    });
-
+    // this.something = mergeImages([
+    //   { src: '/images/AP_logo.jpg', x: 0, y: 0 },
+    //   { src: '/images/Insert real/032-8666 10 amp small.jpg', x: 32, y: 0 }
+    // ])
+    debugger;
+    console.log(this.something);
   }
 }
-
-interface Send{
-  fstVal: string;
-}
-
-
-interface Material {
-  NAME: string;
-  PRICE: number;
-  REFERENCE_ID: string;
-  DESCRIPTION: string;
-}
-

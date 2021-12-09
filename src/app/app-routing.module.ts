@@ -17,6 +17,8 @@ import { GreeterComponent } from './greeter/greeter.component';
 import { OrderInformationComponent } from './design/order-information/order-information.component';
 import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
 import { OrderBomComponent } from './orders/order-bom/order-bom.component';
+import { NewSpecsComponent } from './new-insert/new-specs/new-specs.component';
+import { EditSpecsComponent } from './edit-insert/edit-specs/edit-specs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -37,7 +39,9 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent },
   { path: 'design/order-information', component: OrderInformationComponent },
   { path: 'orders/order-summary', component: OrderSummaryComponent },
-  { path: 'orders/order-bom', component: OrderBomComponent }
+  { path: 'orders/order-bom', component: OrderBomComponent },
+  { path: 'new-insert/new-specs' , component: NewSpecsComponent },
+  { path: 'edit-inserts/edit-specs', component: EditSpecsComponent }
     
 ];
 

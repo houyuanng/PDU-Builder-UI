@@ -5,19 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as _ from "lodash";
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
-// import { group } from 'console';
-
-class Inserts {
-  insert_name: string = "";
-  BOM_per_unit: string = "";
-  length_in_mm: number = 0;
-  category: string = "";
-  specification_txt_addr: string = "";
-  profileConstraint: string = "";
-  positionOnPDU: string = "";
-  technicalConstraint: string = "";
-  processes_file_addr: string = "";
-}
+import { Inserts } from '../Model/logic-models';
+import { Content, InsertFormat, QandA, InsertsPerCategory } from '../Model/app-models';
 
 @Component({
   selector: 'app-design',
@@ -212,27 +201,6 @@ export class DesignComponent implements OnInit {
   
 }
 
-interface InsertsPerCategory {
-  category: string;
-  inserts: string[];
-}
-
-interface QandA {
-  question: string;
-  answers: string[];
-}
-
-interface Content {
-  name: string;
-}
-
-interface InsertFormat {
-  insertName: string;
-  profileConstraint: string[];
-  category: string;
-  question: string[];
-  answer: string[];
-}
 
   // categories: Content[] = [
   //   {name: "cat1"},

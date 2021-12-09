@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { Category } from '../Model/app-models';
 
 @Component({
   selector: 'app-edit-category',
@@ -40,9 +41,4 @@ export class EditCategoryComponent{
   clickSave(){
   this.newName = "clicked on save";
   }
-}
-
-class Category {
-  category: string = "";
-  thumbnail_addr: string = "";
 }

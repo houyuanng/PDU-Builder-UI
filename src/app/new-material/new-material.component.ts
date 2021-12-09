@@ -4,6 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { materialize } from 'rxjs/operators';
+import { Process, Materials } from '../Model/logic-models';
 
 @Component({
   selector: 'app-new-material',
@@ -168,43 +169,30 @@ export class NewMaterialComponent implements OnInit {
   }
 
   formatAllData(){
-    let newMaterial: Material[];
-    let newProfile: Material[];
+    let newMaterial: Materials[];
+    let newProfile: Materials[];
     let newProcess: Process[];
 
     newMaterial = [
       { 
-        NAME : this.viewMaterialName,
-        PRICE : this.viewMaterialPrice,
-        REFERENCE_ID : this.inputMaterialReferenceNumber,
-        DESCRIPTION : "MATERIAL"
+        material_name : this.viewMaterialName,
+        price : this.viewMaterialPrice,
+        ItemId : this.inputMaterialReferenceNumber,
+        description : "MATERIAL"
     }];
 
     newProfile = [
       {
-        NAME : this.viewProfileName,
-        PRICE : this.viewProfilePrice,
-        REFERENCE_ID : this.inputProfileReferenceNumber,
-        DESCRIPTION : "PROFILE"
+        material_name : this.viewProfileName,
+        price : this.viewProfilePrice,
+        ItemId : this.inputProfileReferenceNumber,
+        description : "PROFILE"
       }];
 
     newProcess = [
       {
-        PROCESS: this.inputProcessName,
-        PRICE: this.inputProcessPrice
+        process: this.inputProcessName,
+        price: this.inputProcessPrice
       }];
   }
 }
-
-interface Material {
-  NAME: string;
-  PRICE: number;
-  REFERENCE_ID: string;
-  DESCRIPTION: string;
-}
-
-interface Process {
-  PROCESS: string;
-  PRICE: number;
-}
-

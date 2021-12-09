@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Table } from 'src/app/Model/app-models';
+import { Orders } from 'src/app/Model/logic-models';
 
 @Component({
   selector: 'app-order-summary',
@@ -10,19 +12,19 @@ export class OrderSummaryComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  public get_orders: Order[] = [];
+  public get_orders: Orders[] = [];
 
   ngOnInit(): void {
     const url = "https://localhost:5001/api/orders";
     const retVal = this.http.get(url).subscribe
-    (data => {this.get_orders = data as Order[];
+    (data => {this.get_orders = data as Orders[];
       console.log(this.get_orders);
     }, (error: any) => {
       console.error(error);
     });
   }
 
-  defineOrders() : Order[]{
+  defineOrders() : Orders[]{
     return this.get_orders?? [];
   }
 
@@ -32,22 +34,4 @@ export class OrderSummaryComponent implements OnInit {
     return content?? []
   }
 
-}
-
-class Order {
-  order_id: number = 0;
-  real_design_img_addr: string = "";
-  schem_design_img_addr: string = "";
-  length_in_mm: number = 0;
-  BOM_addr: string = "";
-  company_name: string = "";
-  last_edit: string = "";
-  xl_calculation_addr: string = "";
-  insert_id_sequence_addr: string = "";
-}
-
-class Table {
-  names: string[] = [];
-  content: string[] = [];
-  prices: number[] = [];
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SERVER_TOKEN } from '@angular/flex-layout';
+import { OrderInformation } from 'src/app/Model/app-models';
 
 @Component({
   selector: 'app-order-information',
@@ -72,14 +72,4 @@ export class OrderInformationComponent implements OnInit {
     console.log(orderInfo);
   }
 
-}
-
-interface OrderInformation {
-  orderNumber: number;
-  companyName: string;
-  contactPerson: string;
-  amount: number;
-  description: string;
-  phoneNumber: number;
-  email: string;
 }

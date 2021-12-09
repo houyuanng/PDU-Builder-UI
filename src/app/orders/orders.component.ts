@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { now } from 'lodash';
+import { Orders } from '../Model/logic-models';
+import { iOrders } from '../Model/app-models';
 
 @Component({
   selector: 'app-orders',
@@ -42,31 +44,12 @@ export class OrdersComponent implements OnInit {
   public ngOnInit() {
     const url = "https://localhost:5001/api/orders";
     const retVal = this.http.get(url).subscribe
-    (data => {this.get_ordersData = data as Order[];
+    (data => {this.get_ordersData = data as Orders[];
     }, (error: any) => {
       console.error(error);
     });
   }
 }
 
-interface iOrders{
-  orderId: number;
-  companyName: string;
-  lastEdit: Number;
-  viewOrderString: string;
-  viewBomString: string;
-  viewSummaryString: string;
-  delete: boolean;
-}
 
-class Order {
-  order_id: number = 0;
-  real_design_img_addr: string = "";
-  schem_design_img_addr: string = "";
-  length_in_mm: number = 0;
-  BOM_addr: string = "";
-  company_name: string = "";
-  last_edit: string = "";
-  xl_calculation_addr: string = "";
-  insert_id_sequence_addr: string = "";
-}
+

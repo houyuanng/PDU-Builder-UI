@@ -33,9 +33,8 @@
         <mat-checkbox *ngFor="let profile of parseProfiles(); index as i" [checked]="profileStates[i].selected" [value]="profile" (change)="selectedProfile($event.checked, i, profile)"> {{profile}}</mat-checkbox>
         </div>
 
-        <div class="section-process-time">
             <p>Add process time</p>
-
+            <div class="section-process-time">
             <div class="row-processtimes" *ngFor="let i of processBom; index as index">
                 <form>
                     <mat-form-field appearance="fill">
@@ -58,48 +57,46 @@
                 </mat-form-field>
             </div>
 
-            <button class="button-plus-one" mat-mini-fab color="primary" (click)="clickAddProcess()"> + 
-            </button>
-            
+            <div class="button-plus-one-process">
+                <button mat-mini-fab color="primary" (click)="clickAddProcess()"> + 
+                </button>
+            </div>
         </div>
     </div>
 
-    <div class="section-add-component">
-        <p>Add material to this insert</p>
+    <!-- <div class="section-add-component"> -->
+        <div class="section-materiallabel-materialrows-button-add">
+            <p>Add material to this insert</p>
 
-        <div class="row-component-conf" *ngFor="let fields of bomInsert; index as j">
-            <!-- <div> -->
-            <form> 
-                <mat-form-field appearance="fill" class="input-component">
-                <mat-label>Material</mat-label>
-                <input type="text"
-                        placeholder="Add component"
-                        aria-label="Add component"
-                        matInput
-                        
-                        [matAutocomplete]="auto">
-                <!-- idk why it dont show the selected one :/ -->
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedMaterial($event.option.value, j)">
-                    <mat-option *ngFor="let i of materials()" [value]="i" >
-                    {{i}}
-                    </mat-option>
-                </mat-autocomplete>
+            <div class="row-component-conf" *ngFor="let fields of bomInsert; index as j">
+                <form> 
+                    <mat-form-field appearance="fill" class="input-component">
+                    <mat-label>Material</mat-label>
+                    <input type="text"
+                            placeholder="Add component"
+                            aria-label="Add component"
+                            matInput
+                            [matAutocomplete]="auto">
+                    <!-- idk why it dont show the selected one :/ -->
+                    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedMaterial($event.option.value, j)">
+                        <mat-option *ngFor="let i of materials()" [value]="i" >
+                        {{i}}
+                        </mat-option>
+                    </mat-autocomplete>
+                    </mat-form-field>
+                </form>
+
+                <mat-form-field class="input-amount" appearance="fill" (keyup)="materialAmount($event, j)">
+                    <input matInput placeholder="1" type="number">
                 </mat-form-field>
-            </form>
-        <!-- </div>
-        <div> -->
-            <mat-form-field class="input-amount" appearance="fill" (keyup)="materialAmount($event, j)">
-                <input matInput placeholder="1" type="number">
-            </mat-form-field>
-        <!-- </div>
-        <div> -->
-            <button class="button-remove-component" mat-raised-button (click)="clickDeleteMaterial(j)">-</button>
-        <!-- </div> -->
-        </div>
 
-         <button class="button-plus-one" mat-mini-fab color="primary" (click)="clickAddMaterial()"> + 
-            </button>
-    </div>
+                <button class="button-remove-component" mat-mini-fab color="warn" (click)="clickDeleteMaterial(j)">-</button>
+            </div>
+            <div class="button-plus-one-material">
+            <button mat-mini-fab color="primary" (click)="clickAddMaterial()"> + 
+                </button>
+            </div>
+        </div>
 
     <div class="buttons-upload-images">
         <p>Upload images</p>
@@ -109,5 +106,9 @@
         <button class="button-upload-schem-image" mat-raised-button>Upload real image</button>
     </div>
     <button class="button-save-image" mat-raised-button (click)="clickSave()">Save</button>
+    <button class="button-add-specs" mat-raised-button color="primary" routerLink="/new-insert/new-specs">Add options</button>
+
+
 </div>
 </div>
+

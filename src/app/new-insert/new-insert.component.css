@@ -49,6 +49,10 @@
     font-size: 10pt;
   }
 
+  .button-add-specs {
+    height: 50px;
+  }
+
   .mat-radio-button ~ .mat-radio-button {
     display: flex;
     flex-direction: column;
@@ -83,6 +87,7 @@
     display: flex;
     flex-direction: column;
     width: 300px;
+    align-items: center;
   }
 
   .row-processtimes {
@@ -105,15 +110,32 @@
     display: flex;
     flex-direction: column;
     width: 500px;
+    align-items: center;
   }
 
   .row-component-conf {
     display: flex;
     flex-direction: row;
-    justify-content: left;
+    justify-content: center;
     gap: 10px;
     width: 500px;
   }
+
+  .button-plus-one-process{
+    display: flex;
+    justify-content: center;
+  }
+
+  .button-plus-one-material{
+    display: flex;
+    justify-content: center;
+  }
+  .section-materiallabel-materialrows-button-add{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 600px;
+    }
 
   .input-component{
     width: 400px;
@@ -124,9 +146,10 @@
   }
 
   .button-remove-component {
-    min-width: 20px;
+    display: flex;
     height: 30px;
-    position: relative;
-    top: 11px;
-    
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
   }

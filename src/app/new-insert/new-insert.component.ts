@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { FormControl, Validators } from '@angular/forms';
 import { materialize } from 'rxjs/operators';
+import { InsertInformation, MaterialForInsert, Material, Category, Process, ProfileConstraint } from '../Model/app-models';
 
 @Component({
   selector: 'app-new-insert',
@@ -185,50 +186,4 @@ export class NewInsertComponent implements OnInit {
     console.log(this.processBom);
 
   }
-}
-
-interface Profile {
-  NAME: string;
-  PRICE: number;
-  REFERENCE_ID: string;
-}
-
-class Material {
-  ItemId: string = "";
-  material_name: string = "";
-  price: number = 0;
-  description: string = "";
-}
-
-class Category{
-  category: string = "";
-  thumbnail_addr: string = "";
-}
-
-// minutes should change to number when formControl is added
-class Process{
-  process: string = "";
-  minutes: string = "";
-}
-
-class InsertInformation {
-  insert_name: string = "";
-  BOM_per_unit: string = "";
-  length_in_mm: number = 0;
-  category: string = "";
-  specification_txt_addr: string = "";
-  profileConstraint: string = "";
-  positionOnPDU: string = "";
-  technicalConstraint: string = "";
-  processes_file_addr: string = "";
-}
-
-class MaterialForInsert {
-  material_name: string = "";
-  amount: string = "";
-}
-
-class ProfileConstraint{
-  profile: string = "";
-  selected: boolean = false;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { InsertInformation, MaterialForInsert, ProfileConstraint } from '../Model/app-models';
 
 @Component({
   selector: 'app-edit-insert',
@@ -272,38 +273,14 @@ class Process{
   minutes: string = "";
 }
 
-class InsertInformation {
-  insert_name: string = "";
-  BOM_per_unit: string = "";
-  length_in_mm: number = 0;
-  category: string = "";
-  specification_txt_addr: string = "";
-  profileConstraint: string = "";
-  positionOnPDU: string = "";
-  technicalConstraint: string = "";
-  processes_file_addr: string = "";
-}
-
-class SchemImages {
-  insert_name: string = "";
-  x_pixel_size: number = 0;
-  y_pixel_size: number = 0;
-  img_addr: string = "";
-}
-
-class RealImages {
-  insert_name: string = "";
-  x_pixel_size: number = 0;
-  y_pixel_size: number = 0;
-  img_addr: string = "";
-}
-
-class MaterialForInsert {
-  material_name: string = "";
-  amount: string = "";
-}
-
-class ProfileConstraint{
-  profile: string = "";
-  selected: boolean = false;
-}
+// class InsertInformation {
+//   insert_name: string = "";
+//   BOM_per_unit: string = "";
+//   length_in_mm: number = 0;
+//   category: string = "";
+//   specification_txt_addr: string = "";
+//   profileConstraint: string = "";
+//   positionOnPDU: string = "";
+//   technicalConstraint: string = "";
+//   processes_file_addr: string = "";
+// }

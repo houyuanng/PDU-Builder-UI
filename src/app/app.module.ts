@@ -36,15 +36,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GreeterComponent } from './greeter/greeter.component';
 import { MatMenuModule } from '@angular/material/menu'; 
 import { MatRadioModule } from '@angular/material/radio'; 
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import { OrderInformationComponent } from './design/order-information/order-information.component';
 import { ViewBomComponent } from './view-bom/view-bom.component';
 import { ViewSummaryComponent } from './view-summary/view-summary.component';
 import { MatInputModule } from '@angular/material/input';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCheckboxModule} from '@angular/material/checkbox';
 import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
 import { OrderBomComponent } from './orders/order-bom/order-bom.component';
-import { SpecificationComponent } from './new-insert/specification/specification.component'; 
+import { EditSpecsComponent } from './edit-insert/edit-specs/edit-specs.component';
+import { NewSpecsComponent } from './new-insert/new-specs/new-specs.component';
 
 @NgModule({
   declarations: [
@@ -67,8 +68,9 @@ import { SpecificationComponent } from './new-insert/specification/specification
     ViewSummaryComponent,
     OrderSummaryComponent,
     OrderBomComponent,
-    SpecificationComponent
-  ],
+    EditSpecsComponent,
+    NewSpecsComponent,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
