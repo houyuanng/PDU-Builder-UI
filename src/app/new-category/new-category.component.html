@@ -9,13 +9,10 @@
         <mat-form-field appearance="fill">
             <input matInput placeholder="Enter category name" (keyup)="onKeyUp_categoryName($event)">
         </mat-form-field>
-        <p>
-            {{inputCategoryName}}
-        </p>
-
 
     </div>
-    <button (click)="onSubmit()" class="button-save-category" mat-raised-button>Opslaan </button>
-    <p>{{event_save}}</p>
-    <p>{{output}}</p>
+    <button (click)="onSubmit()" class="button-save-category" mat-raised-button disabled="{{exist}}">Opslaan </button>
+
 </div>
+
+<!-- <app-file-upload></app-file-upload> -->

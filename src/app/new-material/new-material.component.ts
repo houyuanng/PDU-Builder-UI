@@ -53,12 +53,16 @@ export class NewMaterialComponent implements OnInit {
     const getProcesVal = this.http.get(this.url_process).subscribe
     (data => {this.get_processData = data;
       this.processDataCount = Object.keys(data).length;
+    }, (error: any) => {
+      console.log(error);
     });
 
     const getMaterialsVal = this.http.get(this.url_materialsdb).subscribe
     (data => {this.get_materialsData = data;
       this.materialsDataCount = Object.keys(data).length;
 
+    }, (error: any) => {
+      console.log(error);
     });
   }
 
@@ -84,14 +88,6 @@ export class NewMaterialComponent implements OnInit {
     this.searchMaterial(event.target.value);
   }
 
-  click_searchMaterial(){
-    this.clickSearchMaterial = true;
-  }
-
-  click_searchProfile(){
-    this.clickSearchProfile = true;
-  }
-
   click_saveItems() {
     this.clickSave = true;
     if (this.clickSearchMaterial) {
@@ -115,7 +111,7 @@ export class NewMaterialComponent implements OnInit {
     }
   }
 
-  searchMaterial(input: number) {
+  searchMaterial(input: string) {
     for (let i = 0; i < this.materialsDataCount; i++){
       if (input == this.get_materialsData[i].itemId) {
         this.foundMaterial = true;

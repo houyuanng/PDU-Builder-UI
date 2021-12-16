@@ -1,1 +1,25 @@
-<p>order</p>
+<!-- <p *ngFor="let i of allBom()">{{i.item}}</p> -->
+<div class="content">
+    <h1>Order #[order number]</h1>
+
+    <table cdk-table [dataSource]="allBom()" class="bomTable">
+        <ng-container cdkColumnDef="itemId">
+            <th cdk-header-cell *cdkHeaderCellDef> item id </th>
+            <td cdk-cell *cdkCellDef="let row" class="test"> {{row.item}} </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="itemName">
+            <th cdk-header-cell *cdkHeaderCellDef> item name </th>
+            <td cdk-cell *cdkCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <ng-container cdkColumnDef="amount" >
+            <th cdk-header-cell *cdkHeaderCellDef> amount </th>
+            <td cdk-cell *cdkCellDef="let row"> {{row.amount}} </td>
+        </ng-container>
+            <tr cdk-header-row *cdkHeaderRowDef="['itemId', 'itemName', 'amount']; sticky: true"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: ['itemId', 'itemName', 'amount']"></tr>
+
+    </table>
+
+</div>

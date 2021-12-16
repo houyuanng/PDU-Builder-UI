@@ -13,6 +13,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; 
 
 import { AboutComponent } from './about/about.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -95,7 +96,8 @@ import { NewSpecsComponent } from './new-insert/new-specs/new-specs.component';
     MatRadioModule,
     HttpClientModule,
     MatInputModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
 
   providers: [],

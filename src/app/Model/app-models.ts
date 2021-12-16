@@ -87,3 +87,19 @@ export class Table {
   content: string[] = [];
   prices: number[] = [];
 }
+
+export class EditedMaterial{
+  itemId: string = "";
+  delete: boolean = false;
+}
+
+export class editProcess{
+  newName: string = "";
+  newPrice: string = "";
+}
+
+export class Bom{
+  itemId: string = "";
+  name: string = "";
+  amount: number = 0;
+}

@@ -4,9 +4,11 @@
 
 /* selecting part of the screen */
 
+
 .row-everything{
   display: flex;
   flex-direction: column;
+  width: 70%;
   padding: 30px;
   gap: 20px;
 }
@@ -95,7 +97,7 @@ p{
 }
 
 /* for the dragging tiles of the PDU modules */
-.example-list {
+.display-tiles {
     width: min-content;
     /* max-width: 100%; */
     border: solid 1px #ccc;

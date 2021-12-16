@@ -4,6 +4,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { materialize } from 'rxjs/operators';
+import { Process } from '../Model/app-models';
+import { editProcess, EditedMaterial } from '../Model/app-models';
+
 
 @Component({
   selector: 'app-edit-material',
@@ -14,7 +17,7 @@ export class EditMaterialComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  url_materialsdb = "https://localhost:5001/api/masterdatabase";
+  url_materialsdb = "https://localhost:5001/api/materials";
   url_process = "https://localhost:5001/api/process"
 
   public get_materialsData: any = {};
@@ -25,7 +28,8 @@ export class EditMaterialComponent implements OnInit {
 
   public stateDeleteProfile: boolean = false;
   public stateDeleteMaterial: boolean = false;
-  public stateSave: boolean = false;
+  public stateDeleteProcess: boolean = false;
+  public stateChangeProcess: boolean = false;
 
   public inputSearchProcess: string = "search process";
   public inputSearchMaterial: string = "search material";
@@ -42,6 +46,11 @@ export class EditMaterialComponent implements OnInit {
   public viewProfilePrice: number = 0.00;
   public foundMaterial: boolean = false;
   public materialIndex = 0;
+  public viewProcessName: string = "";
+  public viewProcessPrice: number = 0;
+  public newProcessName: string = "";
+  public newProcessPrice: string = "";
+
   public viewDesc: any;
 
   public raw_materialInput: string = "";
@@ -50,21 +59,19 @@ export class EditMaterialComponent implements OnInit {
   public raw_processEditName: string = "";
   public raw_processEditPrice: string = "";
 
-
-  public test: any = "";
-  write(test: any){
-    this.test = test;
-  }
-
   ngOnInit(): void {
     const getProcesVal = this.http.get(this.url_process).subscribe
-    (data => {this.get_processData = data;
+    (data => {this.get_processData = data as Process[];
       this.processDataCount = Object.keys(data).length;
+    }, (error: any) => {
+      console.log(error);
     });
 
     const getMaterialsVal = this.http.get(this.url_materialsdb).subscribe
     (data => {this.get_materialsData = data;
       this.materialsDataCount = Object.keys(data).length;
+    }, (error: any) => {
+      console.log(error);
     });
   }
 
@@ -90,19 +97,30 @@ export class EditMaterialComponent implements OnInit {
 
   inputEventSearchMaterial(event: any) {
     this.inputSearchMaterial = event.target.value;
+    this.searchMaterial(event.target.value)
+  }
+
+  inputNewProcessName(event: any) {
+    this.newProcessName = event.target.value;
+
+  }
+  inputNewProcessPrice(event: any){
+    this.newProcessPrice = event.target.value;
   }
 
   clickEventDeleteProfile(event: any){
     this.stateDeleteProfile = true;
+    // delete profile request
   }
 
   clickEventDeleteMaterial(event: any){
     this.stateDeleteMaterial = true;
+    // delete material somehow idk
   }
   
-  clickEventSave(event: any){
-    this.stateSave = true;
-
+  clickDeleteProcess(event: any){
+    this.stateDeleteProcess = true;
+    // delete process request
   }
 
 
@@ -130,23 +148,24 @@ export class EditMaterialComponent implements OnInit {
 
   searchProcess(input: string) {
     for (let i = 0; i < this.processDataCount; i++){
-      if (input == this.get_processData[i].itemId) {
+      if (input == this.get_processData[i].process) {
         this.foundProcess = true;
         this.processIndex = i;
       }
     }
 
     if (this.foundProcess){
-      this.viewProfileName = this.get_processData[this.processIndex].process;
-      this.viewProfilePrice = this.get_processData[this.processIndex].price;
+      this.viewProcessName = this.get_processData[this.processIndex].process;
+      this.viewProcessPrice = this.get_processData[this.processIndex].price;
       this.foundProcess = false;
+      console.log("found stuff!" + this.viewProcessName);
     } else {
-      this.viewProfileName = "";
-      this.viewProfilePrice = 0;
+      this.viewProcessName = "";
+      this.viewProcessPrice = 0;
     }
   }
 
-  searchMaterial(input: number) {
+  searchMaterial(input: string) {
     for (let i = 0; i < this.materialsDataCount; i++){
       if (input == this.get_materialsData[i].itemId) {
         this.foundMaterial = true;
@@ -158,13 +177,12 @@ export class EditMaterialComponent implements OnInit {
       this.viewMaterialName = this.get_materialsData[this.materialIndex].material_name;
       this.viewMaterialPrice = this.get_materialsData[this.materialIndex].price;
       this.foundMaterial = false;
+      console.log(this.viewMaterialPrice);
+
     } else {
       this.viewMaterialName = "";
       this.viewMaterialPrice = 0;
     }
   }
-
-  
-  
-
 }
+

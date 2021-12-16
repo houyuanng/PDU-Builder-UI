@@ -184,6 +184,10 @@ export class EditInsertComponent implements OnInit {
     this.bomInsert[index].amount = amount;
   }
 
+  trackByFn(index: number, input: string) {
+    return index;
+  }
+
   clickDeleteMaterial(index: number){
     let something = this.bomInsert;
     

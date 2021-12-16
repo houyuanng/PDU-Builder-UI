@@ -40,7 +40,7 @@ const routes: Routes = [
   { path: 'design/order-information', component: OrderInformationComponent },
   { path: 'orders/order-summary', component: OrderSummaryComponent },
   { path: 'orders/order-bom', component: OrderBomComponent },
-  { path: 'new-insert/new-specs' , component: NewSpecsComponent },
+  { path: 'new-inserts/new-specs' , component: NewSpecsComponent },
   { path: 'edit-inserts/edit-specs', component: EditSpecsComponent }
     
 ];
