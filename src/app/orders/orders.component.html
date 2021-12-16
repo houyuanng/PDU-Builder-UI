@@ -1,40 +1,54 @@
-<table cdk-table [dataSource]="content">
+<div class="content">
+
+  <h1>View orders</h1>
+
+  <table cdk-table [dataSource]="get_ordersData" class="orderTable">
     <ng-container cdkColumnDef="orderId">
       <th cdk-header-cell *cdkHeaderCellDef> Order id </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[0]}} </td>
+      <td cdk-cell *cdkCellDef="let row"> {{row.order_id}} </td>
     </ng-container>
-  
+
     <ng-container cdkColumnDef="companyName">
       <th cdk-header-cell *cdkHeaderCellDef> Company name </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+      <td cdk-cell *cdkCellDef="let row"> {{row.company_name}} </td>
     </ng-container>
-  
+
     <ng-container cdkColumnDef="lastEdit">
       <th cdk-header-cell *cdkHeaderCellDef> Last edit </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[2]}} </td>
+      <td cdk-cell *cdkCellDef="let row"> {{row.last_edit}} </td>
     </ng-container>
-  
+
     <ng-container cdkColumnDef="viewOrder">
-      <th cdk-header-cell *cdkHeaderCellDef> View order </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+      <th cdk-header-cell *cdkHeaderCellDef> Edit order </th>
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewOrder(row.order_id)">Edit order</button> </td>
+      <!-- {{row.viewBomString}} -->
     </ng-container>
-  
-    <ng-container cdkColumnDef="viewBOM">
-      <th cdk-header-cell *cdkHeaderCellDef> View BOM </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+
+    <ng-container cdkColumnDef="viewBom">
+      <th cdk-header-cell *cdkHeaderCellDef> View Bom </th>
+                                                                                <!-- at some point, route to orderId -->
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewBom(row.order_id)" routerLink="/orders/order-bom/"> View BOM</button> </td>
+      <!-- {{row.viewBomString}} -->
     </ng-container>
-  
-    <ng-container cdkColumnDef="edit">
-      <th cdk-header-cell *cdkHeaderCellDef> View BOM </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+
+    <ng-container cdkColumnDef="viewSum">
+      <th cdk-header-cell *cdkHeaderCellDef> view order summary </th>
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickViewSummary(row.order_id)" routerLink="/orders/order-summary/"> view summary</button> </td>
+      <!-- {{row.viewSummaryString}} -->
     </ng-container>
-  
+
     <ng-container cdkColumnDef="delete">
       <th cdk-header-cell *cdkHeaderCellDef> delete </th>
-      <td cdk-cell *cdkCellDef="let row"> {{content[1]}} </td>
+      <td cdk-cell *cdkCellDef="let row"> <button mat-button (click)="clickDelete(row.order_id)"> delete order</button> </td>
+      <!-- <button mat-raised-button routerLink="/design/order-information">Fill in order information </button> -->
+
+      <!-- {{row.delete}} -->
     </ng-container>
-  
-    <!-- Header and Row Declarations -->
-    <tr cdk-header-row *cdkHeaderRowDef="['orderId', 'companyName', 'lastEdit', 'viewOrder','viewBOM', 'edit', 'delete']; sticky: true"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: ['orderId', 'companyName', 'lastEdit', 'viewOrder','viewBOM', 'edit', 'delete']"></tr>
-  </table>
+    
+    <!-- <button mat-raised-button> {{row.viewBomString}}</button> -->
+
+      <!-- Header and Row Declarations -->
+      <tr cdk-header-row *cdkHeaderRowDef="['orderId', 'companyName', 'lastEdit', 'viewOrder', 'viewBom', 'viewSum', 'delete']; sticky: true"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: ['orderId', 'companyName', 'lastEdit', 'viewOrder', 'viewBom', 'viewSum', 'delete']"></tr>
+    </table>
+</div>

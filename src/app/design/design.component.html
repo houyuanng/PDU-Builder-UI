@@ -1,36 +1,117 @@
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-    <div class="example-box" *ngFor="let content of contents" cdkDrag>{{content}}</div>
+<div class="row-everything">
+<h1>Design</h1>
+<div class="length-spacers">
+<p>Length: {{pduLen}}</p>
+<!-- <mat-checkbox *ngFor="let profile of parseProfiles(); index as i" [checked]="profileStates[i].selected" [value]="profile" (change)="selectedProfile($event.checked, i, profile)"> {{profile}}</mat-checkbox> -->
+<!-- <mat-checkbox [checked]="autoSpacer" (click)="placeSpacers()"> auto spacer</mat-checkbox> -->
+<mat-slide-toggle
+  color="primary"
+  [checked]="autoSpacer"
+  (change)="placeSpacers()">
+  Automatisch bindplaat plaatsen
+</mat-slide-toggle>
+<!-- <button mat-raised-button (click)="placeSpacers()" color="autoSpacerButtonColor">Plaats bindplaten</button> -->
 </div>
 
-
-<div class="options">
-  <p> </p>
-  <p>Profile</p>
-<mat-form-field appearance="fill">
-  <mat-label>Choose a profile</mat-label>
-  <mat-select [formControl]="animalControl" required>
-    <mat-option>--</mat-option>
-    <mat-option *ngFor="let animal of animals" [value]="animal">
-      {{animal.name}}
-    </mat-option>
-  </mat-select>
-  <mat-error *ngIf="animalControl.hasError('required')">Please choose a profile</mat-error>
-  <mat-hint>{{animalControl.value?.sound}}</mat-hint>
-</mat-form-field>
+<!-- PDU design with sliding inserts -->
+<div cdkDropList 
+  cdkDropListOrientation="horizontal" 
+  class="display-tiles" 
+  (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let insert of sequence; index as i" cdkDrag>
+        <button (contextmenu)="deleteInsert(i)"><img [src]="folder+insert.image" alt="your image"/>
+        </button>
+    </div>
 </div>
 
-<div class="answer">
-  <p> </p>
-  <p>Category</p>
-<mat-form-field appearance="fill">
-    <mat-label>Choose category of inserts</mat-label>
-    <mat-select [formControl]="animalControl" required>
-      <mat-option>--</mat-option>
-      <mat-option *ngFor="let animal of animals" [value]="animal">
-        {{animal.name}}
-      </mat-option>
-    </mat-select>
-    <mat-error *ngIf="animalControl.hasError('required')">Please choose something</mat-error>
-    <mat-hint>{{animalControl.value?.sound}}</mat-hint>
-  </mat-form-field>
+<div class="selects">
+  <div class="profiles-categories">
+    <!-- Drop down menu for Profiles -->
+    <div class="Profiles">
+      <p>Profile</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a profile</mat-label>
+        <mat-select [formControl]="profileNonEmptyControl" required (selectionChange)="selectProfile()">
+          <mat-option>None</mat-option>
+          <mat-option *ngFor="let profile of profiles" [value]="profile">
+          {{profile}}
+          </mat-option>
+        <!-- </mat-select> -->
+
+        </mat-select>
+        <mat-error *ngIf="profileNonEmptyControl.hasError('required')">Please choose a profile</mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Drop down menu for Category -->
+    <div class="Categories">
+      <p>Category</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose category of inserts</mat-label>
+        <mat-select [formControl]="categoryNonEmptyControl" required [(ngModel)]="chosenCategory">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let group of groupedInserts; index as i" [value]="i">
+            {{group.category}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="categoryNonEmptyControl.hasError('required')">Please choose something</mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- choose inserts -->
+  <div class="inserts-section">    
+    <div class="group-button-insertImages">
+      <button class="buttons-images" *ngFor="let sample of getInserts(chosenCategory); index as i" mat-raised-button (click)="clickAddInsert(sample, i)">
+        <img class="inserts-images" src={{folder}}{{sample}} alt="your image"/>
+        <p>{{sample}}</p>
+      </button>
+    </div>
+  </div>
+
+  <!-- <div class="inserts-section">    
+    <div class="group-button-insertImages">
+      <button class="buttons-images" *ngFor="let sample of groupedInserts" mat-raised-button (click)="clickAddInsert(sample.inserts[0])">
+        <img class="inserts-images" src={{folder}}{{sample.inserts[0]}} alt="your image"/>
+        <p>{{sample}}</p>
+      </button>
+    </div>
+  </div> -->
+
+  <div class="specifications-amount">
+     <!-- Drop down menu for Profiles -->
+     <div class="Options" *ngFor="let question of QA">
+      <p> </p>
+      <p>{{question.question}}</p>
+      <mat-form-field appearance="fill">
+        <mat-label>Choose an option</mat-label>
+        <mat-select [formControl]="qControls" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let answer of question.answers" [value]="answer">
+            {{answer}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="qControls.hasError('required')">Please choose a profile</mat-error>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button (click)="clickSave()">Save</button>
+    <button mat-raised-button routerLink="/design/order-information">Fill in order information </button>
+    <button mat-raised-button (click)="clickClear()">Clear</button>
+  </div>
+  
+      
+  <div class="outputs">
+    <p>saved sequence: </p>
+    <mat-divider></mat-divider>
+    <p *ngFor="let i of prevSequence"> {{i.name}}</p>
+    <p>-------------------------------------</p>
+    <p>amount of inserts: {{sequence.length}}</p>
+    <p>-------------------------------------</p>
+    <p>inserts on PDU:</p>
+    <mat-divider></mat-divider>
+    <p *ngFor="let i of sequence">{{i.name}}</p>
+  </div>
+
+</div>
 </div>

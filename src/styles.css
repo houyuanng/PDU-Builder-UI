@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle{
+    color:rgb(66, 134, 244);
+    background-color:rgb(66, 134, 244) ;
+  }

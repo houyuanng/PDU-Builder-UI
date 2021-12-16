@@ -1,0 +1,10 @@
+.content{
+    padding: 30px;
+}
+
+.PDU-images{
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    gap: 10px;
+}

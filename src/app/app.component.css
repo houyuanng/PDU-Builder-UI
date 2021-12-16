@@ -1,4 +1,20 @@
 .menu-bar{
-    display: block;
-    
+    display: flex;
+    height: 100%;
+    width: 210px;
+    justify-content: left;
+    align-items: flex-start;
+    float: left;
+    /* position: fixed; */
+}
+
+.menu-options{
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-top: 30pt;
+}
+
+.button-logo{
+  size: 100%;
 }

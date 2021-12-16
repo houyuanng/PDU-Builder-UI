@@ -1,1 +1,19 @@
-<p>edit-category works!</p>
+<h1 class="title-new">Edit category</h1>
+
+<div class="content">
+    <p> </p>
+    <button class="button-upload-image" mat-raised-button>Upload image</button>
+    
+    <div class="category-name-column">
+        <p class="label-category-name">Category name</p>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Search category name" (keyup)="onSubmit_searchCategory($event)">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Rename the category" (keyup)="onSubmit_renameCategory($event)">
+        </mat-form-field>
+    </div>
+    <button class="button-save-category" mat-raised-button (click)="clickSave()">Opslaan </button>
+</div>

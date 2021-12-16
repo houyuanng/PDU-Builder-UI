@@ -1,1 +1,18 @@
-<p>new-category works!</p>
+<h1 class="title-new-category">Nieuwe category</h1>
+
+<div class="content">
+    <p> </p>
+    <button class="button-upload-image" mat-raised-button>Upload image</button>
+    
+    <div class="category-name-column">
+        <p class="label-category-name">Category name</p>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Enter category name" (keyup)="onKeyUp_categoryName($event)">
+        </mat-form-field>
+
+    </div>
+    <button (click)="onSubmit()" class="button-save-category" mat-raised-button disabled="{{exist}}">Opslaan </button>
+
+</div>
+
+<!-- <app-file-upload></app-file-upload> -->

@@ -13,9 +13,18 @@ import { EditMaterialComponent } from './edit-material/edit-material.component';
 import { DesignComponent } from './design/design.component';
 import { UserManualComponent } from './user-manual/user-manual.component'; 
 import { OrdersComponent } from './orders/orders.component';
+import { GreeterComponent } from './greeter/greeter.component';
+import { OrderInformationComponent } from './design/order-information/order-information.component';
+import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
+import { OrderBomComponent } from './orders/order-bom/order-bom.component';
+import { NewSpecsComponent } from './new-insert/new-specs/new-specs.component';
+import { EditSpecsComponent } from './edit-insert/edit-specs/edit-specs.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
+  // { path: '', redirectTo: 'greeter', pathMatch: 'full'},
+  { path: 'greeter', component: GreeterComponent },
+
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'configuration', component: ConfigurationComponent },
@@ -28,7 +37,12 @@ const routes: Routes = [
   { path: 'design', component: DesignComponent },
   { path: 'user-manual', component: UserManualComponent },
   { path: 'orders', component: OrdersComponent },
-
+  { path: 'design/order-information', component: OrderInformationComponent },
+  { path: 'orders/order-summary', component: OrderSummaryComponent },
+  { path: 'orders/order-bom', component: OrderBomComponent },
+  { path: 'new-inserts/new-specs' , component: NewSpecsComponent },
+  { path: 'edit-inserts/edit-specs', component: EditSpecsComponent }
+    
 ];
 
 @NgModule({

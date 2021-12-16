@@ -1,0 +1,42 @@
+.content {
+    padding: 30px;
+}
+
+.save-button{
+    position: absolute;
+    left: 90%;
+    top: 5%;
+}
+
+.question-and-answers{
+    display: flex;
+    flex-direction: column;
+}
+
+.section-per-question{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 40%;
+}
+
+.input .mat-form-field {
+    width: 60%;
+}
+
+.answers{
+    display: flex;
+    flex-direction: column;
+}
+
+.question {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.answers-and-add-button{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

@@ -1,0 +1,32 @@
+<div class="content">
+    <h1>Voeg opties toe</h1>
+
+    <div class="question-and-answers">
+        <div class="section-per-question" *ngFor="let questionSection of QA; index as Qindex">
+            <div class="question">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Stel een vraag</mat-label>
+                    <input matInput placeholder="Placeholder" [(ngModel)]="QA[Qindex].question">
+                </mat-form-field>
+                <button mat-mini-fab color="primary" (click)="clickNewQuestion()"> + </button>
+                <button mat-mini-fab color="warn" (click)="clickDeleteQuestion(Qindex)"> - </button>
+                </div>
+
+            <div class="answers-and-add-button">
+                <div class="answers" *ngFor="let answer of questionSection.answers; trackBy: trackByAnswer; index as Aindex; ">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Voeg opties</mat-label>
+                        <input matInput placeholder="Placeholder" [(ngModel)]="QA[Qindex].answers[Aindex]">
+                        </mat-form-field>
+                    <button mat-mini-fab color="warn" (click)="clickDeleteAnswer(Qindex, Aindex)"> - </button>
+
+                </div>
+                <button mat-mini-fab color="primary" (click)="clickNewAnswer(Qindex)"> + </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="save-button">
+    <button mat-raised-button color="primary" (click)="save()"> save </button>
+</div>

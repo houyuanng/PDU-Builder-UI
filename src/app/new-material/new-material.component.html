@@ -1,1 +1,59 @@
-<p>new-material works!</p>
+<h1 class="title-new">New Material</h1>
+<div class="content"> 
+
+    <div class="section-input-process-time">
+        <p>Add process time</p>
+
+        <div class="inputs-processes">
+            <mat-form-field appearance="fill">
+                <input class="input-process" matInput placeholder="Montagetijd, zaagtijd, etc" (keyup)="onKeyUp_processName($event)">
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <input class="input-process-pricing" matInput placeholder="Price per minute" (keyup)="onKeyUp_processTime($event)">
+                <!-- add a numeric constraint where it only accepts numbers -->
+            </mat-form-field>
+
+        </div>
+        <p>{{processMessage}}</p>
+
+    </div>
+
+    <div class="section-profile">
+        <p>Add profile reference number</p>
+        <mat-form-field appearance="fill">
+            <input matInput 
+            placeholder="Voer referentie nummer van profiel in" 
+            (keyup)="onKeyUp_profileReferenceNumber($event)">
+        </mat-form-field>
+        <p>{{inputProfileReferenceNumber}}</p>
+        <mat-card>
+            <mat-card-title>{{viewProfileName}}</mat-card-title>
+            <mat-card-subtitle>{{inputProfileReferenceNumber}} <br>
+                € {{viewProfilePrice}}
+            </mat-card-subtitle>
+            <!-- <mat-card-actions>
+            </mat-card-actions> -->
+        </mat-card>
+
+    </div>
+
+    <div class="section-material">
+        <p>Add material reference number</p>
+        <mat-form-field appearance="fill">
+            <input matInput placeholder="Voer referentie nummer van materiaal in" (keyup)="onKeyUp_materialReferenceNumber($event)">
+        </mat-form-field>
+        <p>{{inputMaterialReferenceNumber}}</p>
+        <mat-card>
+            <mat-card-title>{{viewMaterialName}}</mat-card-title>
+            <mat-card-subtitle>{{inputMaterialReferenceNumber}} <br>
+                € {{viewMaterialPrice}}
+            </mat-card-subtitle>
+            <!-- <mat-card-actions>
+            </mat-card-actions> -->
+        </mat-card>
+
+    </div>
+
+</div>
+<button class="button-save" mat-raised-button (click)="click_saveItems()">Opslaan </button>

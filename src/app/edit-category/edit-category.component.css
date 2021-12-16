@@ -1,0 +1,41 @@
+.title-new {
+    display: flex;
+    padding: 30pt;
+    padding-left: 100px;
+    padding-bottom: 10px;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    padding-left: 10px;
+    gap: 10px;
+}
+
+.button-upload-image {
+    height: 150px;
+    width: 150px;
+    color: darkgray;
+}
+
+
+.button-save-category {
+    display: flex;
+    height: 50px;
+}
+
+.category-name-column {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+}
+
+input {
+    width: 290px;
+}
+
+.button-plus-one {
+    display: flex;
+    justify-content: center;
+}

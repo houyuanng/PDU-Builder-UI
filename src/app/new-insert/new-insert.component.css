@@ -1,0 +1,155 @@
+.title {
+  display: flex;
+  padding: 30pt;
+  padding-left: 100px;
+  padding-bottom: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  height: 100%;
+  }
+
+  .input-content{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    height: 100%;
+    width: 100%;
+    padding: 30px;  
+  }
+
+  /* section to upload real and schem images */
+.buttons-upload-images {
+  display: flex; 
+  flex-direction: column;
+  width: 150px;
+  gap: 10px;
+  }
+
+.button-upload-schem-image {
+  width: 150px;
+  height: 150px;
+  font-size: 10pt;
+  color: darkgray;
+  }
+
+.button-upload-real-image {
+  width: 150px;
+  height: 150px;
+  font-size: 10pt;
+  color: darkgray;
+  }
+  
+  .button-save-image {
+    width: 100px;
+    height: 50px;
+    font-size: 10pt;
+  }
+
+  .button-add-specs {
+    height: 50px;
+  }
+
+  .mat-radio-button ~ .mat-radio-button {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+  }
+
+  input {
+    width: 300px;
+  }
+
+  .section-insert-category-profile-processtime {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 10px;
+  }
+
+  .section-profiles {
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    gap: 5px;
+  }
+
+  .check-profiles {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: flex-start;  }
+
+  .section-process-time {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    align-items: center;
+  }
+
+  .row-processtimes {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    width: 300px;
+  }
+
+  .input-process-time-mins {
+    width: 75px;
+  }
+
+  .input-process {
+    width: 200px;
+  }
+
+  /* section components */
+  .section-add-component {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    align-items: center;
+  }
+
+  .row-component-conf {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    width: 500px;
+  }
+
+  .button-plus-one-process{
+    display: flex;
+    justify-content: center;
+  }
+
+  .button-plus-one-material{
+    display: flex;
+    justify-content: center;
+  }
+  .section-materiallabel-materialrows-button-add{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 600px;
+    }
+
+  .input-component{
+    width: 400px;
+  }
+
+  .input-amount{
+    width: 70px;
+  }
+
+  .button-remove-component {
+    display: flex;
+    height: 30px;
+    width: 30px;
+    justify-content: center;
+    align-items: center;
+    top: 10px;
+  }

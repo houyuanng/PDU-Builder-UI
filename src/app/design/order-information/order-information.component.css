@@ -1,0 +1,25 @@
+.allContent{
+    display: flex;
+    flex-direction: column;
+    padding: 30px; 
+}
+
+.group-information-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 300px
+}
+
+input {
+    width: 100%;
+}
+
+.body-content{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+}
+
+.button-BOM{
+    
+}

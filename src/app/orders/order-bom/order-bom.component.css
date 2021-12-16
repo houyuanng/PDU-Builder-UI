@@ -1,0 +1,13 @@
+.content {
+    padding: 30px;
+}
+
+.bomTable {
+    width: 50%;
+}
+
+td {
+    border-style: solid;
+    border-width: 2px;
+    border-color: darkgray;
+}

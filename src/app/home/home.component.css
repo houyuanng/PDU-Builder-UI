@@ -1,11 +1,22 @@
-img{
- height: 500px;
- width: 700px;
- position: relative;
- margin-left: 50mm;
+.home-content{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    padding: 30px;
+    gap: 10px;
+}
+
+.logo-image{
+    width: 500px;
+    height: auto;
 }
 
 .update-configure-docs-button{
-    position: relative;
-    margin-left: 250mm;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 100%;
+    justify-content: right;
+    align-items: flex-end;
+    gap: 10px;
 }

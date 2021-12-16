@@ -1,0 +1,75 @@
+<!-- <div class="content">
+    <h1>Voeg opties toe</h1>
+
+    <div class="question-and-answers" [(ngModel)]="QA">
+        <div class="section-per-question" *ngFor="let questionSection of QA; index as Qindex">
+            <div class="question">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Stel een vraag</mat-label>
+                    <input matInput placeholder="Placeholder" (keyup)="inputQuestion($event, Qindex)">
+                </mat-form-field>
+                <button mat-mini-fab color="primary" (click)="clickNewQuestion()"> + </button>
+
+                </div>
+
+            <div class="answers-and-add-button">
+                <div class="answers" *ngFor="let answer of questionSection.answers; index as Aindex">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Voeg opties</mat-label>
+                        <input matInput placeholder="Placeholder" (keyup)="inputAnswer($event, Qindex, Aindex)">
+                        </mat-form-field>
+                </div>
+                <button mat-mini-fab color="warn" (click)="clickNewAnswer(Qindex)"> + </button>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<button mat-mini-fab color="warn" (click)="save()"> save </button>
+
+<p *ngFor="let row of QA">{{row.question}}</p> -->
+
+
+<div class="content">
+    <h1>Voeg opties toe</h1>
+
+    <div class="question-and-answers">
+        <div class="section-per-question" *ngFor="let questionSection of QA; index as Qindex">
+            <div class="question">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Stel een vraag</mat-label>
+                    <input matInput placeholder="Placeholder" [(ngModel)]="QA[Qindex].question">
+                </mat-form-field>
+                <button mat-mini-fab color="primary" (click)="clickNewQuestion()"> + </button>
+                <button mat-mini-fab color="warn" (click)="clickDeleteQuestion(Qindex)"> - </button>
+                </div>
+
+            <div class="answers-and-add-button">
+                <div class="answers" *ngFor="let answer of questionSection.answers; index as Aindex; trackBy: trackByAnswer">
+                    <mat-form-field appearance="legacy">
+                        <mat-label>Voeg opties</mat-label>
+                        <input matInput placeholder="Placeholder" [(ngModel)]="QA[Qindex].answers[Aindex]">
+                        </mat-form-field>
+                        <button mat-mini-fab color="warn" (click)="clickDeleteAnswer(Qindex, Aindex)"> - </button>
+
+                </div>
+                <button mat-mini-fab color="primary" (click)="clickNewAnswer(Qindex)"> + </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="save-button">
+    <button mat-raised-button color="primary" (click)="save()"> save </button>
+</div>
+
+
+<!-- <div *ngFor="let i of QA">
+    <p>{{i.question}}</p>
+    <p *ngFor="let answers of i.answers">{{answers}}</p>
+</div> -->
+
+

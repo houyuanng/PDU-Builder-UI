@@ -1,0 +1,1 @@
+protoc --plugin="protoc-gen-ts=C:\Users\sudo\source\repos\PDU-Builder-UI\node_modules\.bin\protoc-gen-ts.cmd" --js_out="import_style=commonjs,binary:../PDU-Builder-UI/src/Generated" --ts_out="service=grpc-web:../PDU-Builder-UI/src/Generated" -I Protoc greet.proto

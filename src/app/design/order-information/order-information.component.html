@@ -1,0 +1,71 @@
+<div class="allContent">
+    <h1>Order #503</h1>
+
+    <div class="body-content">
+    <div class="group-information-inputs">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Bedrijf</mat-label>
+            <input matInput (keyup)="input_companyName($event)">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Contact persoon</mat-label>
+            <input matInput (keyup)="input_contactPerson($event)">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Hoeveelheid</mat-label>
+            <input matInput (keyup)="input_amount($event)">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Omschrijving</mat-label>
+            <input matInput (keyup)="input_description($event)">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Telefoon</mat-label>
+            <span matPrefix>+31 &nbsp;</span>
+            <input matInput (keyup)="input_number($event)">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput (keyup)="input_email($event)" placeholder="Ex. someone@example.com">
+        </mat-form-field>
+
+
+    <!-- <mat-form-field appearance="fill">
+        <p>Bedrijf</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_companyName($event)">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <p>Contact persoon</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_contactPerson($event)">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <p>Hoeveelheid</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_amount($event)">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <p>Omschrijving</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_descirption($event)">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <p>Telefoon</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_number($event)">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <p>Email</p>
+        <mat-label>Input</mat-label>
+        <input matInput (keyup)="input_email($event)">
+    </mat-form-field> -->
+    </div>
+        <div class="button-BOM">
+            <button mat-raised-button (click)="clickCreateOrder()" routerLink="/home">Plaats bestelling</button>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +12,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card'; 
 import { MatButtonModule } from '@angular/material/button'; 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle'; 
 
 import { AboutComponent } from './about/about.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -31,7 +34,19 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatFormFieldModule } from '@angular/material/form-field'; 
 import { MatSelectModule } from '@angular/material/select'; 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { GreeterComponent } from './greeter/greeter.component';
+import { MatMenuModule } from '@angular/material/menu'; 
+import { MatRadioModule } from '@angular/material/radio'; 
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
+import { OrderInformationComponent } from './design/order-information/order-information.component';
+import { ViewBomComponent } from './view-bom/view-bom.component';
+import { ViewSummaryComponent } from './view-summary/view-summary.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule} from '@angular/material/checkbox';
+import { OrderSummaryComponent } from './orders/order-summary/order-summary.component';
+import { OrderBomComponent } from './orders/order-bom/order-bom.component';
+import { EditSpecsComponent } from './edit-insert/edit-specs/edit-specs.component';
+import { NewSpecsComponent } from './new-insert/new-specs/new-specs.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +63,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     EditMaterialComponent,
     DesignComponent,
     UserManualComponent,
-  ],
+    GreeterComponent,
+    OrderInformationComponent,
+    ViewBomComponent,
+    ViewSummaryComponent,
+    OrderSummaryComponent,
+    OrderBomComponent,
+    EditSpecsComponent,
+    NewSpecsComponent,
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -66,7 +89,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatRadioModule,
+    HttpClientModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSlideToggleModule
   ],
 
   providers: [],

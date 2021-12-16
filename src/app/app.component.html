@@ -1,14 +1,24 @@
-<mat-toolbar color="primary" class="menu-bar">  
-  <h1>  
-    PDU Builder
-  </h1>  
+<mat-toolbar color="primary" class="menu-bar">   
+  <div class="menu-options">
+    <h1> 
+      <button class="button-logo" mat-button routerLink="/">PDU Builder</button>  
+    </h1> 
     <button mat-button routerLink="/">Home</button>  
     <button mat-button routerLink="/design">Design</button>
     <button mat-button routerLink="/orders">Orders</button>  
-    <button mat-button routerLink="/configuration">Configuration</button>  
+    <button mat-button [matMenuTriggerFor]="menu">Configuration</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/new-category">New category </button>
+      <button mat-menu-item routerLink="/new-material">New Material </button>
+      <button mat-menu-item routerLink="/new-insert">New insert </button>
+      <button mat-menu-item routerLink="/edit-category">Edit category </button>
+      <button mat-menu-item routerLink="/edit-material">Edit Material </button>
+      <button mat-menu-item routerLink="/edit-insert">Edit insert </button>
+    </mat-menu>
+
     <button mat-button routerLink="/about">About</button> 
     <button mat-button routerLink="/user-manual">User manual</button>
+    <button mat-button routerLink="/greeter">Greeter</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
-
-  
