@@ -31,6 +31,7 @@ export class EditInsertComponent implements OnInit {
   public categoriesUrl = "https://localhost:5001/api/categories";
   public processUrl = "https://localhost:5001/api/process";
   public insertUrl = "https://localhost:5001/api/inserts";
+  public insertProcessUrl = "https://localhost:5001/api/insertprocess";
 
   public materialFieldCount: number = 0;
   public processFieldCount: number = 0;
@@ -39,6 +40,7 @@ export class EditInsertComponent implements OnInit {
 
   public profileStates: ProfileConstraint[] = [];
 
+  public get_insertProcess: Process[] = [];
 
   // these are just set values to show
   public chosenCategory: string= "1";
@@ -93,15 +95,19 @@ export class EditInsertComponent implements OnInit {
       console.error(error);
     });
 
+    // get the processes of a insert
+    this.http.get(this.insertProcessUrl).subscribe
+    (data => {
+      this.get_insertProcess = data as Process[];
+    }, (error: any) => {
+      console.error(error);
+    });
+
+
   }
 
   checkedProfiles(event: any){
     console.log(event);
-  }
-
-  public test: any;
-  write(data: any) {
-    this.test = data;
   }
   
   input_insertName(event: any){
@@ -272,7 +278,7 @@ class Category{
 }
 
 // minutes should change to number when formControl is added
-class Process{
+export class Process{
   process: string = "";
   minutes: string = "";
 }
