@@ -44,6 +44,8 @@
                             placeholder="Process time"
                             aria-label="Number"
                             matInput
+                            [(ngModel)]="processBom[index].process"
+                            [ngModelOptions]="{standalone: true}"
                             [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of get_processData" [value]="option.process" (selectedOption)="selectedProcess(option.process, index)">
@@ -52,8 +54,9 @@
                     </mat-autocomplete>
                     </mat-form-field>
                 </form>
-                <mat-form-field appearance="fill" (keyup)="input_processMinutes($event, index)">
-                    <input class="input-process-time-mins" matInput placeholder="Minutes">
+                
+                <mat-form-field appearance="fill">
+                    <input class="input-process-time-mins" [(ngModel)]="processBom[index].minutes" matInput placeholder="Minutes">
                 </mat-form-field>
             </div>
 
@@ -73,21 +76,23 @@
                     <mat-form-field appearance="fill" class="input-component">
                     <mat-label>Material</mat-label>
                     <input type="text"
-                            placeholder="Add component"
-                            aria-label="Add component"
-                            matInput
-                            [matAutocomplete]="auto">
-                    <!-- idk why it dont show the selected one :/ -->
-                    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selectedMaterial($event.option.value, j)">
-                        <mat-option *ngFor="let i of materials()" [value]="i" >
-                        {{i}}
+                    class="input-process"
+                    placeholder="Process time"
+                    aria-label="Number"
+                    [(ngModel)]="bomInsert[j].name"
+                    [ngModelOptions]="{standalone: true}"
+                    matInput
+                    [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+                        <mat-option *ngFor="let i of get_materialsData" [value]="i.material_name" >
+                        {{i.material_name}}
                         </mat-option>
                     </mat-autocomplete>
                     </mat-form-field>
                 </form>
-
-                <mat-form-field class="input-amount" appearance="fill" (keyup)="materialAmount($event, j)">
-                    <input matInput placeholder="1" type="number">
+                
+                <mat-form-field class="input-amount" appearance="fill">
+                    <input matInput [(ngModel)]="bomInsert[j].amount" placeholder="1" type="number">
                 </mat-form-field>
 
                 <button class="button-remove-component" mat-mini-fab color="warn" (click)="clickDeleteMaterial(j)">-</button>
@@ -108,7 +113,5 @@
     <button class="button-save-image" mat-raised-button (click)="clickSave()">Save</button>
     <button class="button-add-specs" mat-raised-button color="primary" routerLink="/new-inserts/new-specs">Add options</button>
 
-
 </div>
 </div>
-

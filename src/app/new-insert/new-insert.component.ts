@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { materialize } from 'rxjs/operators';
 import { InsertInformation, MaterialForInsert, Material, Category, Process, ProfileConstraint } from '../Model/app-models';
+import { timeStamp } from 'console';
+import { Materials } from '../Model/logic-models';
 
 @Component({
   selector: 'app-new-insert',
@@ -11,8 +13,7 @@ import { InsertInformation, MaterialForInsert, Material, Category, Process, Prof
 })
 export class NewInsertComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
-  options: string[] = ['One', 'Two', 'Three'];
+  constructor(private http: HttpClient, private _formBuilder: FormBuilder) { }
 
   favoriteSeason: string | undefined;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
@@ -33,14 +34,13 @@ export class NewInsertComponent implements OnInit {
   public processUrl = "https://localhost:5001/api/process";
 
   public materialFieldCount: number = 0;
-  public processFieldCount: number = 0;
-  public processFields: number[] = [];
   public materialFields: number[] = [];
 
   public chosenCategory: string= "";
 
   public profileStates: ProfileConstraint[] = [];
 
+  materialControl = new FormControl();
 
   ngOnInit() {
     // get materials 
@@ -72,6 +72,8 @@ export class NewInsertComponent implements OnInit {
       console.error(error);
     });
 
+    this.bomInsert.push( new BOMfields );
+    this.processBom.push( new Process );
   }
 
   public test: any;
@@ -102,42 +104,9 @@ export class NewInsertComponent implements OnInit {
     return profiles?? [];
   }
 
-  processes() : Process[]{
-    let process: Process[] = [];
-    for (const processRow of this.get_processData){
-      // console.log(processRow.process);
-      // process = processRow.process;
-    }
-    return process;
-  }
-
-  materials() : string[] { //dont even need this :/
-    let materials: string[] = [];
-    for (const row of this.get_materialsData){
-      materials.push(row.material_name);
-    }
-    // categories = ["0", "1"];
-    return materials?? []; //then its just empty so that there is no error
-
-  }
-
-  public bomInsert: MaterialForInsert[] = [];
-  selectedMaterial(event: string, index: number) {
-    // debugger; 
-
-    console.log("value: " + event + " index: " + index);
-    let material: string = event;
-    // console.log(material);
-    let something: MaterialForInsert[] = [];
-    this.bomInsert[index] = new MaterialForInsert;
-    this.bomInsert[index].material_name = material;
-  }
+  public bomInsert: BOMfields[] = [];
 
   // add formControl to only input numbers for the amount !!!!!!!!!!!!!!!!!!!!!!!!
-  materialAmount(event: any, index: number) {
-    let amount: string = event.target.value;
-    this.bomInsert[index].amount = amount;
-  }
 
   clickDeleteMaterial(index: number){
     let something = this.bomInsert;
@@ -153,7 +122,7 @@ export class NewInsertComponent implements OnInit {
   }
    
   clickAddMaterial() {
-    this.bomInsert.push(new MaterialForInsert)
+    this.bomInsert.push(new BOMfields)
     // this.materialFields.push(this.materialFieldCount);
     // this.materialFieldCount += 1;
   }
@@ -161,14 +130,12 @@ export class NewInsertComponent implements OnInit {
   public processBom: Process[] = [];
   clickAddProcess() {
     this.processBom.push(new Process);
-
-    this.processFields.push(this.processFieldCount);
-    this.processFieldCount += 1;
+    // this.processBom[0].process
   }
 
   clickSave() {
-    let something = InsertInformation;
     console.log(this.bomInsert);
+    console.log(this.processBom);
   }
 
   selectedProfile(event: boolean, index: number, profile: string) {
@@ -184,6 +151,21 @@ export class NewInsertComponent implements OnInit {
     let minutes = event.target.value;
     this.processBom[index].minutes = minutes;
     console.log(this.processBom);
+  }
 
+  trackByFn(index: number, input: string) {
+    return index;
   }
 }
+
+export class BOMfields {
+  itemId: string = "";
+  name: string = "";
+  amount: number = 0;
+}
+
+export const _filter = (opt: string[], value: string): string[] => {
+  const filterValue = value.toLowerCase();
+
+  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+};

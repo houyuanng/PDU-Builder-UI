@@ -1,3 +1,5 @@
+// this code sucks
+
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import { FormControl, Validators } from '@angular/forms';
@@ -51,8 +53,13 @@ export class DesignComponent implements OnInit {
 
   // this needs to be a configurable thing
   public spacer: Sequence = { name: "034-8674 small.jpg", image: "034-8674 small.jpg", length: 12.5}
+  public isAutoSpacing: boolean = true;
 
-  public autoSpacer: boolean = true;
+  public isFreeLength: boolean = true;
+
+  public isTooLong: boolean = false;
+  public setPduLen: number = 4400;
+  public isInsertPlaceable: boolean = true;
 
   getInserts(chosenCategory: number) : string[] {
     var inserts = this.groupedInserts[chosenCategory]?.inserts ?? [];
@@ -110,8 +117,12 @@ export class DesignComponent implements OnInit {
   deleteInsert(index: number){
     let buff = this.sequence;
     this.sequence = [];
+
+    this.pduLen = 0;
+
     for (let i = 0; i < buff.length; i++) {
       if (i != index){
+        this.pduLen += buff[i].length;
         this.sequence.push( {
           name: buff[i].name,
           image: buff[i].image,
@@ -119,6 +130,7 @@ export class DesignComponent implements OnInit {
         });
       }
     }
+    this.prev_supportPieceLen = this.pduLen;
   }
 
   getInsertsInCategory()  {  
@@ -168,9 +180,14 @@ export class DesignComponent implements OnInit {
   }
 
   placeSpacers() {
-    this.autoSpacer = !this.autoSpacer;
-    console.log("changed");
+    this.isAutoSpacing = !this.isAutoSpacing;
+  }
 
+  toggleLengthConstraint() {
+    this.isFreeLength = !this.isFreeLength;
+    if (this.isFreeLength){
+      this.isTooLong = false;
+    }
   }
 
   getCategories(inserts: Inserts[]) {
@@ -225,20 +242,30 @@ export class DesignComponent implements OnInit {
   }
 
   clickAddInsert(insert: string, index: number) {
-    this.sequence.push( {
-      name: insert,
-      image: insert,
-      length: this.get_insertsData[index].length_in_mm
-    });
-
-    this.pduLen += this.get_insertsData[index].length_in_mm;
-
-    if (this.autoSpacer){
-      if (Math.abs(this.prev_supportPieceLen - this.pduLen) >= 1000){
-        this.sequence.push(this.spacer);
-        this.prev_supportPieceLen = this.pduLen;
+    if (!this.isFreeLength) {
+      if ( this.pduLen > this.setPduLen){
+        this.isTooLong = true;
       }
     }
+
+    
+    if (!this.isTooLong){
+      this.sequence.push( {
+        name: insert,
+        image: insert,
+        length: this.get_insertsData[index].length_in_mm
+      });
+
+      this.pduLen += this.get_insertsData[index].length_in_mm;
+
+      if (this.isAutoSpacing){
+        if (Math.abs(this.prev_supportPieceLen - this.pduLen) >= 1000){
+          this.sequence.push(this.spacer);
+          this.prev_supportPieceLen = this.pduLen;
+        }
+      }
+    }
+
   }
 
   profileNonEmptyControl = new FormControl('', Validators.required);

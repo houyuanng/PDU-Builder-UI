@@ -13,6 +13,9 @@ export class OrderSummaryComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   public get_orders: Orders[] = [];
+  public informationLable: string[] = [
+    ""
+  ];
 
   ngOnInit(): void {
     const url = "https://localhost:5001/api/orders";

@@ -1,15 +1,29 @@
 <div class="row-everything">
 <h1>Design</h1>
 <div class="length-spacers">
-<p>Length: {{pduLen}}</p>
+<p>Length: {{pduLen}}mm</p>
 <!-- <mat-checkbox *ngFor="let profile of parseProfiles(); index as i" [checked]="profileStates[i].selected" [value]="profile" (change)="selectedProfile($event.checked, i, profile)"> {{profile}}</mat-checkbox> -->
 <!-- <mat-checkbox [checked]="autoSpacer" (click)="placeSpacers()"> auto spacer</mat-checkbox> -->
 <mat-slide-toggle
   color="primary"
-  [checked]="autoSpacer"
+  [checked]="isAutoSpacing"
   (change)="placeSpacers()">
   Automatisch bindplaat plaatsen
 </mat-slide-toggle>
+
+<mat-slide-toggle
+  color="primary"
+  [checked]="isFreeLength"
+  (change)="toggleLengthConstraint()">
+  Vrije lengte
+</mat-slide-toggle>
+
+<form class="example-form">
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Lengte</mat-label>
+    <input matInput disabled="{{isFreeLength}}" value="{{setPduLen}}">
+  </mat-form-field>
+</form>
 <!-- <button mat-raised-button (click)="placeSpacers()" color="autoSpacerButtonColor">Plaats bindplaten</button> -->
 </div>
 
@@ -23,6 +37,10 @@
         </button>
     </div>
 </div>
+
+
+
+
 
 <div class="selects">
   <div class="profiles-categories">
