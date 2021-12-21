@@ -30,7 +30,9 @@ export class GreeterComponent {
     // const url = "http://localhost:49528/api/Home";
     const url = "https://localhost:5001/api/greeter";
 
-    let mockData: Materials = {material_name: "material Name sfpwjf", price: 0, ItemId: "fkoiwefjr", description: "mateiral"};
+    let mockData: Materials[] = [
+      { material_name: "material Name1 sfpwjf", price: 0, itemId: "f32rrdffjr", description: "matewrgval" },
+      { material_name: "material Name2 sfpwjf", price: 20, itemId: "fkoiwefjr", description: "mateiral" }];
 
     const retVal = this.http.post(url, {mockData}).subscribe
     (data => {this.retPostData = data;

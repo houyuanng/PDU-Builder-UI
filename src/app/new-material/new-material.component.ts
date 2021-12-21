@@ -89,6 +89,7 @@ export class NewMaterialComponent implements OnInit {
   }
 
   click_saveItems() {
+    this.formatAllData();
     this.clickSave = true;
     if (this.clickSearchMaterial) {
       let sendMaterial: string;
@@ -173,7 +174,7 @@ export class NewMaterialComponent implements OnInit {
       { 
         material_name : this.viewMaterialName,
         price : this.viewMaterialPrice,
-        ItemId : this.inputMaterialReferenceNumber,
+        itemId : this.inputMaterialReferenceNumber,
         description : "MATERIAL"
     }];
 
@@ -181,7 +182,7 @@ export class NewMaterialComponent implements OnInit {
       {
         material_name : this.viewProfileName,
         price : this.viewProfilePrice,
-        ItemId : this.inputProfileReferenceNumber,
+        itemId : this.inputProfileReferenceNumber,
         description : "PROFILE"
       }];
 
@@ -190,5 +191,7 @@ export class NewMaterialComponent implements OnInit {
         process: this.inputProcessName,
         price: this.inputProcessPrice
       }];
+
+      console.log(newProfile);
   }
 }

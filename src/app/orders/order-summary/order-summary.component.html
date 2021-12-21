@@ -6,22 +6,58 @@
         <img src={{defineOrders()[0].schem_design_img_addr}} alt="schematic PDU sample">
     </div>
 
+    
     <div class="summary-table">
         <table cdk-table [dataSource]="tableContents()" class="orderTable">
             <ng-container cdkColumnDef="item">
+                <th cdk-header-cell *cdkHeaderCellDef> Item id </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.itemId}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="content">
+                <th cdk-header-cell *cdkHeaderCellDef> material name </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="amount">
+                <th cdk-header-cell *cdkHeaderCellDef> amount </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.amount}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="price-per-part">
+                <th cdk-header-cell *cdkHeaderCellDef> price per part </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.pricePerPart}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="total-price">
+                <th cdk-header-cell *cdkHeaderCellDef> total price </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.totalPrice}} </td>
+            </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="['item', 'content', 'price-per-part', 'amount', 'total-price']; sticky: true"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: ['item', 'content', 'price-per-part', 'amount', 'total-price']"></tr>
+    </table>
+    </div>
+
+    <!-- <div class="summary-table">
+        <table cdk-table [dataSource]="tableContents()" class="orderTable">
+            <ng-container cdkColumnDef="item">
                 <th cdk-header-cell *cdkHeaderCellDef> </th>
-                <td cdk-cell *cdkCellDef="let row"> {{row.names}} </td>
+                <td cdk-cell *cdkCellDef="let row"> {{row.itemId}} </td>
             </ng-container>
             <ng-container cdkColumnDef="content">
                 <th cdk-header-cell *cdkHeaderCellDef> </th>
-                <td cdk-cell *cdkCellDef="let row"> {{row.content}} </td>
+                <td cdk-cell *cdkCellDef="let row"> {{row.name}} </td>
             </ng-container>
-            <ng-container cdkColumnDef="prices">
+            <ng-container cdkColumnDef="amount">
                 <th cdk-header-cell *cdkHeaderCellDef> </th>
-                <td cdk-cell *cdkCellDef="let row"> {{row.prices}} </td>
+                <td cdk-cell *cdkCellDef="let row"> {{row.amount}} </td>
             </ng-container>
-          <tr cdk-header-row *cdkHeaderRowDef="['item', 'content', 'prices']; sticky: true"></tr>
-      <tr cdk-row *cdkRowDef="let row; columns: ['item', 'content', 'prices']"></tr>
+            <ng-container cdkColumnDef="price-per-part">
+                <th cdk-header-cell *cdkHeaderCellDef> </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.pricePerPart}} </td>
+            </ng-container>
+            <ng-container cdkColumnDef="total-price">
+                <th cdk-header-cell *cdkHeaderCellDef> </th>
+                <td cdk-cell *cdkCellDef="let row"> {{row.totalPrice}} </td>
+            </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="['item', 'content', 'price-per-part', 'amount', 'total-price']; sticky: true"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: ['item', 'content', 'price-per-part', 'amount', 'total-price']"></tr>
     </table>
-    </div>
+    </div> -->
 </div>

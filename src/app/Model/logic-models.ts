@@ -16,7 +16,7 @@ export class Process {
 }
 
 export class Materials {
-    ItemId: string = "";
+    itemId: string = "";
     material_name: string = "";
     price: number = 0;
     description: string = "";

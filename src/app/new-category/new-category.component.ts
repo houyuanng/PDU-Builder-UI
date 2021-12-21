@@ -15,7 +15,6 @@ export class NewCategoryComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   public inputCategoryName: string = "";
-  public output: string = ""
   public event_save: string = "";
 
   public urlCategory = "https://localhost:5001/api/categories";
@@ -26,7 +25,7 @@ export class NewCategoryComponent implements OnInit {
   control = new FormControl(false);
 
   ngOnInit(): void {
-    const retCatVal = this.http.get(this.urlCategory).subscribe
+    this.http.get(this.urlCategory).subscribe
     (data => {this.get_categories = data as Category[];
       console.log(data);
     },  (error: any) => {
@@ -51,12 +50,16 @@ export class NewCategoryComponent implements OnInit {
     else{ 
       this.exist = false;
     }
-
   }
 
   onSubmit() {
     this.event_save = "clicked";
-    this.output = this.inputCategoryName;
 
+    let output: Category = { category: this.inputCategoryName, thumbnail_addr: "thumbnail" };
+
+    this.http.post(this.urlCategory, {output}).subscribe(),
+    (error: any) => {
+      console.error(error);
+    };
   }
 }
