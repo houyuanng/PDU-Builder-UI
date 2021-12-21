@@ -5,12 +5,20 @@
         <p>Add process time</p>
 
         <div class="inputs-processes">
-            <mat-form-field appearance="fill">
-                <input class="input-process" matInput placeholder="Montagetijd, zaagtijd, etc" (keyup)="onKeyUp_processName($event)">
+            <mat-form-field class="input-process" appearance="fill">
+                <input 
+                    matInput 
+                    placeholder="Montagetijd, zaagtijd, etc" 
+                    (keyup)="onKeyUp_processName($event)"
+                    >
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <input class="input-process-pricing" matInput placeholder="Price per minute" (keyup)="onKeyUp_processTime($event)">
+            <mat-form-field class="input-process-pricing" appearance="fill">
+                <input 
+                    matInput 
+                    placeholder="Price per minute" 
+                    [(ngModel)]="inputProcessPrice">
+                    <span matPrefix>€&nbsp;</span>
                 <!-- add a numeric constraint where it only accepts numbers -->
             </mat-form-field>
 
@@ -26,10 +34,9 @@
             placeholder="Voer referentie nummer van profiel in" 
             (keyup)="onKeyUp_profileReferenceNumber($event)">
         </mat-form-field>
-        <p>{{inputProfileReferenceNumber}}</p>
         <mat-card>
             <mat-card-title>{{viewProfileName}}</mat-card-title>
-            <mat-card-subtitle>{{inputProfileReferenceNumber}} <br>
+            <mat-card-subtitle>{{viewProfileRef}} <br>
                 € {{viewProfilePrice}}
             </mat-card-subtitle>
             <!-- <mat-card-actions>
@@ -41,12 +48,14 @@
     <div class="section-material">
         <p>Add material reference number</p>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Voer referentie nummer van materiaal in" (keyup)="onKeyUp_materialReferenceNumber($event)">
+            <input 
+            matInput 
+            placeholder="Voer referentie nummer van materiaal in" 
+            (keyup)="onKeyUp_materialReferenceNumber($event)">
         </mat-form-field>
-        <p>{{inputMaterialReferenceNumber}}</p>
         <mat-card>
             <mat-card-title>{{viewMaterialName}}</mat-card-title>
-            <mat-card-subtitle>{{inputMaterialReferenceNumber}} <br>
+            <mat-card-subtitle>{{viewMaterialRef}} <br>
                 € {{viewMaterialPrice}}
             </mat-card-subtitle>
             <!-- <mat-card-actions>
@@ -56,4 +65,4 @@
     </div>
 
 </div>
-<button class="button-save" mat-raised-button (click)="click_saveItems()">Opslaan </button>
+<button class="button-save" mat-raised-button (click)="clickSave()">Opslaan </button>

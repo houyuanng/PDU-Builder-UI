@@ -21,11 +21,11 @@
 .inputs-processes {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    justify-content: space-between;
 }
 
 .input-process {
-    width: 180px;
+    width: 200px;
 }
 .input-process-pricing {
     width: 85px;

@@ -6,7 +6,7 @@
     <div class="section-insert-category-profile-processtime">
         <P>Insert name</P>
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Give insert name" (keyup)="input_insertName($event)">
+            <input matInput placeholder="Give insert name" [(ngModel)]="NewInsert.insertName">
         </mat-form-field>
 
         <p>Add insert to a category</p>
@@ -17,7 +17,7 @@
                     placeholder="Category"
                     aria-label="Category"
                     matInput
-                    [(ngModel)]="chosenCategory"
+                    [(ngModel)]="NewInsert.category"
                     [ngModelOptions]="{standalone: true}"
                     [matAutocomplete]="auto">
             <mat-autocomplete #auto="matAutocomplete">
@@ -28,14 +28,26 @@
             </mat-form-field>
         </form>
 
+        <p>Length of insert</p>
+        <mat-form-field appearance="fill">
+            <input matInput [(ngModel)]="NewInsert.length" placeholder="length of insert">
+        </mat-form-field>
+
         <div class="check-profiles" >
         <p>profiles that fit this insert:</p>
-        <mat-checkbox *ngFor="let profile of parseProfiles(); index as i" [checked]="profileStates[i].selected" [value]="profile" (change)="selectedProfile($event.checked, i, profile)"> {{profile}}</mat-checkbox>
+        <mat-checkbox 
+            *ngFor="let profile of parseProfiles(); index as i" 
+            [checked]="profileStates[i].selected" 
+            [value]="profile" 
+            (change)="selectedProfile($event.checked, i, profile)"> 
+                {{profile}}
+
+        </mat-checkbox>
         </div>
 
             <p>Add process time</p>
             <div class="section-process-time">
-            <div class="row-processtimes" *ngFor="let i of processBom; index as index">
+            <div class="row-processtimes" *ngFor="let i of NewInsert.processes; index as index">
                 <form>
                     <mat-form-field appearance="fill">
                     <mat-label>Process</mat-label>
@@ -44,9 +56,10 @@
                             placeholder="Process time"
                             aria-label="Number"
                             matInput
-                            [(ngModel)]="processBom[index].process"
+                            [(ngModel)]="NewInsert.processes[index].process"
                             [ngModelOptions]="{standalone: true}"
                             [matAutocomplete]="auto">
+                            <!-- [(ngModel)]="processBom[index].process" -->
                     <mat-autocomplete #auto="matAutocomplete">
                         <mat-option *ngFor="let option of get_processData" [value]="option.process" (selectedOption)="selectedProcess(option.process, index)">
                         {{option.process}}
@@ -56,8 +69,9 @@
                 </form>
                 
                 <mat-form-field appearance="fill">
-                    <input class="input-process-time-mins" [(ngModel)]="processBom[index].minutes" matInput placeholder="Minutes">
+                    <input class="input-process-time-mins" [(ngModel)]="NewInsert.processes[index].minutes" matInput placeholder="Minutes">
                 </mat-form-field>
+                <button class="button-remove-component" mat-mini-fab color="warn" (click)="clickDeleteProcess(index)">-</button>
             </div>
 
             <div class="button-plus-one-process">
@@ -71,7 +85,7 @@
         <div class="section-materiallabel-materialrows-button-add">
             <p>Add material to this insert</p>
 
-            <div class="row-component-conf" *ngFor="let fields of bomInsert; index as j">
+            <div class="row-component-conf" *ngFor="let fields of NewInsert.bom; index as j">
                 <form> 
                     <mat-form-field appearance="fill" class="input-component">
                     <mat-label>Material</mat-label>
@@ -79,12 +93,13 @@
                     class="input-process"
                     placeholder="Process time"
                     aria-label="Number"
-                    [(ngModel)]="bomInsert[j].name"
+                    [(ngModel)]="NewInsert.bom[j].name"
                     [ngModelOptions]="{standalone: true}"
                     matInput
                     [matAutocomplete]="auto">
+                    <!-- [(ngModel)]="bomInsert[j].name" -->
                     <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
-                        <mat-option *ngFor="let i of get_materialsData" [value]="i.material_name" >
+                        <mat-option *ngFor="let i of get_materialsData" [value]="i.material_name">
                         {{i.material_name}}
                         </mat-option>
                     </mat-autocomplete>
@@ -92,7 +107,7 @@
                 </form>
                 
                 <mat-form-field class="input-amount" appearance="fill">
-                    <input matInput [(ngModel)]="bomInsert[j].amount" placeholder="1" type="number">
+                    <input matInput [(ngModel)]="NewInsert.bom[j].amount" placeholder="1" type="number">
                 </mat-form-field>
 
                 <button class="button-remove-component" mat-mini-fab color="warn" (click)="clickDeleteMaterial(j)">-</button>
@@ -110,8 +125,10 @@
         <button class="button-upload-real-image" mat-raised-button>Upload schematic <br> image</button>
         <button class="button-upload-schem-image" mat-raised-button>Upload real image</button>
     </div>
-    <button class="button-save-image" mat-raised-button (click)="clickSave()">Save</button>
-    <button class="button-add-specs" mat-raised-button color="primary" routerLink="/new-inserts/new-specs">Add options</button>
+    <div class="section-addOptions-save">
+        <button class="button-save-image" mat-raised-button (click)="clickSave()">Save</button>
+        <button class="button-add-specs" mat-raised-button color="primary" routerLink="/new-inserts/new-specs">Add options</button>
+    </div>
 
 </div>
 </div>

@@ -4,23 +4,32 @@
 
     <div class="section-input-process-time">
         <p>Search process time</p>
-
+            <form>
             <mat-form-field appearance="fill">
-                <input class="input-process" matInput (keyup)="inputEventSearchProcess($event)" placeholder="Zoek proces tijd">
+                <input 
+                    class="input-process" 
+                    matInput 
+                    [(ngModel)]="inputSearchProcess" 
+                    [ngModelOptions]="{standalone: true}"
+                    placeholder="Zoek proces tijd"
+                    [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete">
+                        <mat-option *ngFor="let option of get_processData" [value]="option.process">
+                        {{option.process}}
+                        </mat-option>
+                    </mat-autocomplete>
             </mat-form-field>
-
+        </form>
             <div class="inputs-processes">
+                <mat-form-field class="input-process" appearance="fill">
+                    <input matInput [(ngModel)]="editProcessName" value="{{viewProcessName}}" placeholder="Proces naam bewerken">
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <input class="input-process" matInput (keyup)="inputEventEditProcessName($event)" value="{{viewProcessName}}" placeholder="Proces naam bewerken">
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <input class="input-process-pricing" matInput (keyup)="inputEventEditProcessPrice($event)" value="{{viewProcessPrice}}" placeholder="bewerk prijs">
-            </mat-form-field>            
-        </div>
+                <mat-form-field class="input-process-pricing" appearance="fill">
+                    <input matInput [(ngModel)]="editProcessPrice" value="{{viewProcessPrice}}" placeholder="bewerk prijs">
+                </mat-form-field>            
+            </div>
         <button class="button-save" mat-raised-button (click)="clickDeleteProcess($event)">delete process </button>
-
     </div>
 
 
@@ -28,7 +37,7 @@
 
         <p>Search profile</p>
         <mat-form-field appearance="fill">
-            <input matInput (keyup)="inputEventSearchProfile($event)" placeholder="Zoek naam of referentie nummer">
+            <input matInput [(ngModel)]="inputSearchProfile" placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>
@@ -47,7 +56,7 @@
         <p>Search material</p>
 
         <mat-form-field appearance="fill">
-            <input matInput (keyup)="inputEventSearchMaterial($event)" placeholder="Zoek naam of referentie nummer">
+            <input matInput [(ngModel)]="inputSearchMaterial" placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>

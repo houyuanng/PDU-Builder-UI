@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { QandA } from 'src/app/Model/app-models';
 
 @Component({
@@ -8,7 +8,7 @@ import { QandA } from 'src/app/Model/app-models';
 })
 export class NewSpecsComponent implements OnInit {
 
-  constructor() { }
+  constructor( ) { }
 
   public QA: QandA[] = [];
   public question: string = "";
@@ -17,7 +17,6 @@ export class NewSpecsComponent implements OnInit {
   ngOnInit(): void {
     this.clearOptions();
   }
-
 
   clearOptions() {
     this.QA.push( new QandA );

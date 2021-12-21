@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { materialize } from 'rxjs/operators';
 import { InsertInformation, MaterialForInsert, Material, Category, Process, ProfileConstraint } from '../Model/app-models';
 import { timeStamp } from 'console';
 import { Materials } from '../Model/logic-models';
+import { SpecListFields } from '../design/design.component';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-new-insert',
@@ -12,8 +14,9 @@ import { Materials } from '../Model/logic-models';
   styleUrls: ['./new-insert.component.css']
 })
 export class NewInsertComponent implements OnInit {
+  
 
-  constructor(private http: HttpClient, private _formBuilder: FormBuilder) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   favoriteSeason: string | undefined;
   seasons: string[] = ['Winter', 'Spring', 'Summer', 'Autumn'];
@@ -36,15 +39,15 @@ export class NewInsertComponent implements OnInit {
   public materialFieldCount: number = 0;
   public materialFields: number[] = [];
 
-  public chosenCategory: string= "";
-
   public profileStates: ProfileConstraint[] = [];
+
+  public NewInsert: NewInsert = new NewInsert;
 
   materialControl = new FormControl();
 
   ngOnInit() {
     // get materials 
-    const retMaterialsVal = this.http.get(this.materialUrl).subscribe
+    this.http.get(this.materialUrl).subscribe
     (data => {
       this.get_materialsData = data as Material[];
       this.materials_dataCount = Object.keys(data).length;
@@ -53,7 +56,7 @@ export class NewInsertComponent implements OnInit {
     });
 
     // get categories
-    const retCatVals = this.http.get(this.categoriesUrl).subscribe
+    this.http.get(this.categoriesUrl).subscribe
     (data => {
       this.get_categoriesData = data as Category[];
       this.categories_dataCount = Object.keys(data).length;
@@ -63,7 +66,7 @@ export class NewInsertComponent implements OnInit {
     });
 
     // get categories
-    const retProcessVals = this.http.get(this.processUrl).subscribe
+    this.http.get(this.processUrl).subscribe
     (data => {
       this.get_processData = data as Process[];
       this.process_dataCount = Object.keys(data).length;
@@ -72,18 +75,10 @@ export class NewInsertComponent implements OnInit {
       console.error(error);
     });
 
-    this.bomInsert.push( new BOMfields );
     this.processBom.push( new Process );
-  }
 
-  public test: any;
-  write(data: any) {
-    this.test = data;
-  }
-  
-  input_insertName(event: any){
-    this.newInsertInput = event.target.value;
-    this.write(event.target.value);
+    this.NewInsert.bom.push( new BOMfields );
+    this.NewInsert.processes.push( new Process );
   }
 
   parseProfiles() : string[]{
@@ -104,43 +99,67 @@ export class NewInsertComponent implements OnInit {
     return profiles?? [];
   }
 
-  public bomInsert: BOMfields[] = [];
-
   // add formControl to only input numbers for the amount !!!!!!!!!!!!!!!!!!!!!!!!
-
   clickDeleteMaterial(index: number){
-    let something = this.bomInsert;
-    
-    this.bomInsert = [];
+    let holder = this.NewInsert.bom;
+    this.NewInsert.bom = [];
 
-    for (let i = 0; i < something.length; i++){
+    for (let i = 0; i < holder.length; i++){
       if (i != index){
-        this.bomInsert.push(something[i]);
+        this.NewInsert.bom.push(holder[i]);
       }
     }
-    console.log(this.bomInsert);
   }
-   
+  
+  clickDeleteProcess(index: number) {
+    let holder = this.NewInsert.processes;
+    this.NewInsert.processes = [];
+
+    for (let i = 0; i < holder.length; i++){
+      if (i != index){
+        this.NewInsert.processes.push(holder[i]);
+      }
+    }
+  }
+
   clickAddMaterial() {
-    this.bomInsert.push(new BOMfields)
+    this.NewInsert.bom.push( new BOMfields );
     // this.materialFields.push(this.materialFieldCount);
     // this.materialFieldCount += 1;
   }
 
   public processBom: Process[] = [];
   clickAddProcess() {
+    this.NewInsert.processes.push(new Process);
     this.processBom.push(new Process);
     // this.processBom[0].process
   }
 
   clickSave() {
-    console.log(this.bomInsert);
-    console.log(this.processBom);
+    // console.log(this.bomInsert);
+    // console.log(this.processBom);
+    console.log(this.NewInsert);
   }
 
   selectedProfile(event: boolean, index: number, profile: string) {
     this.profileStates[index].selected = event;
-    console.log(this.profileStates);
+    this.profileStates[index].profile = profile;
+
+    let profileString: string = "";
+
+    for (let profile of this.profileStates){
+      if (profile.selected){
+        if (profileString != ""){
+          profileString += "-" + profile.profile;
+        }
+        else {
+          profileString += profile.profile;
+        }
+      }
+    }
+    
+    this.NewInsert.profileConstraint = profileString;
+
   }
 
   selectedProcess(event: any, index: number) {
@@ -151,6 +170,8 @@ export class NewInsertComponent implements OnInit {
     let minutes = event.target.value;
     this.processBom[index].minutes = minutes;
     console.log(this.processBom);
+
+
   }
 
   trackByFn(index: number, input: string) {
@@ -164,8 +185,23 @@ export class BOMfields {
   amount: number = 0;
 }
 
+export class NewInsert {
+  insertName: string = "";
+  length: number = 0
+  category: string = "";
+  profileConstraint: string = "";
+  processes: Process[] = [];
+  specs: SpecListFields[] = [];
+  bom: BOMfields[] = [];
+  positionOnPdu: string = "";
+  realImage: string = "";
+  schemImage: string = "";
+
+}
+
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
 
   return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
 };
+

@@ -16,25 +16,21 @@
 .section-input-process-time {
     display: flex;
     flex-direction: column;
+    width: 290px;
 }
 
 .inputs-processes {
     display: flex;
     flex-direction: row;
-    width: 290px;
-    gap: 15px;
+    justify-content: space-between;
 }
 
 .input-process {
-    width: 180px;
+    width: 200px;
 }
 .input-process-pricing {
     width: 85px;
 }
-
-/* input { 
-    width: 290px;
-} */
 
 .section-material {
     display: flex;

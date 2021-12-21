@@ -4,8 +4,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { materialize } from 'rxjs/operators';
-import { Process } from '../Model/app-models';
+import { Material, Process } from '../Model/app-models';
 import { editProcess, EditedMaterial } from '../Model/app-models';
+import { Materials } from '../Model/logic-models';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class EditMaterialComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   url_materialsdb = "https://localhost:5001/api/materials";
-  url_process = "https://localhost:5001/api/process"
+  url_process = "https://localhost:5001/api/process";
+  url_editMaterial = "https://localhost:5001/api/materials/edit";
 
   public get_materialsData: any = {};
   public materialsDataCount: number = 0;
@@ -35,8 +37,8 @@ export class EditMaterialComponent implements OnInit {
   public inputSearchMaterial: string = "search material";
   public inputSearchProfile: string = "search profile";
   
-  public inputEditProcessName: string = "edit process name";
-  public inputEditProcessPrice: number = 0.00;
+  public editProcessName: string = "edit process name";
+  public editProcessPrice: number = 0.00;
   public foundProcess: boolean = false;
   public processIndex = 0;
 
@@ -48,64 +50,46 @@ export class EditMaterialComponent implements OnInit {
   public materialIndex = 0;
   public viewProcessName: string = "";
   public viewProcessPrice: number = 0;
-  public newProcessName: string = "";
-  public newProcessPrice: string = "";
 
   public viewDesc: any;
 
-  public raw_materialInput: string = "";
-  public raw_profileInput: string = "";
-  public raw_processInput: string = "";
-  public raw_processEditName: string = "";
-  public raw_processEditPrice: string = "";
+  public profiles: Materials[] = [];
+  public materials: Materials[] = [];
 
   ngOnInit(): void {
     const getProcesVal = this.http.get(this.url_process).subscribe
     (data => {this.get_processData = data as Process[];
-      this.processDataCount = Object.keys(data).length;
     }, (error: any) => {
       console.log(error);
     });
 
-    const getMaterialsVal = this.http.get(this.url_materialsdb).subscribe
-    (data => {this.get_materialsData = data;
-      this.materialsDataCount = Object.keys(data).length;
+    this.http.get(this.url_materialsdb).subscribe
+    (data => {
+      this.get_materialsData = data as Materials[];
+      this.materials = this.parseMaterials(this.get_materialsData);
+      this.profiles = this.parseProfiles(this.get_materialsData);
     }, (error: any) => {
       console.log(error);
     });
   }
 
-  inputEventSearchProcess(event: any) {
-    this.raw_processInput = event.target.value;
-    this.searchProcess(event.target.value);
+  parseProfiles(rawMaterials: Materials[]) : Materials[]{
+    let profiles: Materials[] = [];
+    for (let material of rawMaterials){
+      if (material.description == "PROFILE"){
+        profiles.push({ itemId: material.itemId, material_name: material.material_name, price: material.price, description: material.description });
+      }
+    }
+    return profiles;
   }
-
-  inputEventEditProcessPrice(event: any) {
-    this.inputEditProcessPrice = event.target.value;
-
-  }
-
-  inputEventEditProcessName(event: any) {
-    this.inputEditProcessName = event.target.value;
-
-  }
-
-  inputEventSearchProfile(event: any) {
-    this.inputSearchProfile = event.target.value;
-    this.searchProfile(event.target.value);
-  }
-
-  inputEventSearchMaterial(event: any) {
-    this.inputSearchMaterial = event.target.value;
-    this.searchMaterial(event.target.value)
-  }
-
-  inputNewProcessName(event: any) {
-    this.newProcessName = event.target.value;
-
-  }
-  inputNewProcessPrice(event: any){
-    this.newProcessPrice = event.target.value;
+  parseMaterials(rawMaterials: Materials[]) : Materials[]{
+    let materials: Materials[] = [];
+    for (let material of rawMaterials){
+      if (material.description == "MATERIAL"){
+        materials.push({ itemId: material.itemId, material_name: material.material_name, price: material.price, description: material.description });
+      }
+    }
+    return materials;
   }
 
   clickEventDeleteProfile(event: any){
