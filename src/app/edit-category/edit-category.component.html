@@ -2,17 +2,27 @@
 
 <div class="content">
     <p> </p>
-    <button class="button-upload-image" mat-raised-button>Upload image</button>
+    <button class="button-upload-image" mat-raised-button><img src="{{newCategoryEntry.thumbnail_addr}}" alt="Upload image"></button>
     
+    <img src="" alt="">
     <div class="category-name-column">
         <p class="label-category-name">Category name</p>
 
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Search category name" (keyup)="onSubmit_searchCategory($event)">
+            <input matInput 
+            placeholder="Search category name" 
+            [(ngModel)]="searchedCat"
+            [matAutocomplete]="auto"
+            >
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">    
+                <mat-option *ngFor="let option of get_categories" [value]="option.category">
+                    {{option.category}}
+                  </mat-option>
+            </mat-autocomplete>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <input matInput placeholder="Rename the category" (keyup)="onSubmit_renameCategory($event)">
+            <input matInput placeholder="Rename the category" [(ngModel)]="newCategoryEntry.category">
         </mat-form-field>
     </div>
     <button class="button-save-category" mat-raised-button (click)="clickSave()">Opslaan </button>

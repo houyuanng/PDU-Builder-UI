@@ -13,32 +13,33 @@ export class EditCategoryComponent{
   constructor(private http: HttpClient) {};
   private subscriptions: Subscription = new Subscription();
 
+  public allCatsUrl = "https://localhost:5001/api/categories";
+  public editCatUrl = "https://localhost:5001/api/categories/edit";
+
   public get_categories: Category[] = [];
-  public newName: string = "";
+  public searchedCat: string = "";
+
+  public newCategoryEntry: Category = { category: "", thumbnail_addr: ""};
 
   ngOnInit() {
-
-    this.getData();
+    let allCats: Category[] = this.getAllCats();
   }
 
-  public onSubmit_renameCategory(event: any) {
-    this.newName = event.target.value;
-    console.log(this.newName);
+  getAllCats() : Category[]{
+    this.http.get(this.allCatsUrl).subscribe
+    (data => { this.get_categories = data as Category[]; }, 
+      ( error => { console.log(error) })
+    );
+    return this.get_categories;
   }
 
-  public onSubmit_searchCategory(event: any) {
-    this.newName = event.target.value;
-    console.log(this.newName);
-  }
-
-  public getData() {
-    const url = "https://localhost:5001/api/categories";
-    const retVal = this.http.get(url).subscribe
-    (data => {this.get_categories = data as Category[];
-    });
+  pushEditedCategory(searchByCategory: string, updateWithCategory: Category) {
+    this.http.post(this.editCatUrl, {searchByCategory, updateWithCategory}).subscribe( error => 
+      { console.log(error) });
   }
 
   clickSave(){
-  this.newName = "clicked on save";
+  console.log(this.newCategoryEntry);
+  this.pushEditedCategory(this.searchedCat, this.newCategoryEntry);
   }
 }
