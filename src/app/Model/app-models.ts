@@ -28,9 +28,9 @@ export class Category{
 }
 
 // minutes should change to number when formControl is added
-export class Process{
+export class InsertProcess{
   process: string = "";
-  minutes: string = "";
+  minutes: number = 0;
 }
 
 export class ProfileConstraint{

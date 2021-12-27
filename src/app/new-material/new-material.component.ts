@@ -87,17 +87,20 @@ export class NewMaterialComponent implements OnInit {
   }
 
   clickSave() { // does not push profiles and materials yet because parsing the whole excel is too slow, no way to show progress
-    if (this.canSaveMaterial) {
+    if (this.canSaveMaterial && this.inputMaterialReferenceNumber != "") {
+      console.log("trying to push mmaterial");
       let material: Materials = this.formatMaterialData();
-      // this.pushMaterial(material);
+      this.pushMaterial(material);
       this.canSaveMaterial = false;
     }
-    if (this.canSaveProfile) {
+    if (this.canSaveProfile && this.inputProfileReferenceNumber != "") {
+      console.log("trying to push profile");
       let profiles: Materials = this.formatProfilesData();
-      //this.pushProfile(profiles);
+      this.pushProfile(profiles);
       this.canSaveProfile = false;
     }
     if ((this.inputProcessName != "" && this.canSaveProcess) || (this.canSaveProcess)) {
+      console.log("trying to push process");
       let process = this.formatProcessData();
       if (this.inputProcessPrice != 0){
         this.pushProcess(process);
@@ -117,7 +120,7 @@ export class NewMaterialComponent implements OnInit {
     }
 
     if (this.foundMaterial){
-      this.viewMaterialName = this.get_materialsData[this.materialIndex].material_name;
+      this.viewMaterialName = this.get_materialsData[this.materialIndex].itemName;
       this.viewMaterialPrice = this.get_materialsData[this.materialIndex].price;
       this.viewMaterialRef = input;
       this.foundMaterial = false;
@@ -144,6 +147,7 @@ export class NewMaterialComponent implements OnInit {
       this.processExist = false;
     }
     else{ 
+      this.processMessage = "";
       this.canSaveProcess = true;
     }
   }
@@ -157,7 +161,7 @@ export class NewMaterialComponent implements OnInit {
     }
 
     if (this.foundProfile){
-      this.viewProfileName = this.get_materialsData[this.profileIndex].material_name;
+      this.viewProfileName = this.get_materialsData[this.profileIndex].itemName;
       this.viewProfilePrice = this.get_materialsData[this.profileIndex].price;
       this.viewProfileRef = input;
       this.foundProfile = false;
@@ -170,14 +174,15 @@ export class NewMaterialComponent implements OnInit {
     }
   }
 
-  pushMaterial(materials: Materials) {
-    this.http.post(this.url_pushNewMaterials, {materials}).subscribe(
+  pushMaterial(output: Materials) {
+    this.http.post(this.url_pushNewMaterials, {output}).subscribe(
       (error: any) => {
       console.log(error);
     });
   }
-  pushProfile(profiles: Materials) {
-    this.http.post(this.url_pushNewMaterials, {profiles}).subscribe(
+  pushProfile(output: Materials) {
+    console.log(output);
+    this.http.post(this.url_pushNewMaterials, {output}).subscribe(
       (error: any) => {
       console.log(error);
     });

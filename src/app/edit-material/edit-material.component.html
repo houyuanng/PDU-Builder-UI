@@ -1,5 +1,4 @@
 <h1 class="title-new">Edit Material</h1>
-
 <div class="content"> 
 
     <div class="section-input-process-time">
@@ -14,7 +13,7 @@
                     placeholder="Zoek proces tijd"
                     [matAutocomplete]="auto">
                     <mat-autocomplete #auto="matAutocomplete">
-                        <mat-option *ngFor="let option of get_processData" [value]="option.process">
+                        <mat-option *ngFor="let option of get_processData" [value]="option.process" (onSelectionChange)="searchProcess($event.source.value)">
                         {{option.process}}
                         </mat-option>
                     </mat-autocomplete>
@@ -22,14 +21,18 @@
         </form>
             <div class="inputs-processes">
                 <mat-form-field class="input-process" appearance="fill">
-                    <input matInput [(ngModel)]="editProcessName" value="{{viewProcessName}}" placeholder="Proces naam bewerken">
+                    <input matInput [(ngModel)]="editProcessName" value="{{inputSearchProcess}}" placeholder="Proces naam bewerken">
                 </mat-form-field>
 
                 <mat-form-field class="input-process-pricing" appearance="fill">
                     <input matInput [(ngModel)]="editProcessPrice" value="{{viewProcessPrice}}" placeholder="bewerk prijs">
+
                 </mat-form-field>            
             </div>
-        <button class="button-save" mat-raised-button (click)="clickDeleteProcess($event)">delete process </button>
+        <button mat-raised-button color="primary" disabled="{{!canUpdateProcess}}" (click)="clickSave()">save</button>
+        <button mat-raised-button color="warn" disabled="{{!canUpdateProcess}}" (click)="clickDeleteProcess()">delete process </button>
+
+
     </div>
 
 
@@ -37,7 +40,7 @@
 
         <p>Search profile</p>
         <mat-form-field appearance="fill">
-            <input matInput [(ngModel)]="inputSearchProfile" placeholder="Zoek naam of referentie nummer">
+            <input matInput (keyup)="searchProfile($event)" placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>
@@ -46,7 +49,7 @@
                 {{viewProfilePrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button (click)="clickEventDeleteProfile($event)">Delete</button>
+                <button mat-button disabled="{{!canDeleteProfile}}" (click)="clickEventDeleteProfile()">Delete</button>
             </mat-card-actions>
         </mat-card>
 
@@ -56,7 +59,7 @@
         <p>Search material</p>
 
         <mat-form-field appearance="fill">
-            <input matInput [(ngModel)]="inputSearchMaterial" placeholder="Zoek naam of referentie nummer">
+            <input matInput (keyup)="searchMaterial($event)" searchMaterial placeholder="Zoek naam of referentie nummer">
         </mat-form-field>
 
         <mat-card>
@@ -65,15 +68,14 @@
                 {{viewMaterialPrice}}
             </mat-card-subtitle>
             <mat-card-actions>
-                <button mat-button (click)="clickEventDeleteMaterial($event)">Delete</button>
+                <button mat-button disabled="{{!canDeleteMaterial}}" (click)="clickEventDeleteMaterial()">Delete</button>
             </mat-card-actions>
         </mat-card>
-
     </div>
-
 </div>
 
 
+<!-- =========================================================================================================================== -->
 
 <!-- <div class="out">
     <div class="GET-data">

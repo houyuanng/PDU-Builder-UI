@@ -14,10 +14,11 @@ export class NewCategoryComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  public inputCategoryName: string = "";
+  public newCategory: string = "";
   public event_save: string = "";
 
-  public urlCategory = "https://localhost:5001/api/categories/new";
+  public urlCategory = "https://localhost:5001/api/categories";
+  public urlNewCategory = "https://localhost:5001/api/categories/new";
   public get_categories: Category[] = [];
 
   public exist: boolean = false;
@@ -35,11 +36,11 @@ export class NewCategoryComponent implements OnInit {
 
   // event binding for category input and submit key pressed
   onKeyUp_categoryName(event: any) {
-    this.inputCategoryName = event.target.value;
-    console.log(this.inputCategoryName);
+    this.newCategory = event.target.value;
+    console.log(this.newCategory);
     let correct: boolean = false;
     for (const category of this.get_categories){
-      if (category.category == this.inputCategoryName){
+      if (category.category == this.newCategory){
         console.log("category already exists!");
         correct = true;
       }
@@ -52,12 +53,12 @@ export class NewCategoryComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  clickSave() {
     this.event_save = "clicked";
 
-    let output: Category = { category: this.inputCategoryName, thumbnail_addr: "thumbnail" };
+    let output: Category = { category: this.newCategory, thumbnail_addr: "thumbnail" };
 
-    this.http.post(this.urlCategory, {output}).subscribe(),
+    this.http.post(this.urlNewCategory, {output}).subscribe(),
     (error: any) => {
       console.error(error);
     };

@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { materialize } from 'rxjs/operators';
-import { InsertInformation, MaterialForInsert, Material, Category, Process, ProfileConstraint } from '../Model/app-models';
+import { InsertInformation, MaterialForInsert, Material, Category, InsertProcess, ProfileConstraint } from '../Model/app-models';
 import { timeStamp } from 'console';
 import { Materials } from '../Model/logic-models';
 import { SpecListFields } from '../design/design.component';
@@ -29,12 +29,14 @@ export class NewInsertComponent implements OnInit {
   public get_categoriesData: Category[] = [];
   public categories_dataCount: number = 0;
 
-  public get_processData: Process[] = [];
+  public get_processData: InsertProcess[] = [];
   public process_dataCount: number = 0;
 
   public materialUrl = "https://localhost:5001/api/materials";
   public categoriesUrl = "https://localhost:5001/api/categories";
   public processUrl = "https://localhost:5001/api/process";
+
+  public insertProcessUrl = "https://localhost:5001/api/insertprocess/new";
 
   public materialFieldCount: number = 0;
   public materialFields: number[] = [];
@@ -68,17 +70,17 @@ export class NewInsertComponent implements OnInit {
     // get categories
     this.http.get(this.processUrl).subscribe
     (data => {
-      this.get_processData = data as Process[];
+      this.get_processData = data as InsertProcess[];
       this.process_dataCount = Object.keys(data).length;
       // this.write(this.get_categoriesData);
     }, (error: any) => {
       console.error(error);
     });
 
-    this.processBom.push( new Process );
+    this.processBom.push( new InsertProcess );
 
     this.NewInsert.bom.push( new BOMfields );
-    this.NewInsert.processes.push( new Process );
+    this.NewInsert.processes.push( new InsertProcess );
   }
 
   parseProfiles() : string[]{
@@ -128,16 +130,20 @@ export class NewInsertComponent implements OnInit {
     // this.materialFieldCount += 1;
   }
 
-  public processBom: Process[] = [];
+  public processBom: InsertProcess[] = [];
   clickAddProcess() {
-    this.NewInsert.processes.push(new Process);
-    this.processBom.push(new Process);
+    this.NewInsert.processes.push(new InsertProcess);
+    this.processBom.push(new InsertProcess);
     // this.processBom[0].process
   }
 
   clickSave() {
-    // console.log(this.bomInsert);
-    // console.log(this.processBom);
+    let output = this.NewInsert;
+    this.http.post(this.insertProcessUrl, output).subscribe
+    (data => { }, (error: any) => {
+      console.error(error);
+    });
+
     console.log(this.NewInsert);
   }
 
@@ -190,7 +196,7 @@ export class NewInsert {
   length: number = 0
   category: string = "";
   profileConstraint: string = "";
-  processes: Process[] = [];
+  processes: InsertProcess[] = [];
   specs: SpecListFields[] = [];
   bom: BOMfields[] = [];
   positionOnPdu: string = "";

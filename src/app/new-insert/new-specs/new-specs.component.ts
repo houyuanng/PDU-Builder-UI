@@ -87,5 +87,4 @@ export class NewSpecsComponent implements OnInit {
   save(){
     console.log(this.QA);
   }
-}
-
+} 

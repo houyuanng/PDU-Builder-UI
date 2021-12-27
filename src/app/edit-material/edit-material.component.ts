@@ -4,9 +4,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { materialize } from 'rxjs/operators';
-import { Material, Process } from '../Model/app-models';
+import { Material, InsertProcess } from '../Model/app-models';
 import { editProcess, EditedMaterial } from '../Model/app-models';
-import { Materials } from '../Model/logic-models';
+import { Materials, Process } from '../Model/logic-models';
 
 
 @Component({
@@ -21,11 +21,15 @@ export class EditMaterialComponent implements OnInit {
   url_materialsdb = "https://localhost:5001/api/materials";
   url_process = "https://localhost:5001/api/process";
   url_editMaterial = "https://localhost:5001/api/materials/edit";
+  url_editProcess = "https://localhost:5001/api/process/edit";
 
-  public get_materialsData: any = {};
+  url_deleteMaterial = "https://localhost:5001/api/materials/delete";
+  url_deleteProcess = "https://localhost:5001/api/process/delete";
+
+  public get_materialsData: Materials[] = []
   public materialsDataCount: number = 0;
 
-  public get_processData: any = {};
+  public get_processData: Process[] = [];
   public processDataCount: number = 0;
 
   public stateDeleteProfile: boolean = false;
@@ -33,21 +37,27 @@ export class EditMaterialComponent implements OnInit {
   public stateDeleteProcess: boolean = false;
   public stateChangeProcess: boolean = false;
 
-  public inputSearchProcess: string = "search process";
-  public inputSearchMaterial: string = "search material";
-  public inputSearchProfile: string = "search profile";
+  public inputSearchProcess: string = "";
+  public inputSearchMaterial: string = "";
+  public inputSearchProfile: string = "";
   
-  public editProcessName: string = "edit process name";
+  public editProcessName: string = "";
   public editProcessPrice: number = 0.00;
   public foundProcess: boolean = false;
-  public processIndex = 0;
+  public foundProfile: boolean = false;
+
+  public materialReferenceNumber: string = "";
+  public profileReferenceNumber: string = "";
+
+  public canDeleteProfile: boolean = false;
+  public canDeleteMaterial: boolean = false;
+  public canUpdateProcess: boolean = false;
 
   public viewMaterialName: string = "view material name";
   public viewProfileName: string = "view profile name";
   public viewMaterialPrice: number = 0.00;
   public viewProfilePrice: number = 0.00;
   public foundMaterial: boolean = false;
-  public materialIndex = 0;
   public viewProcessName: string = "";
   public viewProcessPrice: number = 0;
 
@@ -92,38 +102,94 @@ export class EditMaterialComponent implements OnInit {
     return materials;
   }
 
-  clickEventDeleteProfile(event: any){
-    this.stateDeleteProfile = true;
+  pushProcess(search: string, newItem: Process) {
+    this.http.post(this.url_editProcess, {search, newItem}).subscribe
+    ((error: any) => {
+      console.log(error);
+    });
+  }
+
+  formatProcess() {
+    let process: Process = new Process;
+    process.process = this.editProcessName;
+    process.price = this.editProcessPrice;
+    return process;
+  }
+
+  clickSave() {
+    if (this.editProcessName != "" && this.inputSearchProcess != ""){
+      let newProcess = this.formatProcess();
+      this.pushProcess(this.inputSearchProcess, newProcess)
+    }
+  }
+
+  clickEventDeleteProfile(){
+    let search: string = this.profileReferenceNumber;
+    let materialType: string = "PROFILE";
+    this.http.post(this.url_deleteMaterial, {search, materialType}).subscribe
+    (() => { this.canDeleteProfile = false; }, 
+    (error: any) => {
+      console.log(error);
+  });
     // delete profile request
   }
 
-  clickEventDeleteMaterial(event: any){
-    this.stateDeleteMaterial = true;
-    // delete material somehow idk
+  clickEventDeleteMaterial(){
+    // let search: string = this.materialReferenceNumber;
+    let search: string = this.materialReferenceNumber;
+    let materialType: string = "MATERIAL";
+    this.http.post(this.url_deleteMaterial, {search, materialType}).subscribe
+    ((data: any) => { this.canDeleteMaterial = false; }, 
+    (error: any) => {
+      console.log(error);
+  });
+        // delete material somehow idk
   }
   
-  clickDeleteProcess(event: any){
-    this.stateDeleteProcess = true;
+  clickDeleteProcess(){
+
+    console.log("gong to delete")
+
+    let search: string = this.inputSearchProcess;
+    this.http.post(this.url_deleteProcess, {search}).subscribe
+      ((data: any) => { this.canUpdateProcess = false; }, 
+      (error: any) => {
+        console.log(error);
+    });
+
+
     // delete process request
   }
 
 
-  searchProfile(input: string){
-    for (let i = 0; i < this.materialsDataCount; i++){
-      // for some reason the .description part is always empty and idk why
-      // if (input == this.get_materialsData[i].itemId && this.get_materialsData[i].description == "PROFILE") {
-      if (input == this.get_materialsData[i].itemId) {
-        this.foundMaterial = true;
-        this.materialIndex = i;
+  searchProfile(event: any){
+    let input: string = event.target.value;
+    
+    let name: string = "";
+    let price: number = 0;
+    let descr: string = "";
+
+    for (let profile of this.profiles){
+      console.log(profile);
+      if (input == profile.itemId) {
+        console.log("found!");
+        this.foundProfile = true;
+        // this.materialIndex = i;
+        name = profile.material_name;
+        price = profile.price;
+        descr = profile.description;
       }
     }
 
-    if (this.foundMaterial){
-      this.viewProfileName = this.get_materialsData[this.materialIndex].material_name;
-      this.viewProfilePrice = this.get_materialsData[this.materialIndex].price;
-      this.viewDesc = this.get_materialsData[this.materialIndex].description;
-      this.foundMaterial = false;
+    if (this.foundProfile){
+      this.profileReferenceNumber = input
+      this.viewProfileName = name;
+      this.viewProfilePrice = price;
+      this.viewDesc = descr;
+      this.foundProfile = false;
+      this.canDeleteProfile = true;
     } else {
+      this.profileReferenceNumber = "";
       this.viewProfileName = "";
       this.viewProfilePrice = 0;
       this.viewDesc = "none";
@@ -131,39 +197,55 @@ export class EditMaterialComponent implements OnInit {
   }
 
   searchProcess(input: string) {
-    for (let i = 0; i < this.processDataCount; i++){
-      if (input == this.get_processData[i].process) {
-        this.foundProcess = true;
-        this.processIndex = i;
-      }
-    }
+    // let input: string = this.inputSearchProcess;
+    console.log(input);
 
+    let viewProcess : string = "";
+    let viewPrice : number = 0;
+
+    for (let process of this.get_processData){
+      if (input == process.process) {
+        this.foundProcess = true;
+        viewProcess = process.process;
+        viewPrice = process.price;
+        }
+      }
+    
     if (this.foundProcess){
-      this.viewProcessName = this.get_processData[this.processIndex].process;
-      this.viewProcessPrice = this.get_processData[this.processIndex].price;
+      this.viewProcessName = viewProcess;
+      this.viewProcessPrice = viewPrice;
+      this.profileReferenceNumber = input;
       this.foundProcess = false;
-      console.log("found stuff!" + this.viewProcessName);
+      console.log("found stuff!" + this.viewProcessPrice);
     } else {
       this.viewProcessName = "";
       this.viewProcessPrice = 0;
     }
   }
 
-  searchMaterial(input: string) {
-    for (let i = 0; i < this.materialsDataCount; i++){
-      if (input == this.get_materialsData[i].itemId) {
+  searchMaterial(event: any) {
+    let input: string = event.target.value;
+    
+    let name: string = "";
+    let price: number = 0;
+    let descr: string = "";
+
+    for (let material of this.materials){
+      if (input == material.itemId) {
         this.foundMaterial = true;
-        this.materialIndex = i;
+        name = material.material_name;
+        price = material.price;
+        descr = material.description;
       }
     }
-
     if (this.foundMaterial){
-      this.viewMaterialName = this.get_materialsData[this.materialIndex].material_name;
-      this.viewMaterialPrice = this.get_materialsData[this.materialIndex].price;
-      this.foundMaterial = false;
-      console.log(this.viewMaterialPrice);
-
+      this.materialReferenceNumber = input;
+      this.viewMaterialName = name;
+      this.viewMaterialPrice = price;
+      this.foundMaterial = false;  
+      this.canDeleteMaterial = true;
     } else {
+      this.materialReferenceNumber = "";
       this.viewMaterialName = "";
       this.viewMaterialPrice = 0;
     }
