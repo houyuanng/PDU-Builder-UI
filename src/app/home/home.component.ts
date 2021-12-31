@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  public homeUrl = "https://localhost:5001/api/home";
+  public homeUrl = "https://localhost:44387/api/home";
   public doneUpdating:boolean = false;
 
   ngOnInit(): void {

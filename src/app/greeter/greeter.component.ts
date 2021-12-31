@@ -28,7 +28,7 @@ export class GreeterComponent {
 
   public PostData() {
     // const url = "http://localhost:49528/api/Home";
-    const url = "https://localhost:5001/api/greeter";
+    const url = "https://localhost:44387/api/greeter";
 
     let mockData: Materials[] = [
       { material_name: "material Name1 sfpwjf", price: 0, itemId: "f32rrdffjr", description: "matewrgval" },

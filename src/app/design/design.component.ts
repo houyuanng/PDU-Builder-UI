@@ -7,8 +7,9 @@ import {HttpClient} from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import * as _ from "lodash";
 import { _countGroupLabelsBeforeOption } from '@angular/material/core';
-import { Inserts } from '../Model/logic-models';
-import { Content, InsertFormat, QandA, InsertsPerCategory } from '../Model/app-models';
+import { Inserts, Materials, RealImages, SchemImages } from '../Model/logic-models';
+import { Content, InsertFormat, QandA, InsertsPerCategory, Material } from '../Model/app-models';
+import mergeImages, { ImageSource } from 'merge-images';
 
 
 @Component({
@@ -20,11 +21,14 @@ export class DesignComponent implements OnInit {
  
   constructor(private http: HttpClient) { }
   
-  inserts_url = "https://localhost:5001/api/inserts";
-  specs_url = "https://localhost:5001/api/specs";
-  realImage_url = "https://localhost:5001/api/realImages";
+  inserts_url = "https://localhost:44387/api/inserts";
+  materials_url = "https://localhost:44387/api/materials";
+  specs_url = "https://localhost:44387/api/specs";
+  realImage_url = "https://localhost:44387/api/realImages";
+  schemImage_url = "https://localhost:44387/api/schemImages";
 
-  public get_realImages: any;
+  public get_realImages: RealImages[] = [];
+  public get_schemImages: SchemImages[] = []
 
   public chosenCategory: number = 0;
 
@@ -34,15 +38,17 @@ export class DesignComponent implements OnInit {
   public spec_dataCount: number = 0;
   public categories: any;
 
+  public get_materials: Materials[] = [];
+
   private subscriptions: Subscription = new Subscription();
   
   folder: string = "/images/Insert real/";
   
   selectedProfile ='something';
-  chosenProfile: Content = {name: ""};
   public prevSequence: Sequence[] = [];
   public sequence: Sequence[] = [];
-  public profiles: string[] = [];
+  public profiles: Materials[] = [];
+  public chosenProfile: string = "";
 
   qControls = new FormControl('', Validators.required);
   public questions: string[] = [];
@@ -61,28 +67,27 @@ export class DesignComponent implements OnInit {
   public setPduLen: number = 4400;
   public isInsertPlaceable: boolean = true;
 
+  profileNonEmptyControl = new FormControl('', Validators.required);
+  categoryNonEmptyControl = new FormControl('', Validators.required);
+  selectFormControl = new FormControl('', Validators.required);
+
   getInserts(chosenCategory: number) : string[] {
     var inserts = this.groupedInserts[chosenCategory]?.inserts ?? [];
     return inserts;
   }
 
   ngOnInit(): void {
-    const getInsertsVal = this.http.get(this.inserts_url)
-    .subscribe((data) => 
+    this.http.get(this.inserts_url).subscribe((data) => 
       {
         this.get_insertsData = data as Inserts[];
         this.inserts_dataCount = Object.keys(data).length;
-        // this.getQuestionsAndAnswers("049-8642 small2.jpg", data);
-        this.getProfiles();
         this.getCategories(data as Inserts[]);
         this.getInsertsInCategory();
-        // this.getFormattedInserts();
       }, (error: any) => {
         console.error(error);
-      }
-    );
+      });
     
-    const getSpecsVal = this.http.get(this.specs_url).subscribe
+    this.http.get(this.specs_url).subscribe
     (data => {
       this.get_specData = data as SpecListFields[];
       this.spec_dataCount = Object.keys(data).length;
@@ -91,27 +96,40 @@ export class DesignComponent implements OnInit {
     }, (error: any) => {
       console.error(error);
     });
+
+    this.http.get(this.realImage_url).subscribe
+    (data => {
+      this.get_realImages = data as RealImages[];
+    }, (error: any) => {
+      console.error(error);
+    });
+
+    this.http.get(this.schemImage_url).subscribe
+    (data => {
+      this.get_schemImages = data as SchemImages[];
+    }, (error: any) => {
+      console.error(error);
+    });
+
+    this.http.get(this.materials_url).subscribe
+    (data => {
+      this.get_materials = data as Materials[];
+      this.getProfiles();
+      // console.log(this.get_materials);
+    }, (error: any) => {
+      console.error("ERROR GETTING MATERIALS: \n" + error);
+    });
   }
 
-  getProfiles() {
-    let profileString: string = "";
-    for (let i = 0; i < this.inserts_dataCount; i++){
-      profileString += this.get_insertsData[i].profileConstraint;
-      profileString += "-";
-
-      if (i == this.inserts_dataCount-1){
-        profileString += this.get_insertsData[i].profileConstraint;
+  getProfiles(){
+    this.profiles = [];
+    for (const material of this.get_materials){
+      if (material.description == "PROFILE") {
+        this.profiles.push({ itemId: material.itemId, material_name: material.material_name, price: material.price, description: material.description });
       }
     }
-    let profileObj: string[] = [];
-    profileObj = profileString.split("-");
-
-    let distinctProfiles = _.uniq(profileObj);
-
-    this.profiles = distinctProfiles;
   }
 
-  public something: any;
   public groupedInserts: InsertsPerCategory[] = [];
 
   deleteInsert(index: number){
@@ -154,27 +172,10 @@ export class DesignComponent implements OnInit {
       answers = question.options?.split('`');
       this.QA.push({ question: question.question, answers: answers});
     }
-
-    console.log(this.QA[0].answers[0]);
-
     // let questionsAndAnswers: QandA[] = [];
     let answersBuffer: string[] = [];
 
   }
-
-  // public allInserts: InsertFormat[] = [];
-  // getFormattedInserts() {
-  //   for (const insert of this.get_insertsData) {
-  //     this.allInserts.push({
-  //       insertName: insert.insert_name,
-  //       profileConstraint: [insert.profileConstraint],
-  //       category: insert.category,
-  //       question: [insert.category],
-  //       answer: [insert.category]
-  //     });
-  //   }
-  // }
-
   trackByFn(index: number, input: string){
     return index;    
   }
@@ -207,10 +208,6 @@ export class DesignComponent implements OnInit {
     // this.chosenProfile = this.sequence.values;
   }
 
-  blurEvent(event: any) {
-    this.chosenProfile.name = event.target.value as string;
-  }
-
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(this.sequence, event.previousIndex, event.currentIndex);
     // if (event.previousContainer === event.container) {
@@ -231,14 +228,95 @@ export class DesignComponent implements OnInit {
     this.prev_supportPieceLen = 0;
   }
 
-  clickSave(){
-    this.prevSequence = Object.assign([], this.sequence);
+  createImage(pdu: InsertsImages[]) {
+    let realImages: ImageSource[] = [];
+
+    let realImageFolder: string = "/images/Insert real/";
+    let schemImageFolder: string = "/images/Insert schem/";
+
+    let realImage: string = "";
+    let schemImage: string = "";
+
+    let realX_pos: number = 0;
+    for (let insert of pdu){
+      realImages.push({ src: schemImageFolder + insert.schemImage, x: realX_pos, y: 0 })
+      realX_pos += insert.realX;
+    }
+    console.log(realImages)
+    let imageSize: mergeImages.Options;
+    imageSize = { width: realX_pos, height: 200 };
+
+    mergeImages(realImages, imageSize).then(b64 => {
+      document.getElementById("image")?.setAttribute('src', b64);
+      });
+
+    mergeImages(realImages, imageSize).then(b64 => {
+      realImage = b64;
+      });
   }
 
-  getInsertImage(insert: string) {
-    for (let row in this.get_insertsData){
+  clickSave(){
+    let mappedInserts: InsertsImages[] = this.mapImagesToInserts();
 
+    this.prevSequence = Object.assign([], this.sequence);
+    let newOrder: NewPdu = new NewPdu;
+
+    let pduImageInfo: InsertsImages[] = [];
+    for (let insert of this.prevSequence){
+      // for (let mapInsert of mappedInserts)
+      //   if (insert.name == mapInsert.insertName){
+          // pduImageInfo.push({ 
+          //   insertName: mapInsert.insertName, realImage: mapInsert.realImage, realX: mapInsert.realX, realY: mapInsert.realY,
+          //   schemImage: mapInsert.realImage, schemX: mapInsert.realX, schemY: mapInsert.schemY });
+      // }
+      pduImageInfo.push( {
+        insertName: insert.name, realImage: "", realX: 0, realY: 0,
+        schemImage: "", schemX: 0, schemY: 0 });
     }
+
+    for (let insert of pduImageInfo){
+      for (let mapInsert of mappedInserts){
+        if ( insert.insertName == mapInsert.insertName ){
+          insert.realImage = mapInsert.realImage;
+          insert.realX = mapInsert.realX;
+          insert.realY = mapInsert.realY;
+          insert.schemImage = mapInsert.schemImage;
+          insert.schemX = mapInsert.schemX;
+          insert.schemY = mapInsert.schemY;
+        }
+      }
+    }
+
+    this.createImage(pduImageInfo);
+
+    newOrder.length = this.pduLen;
+    newOrder.profile = this.chosenProfile;
+    console.log(newOrder);
+    
+  }
+
+  mapImagesToInserts() : InsertsImages[]{
+    let inserts: InsertsImages[] = [];
+    for (let insert of this.get_insertsData){
+      inserts.push({ insertName: insert.insert_name, realImage: "", realX: 0, realY: 0, schemImage: "", schemX: 0, schemY: 0 });
+    }
+    for (let insert of inserts) {
+      for (let img of this.get_realImages){
+        if (insert.insertName == img.insert_name){
+          insert.realImage = img.img_addr;
+          insert.realX = img.x_pixel_size;
+          insert.realY = img.y_pixel_size;
+        }
+      }
+      for (let img of this.get_schemImages){
+        if (insert.insertName == img.insert_name){
+          insert.schemImage = img.img_addr;
+          insert.schemX = img.x_pixel_size;
+          insert.schemY = img.y_pixel_size;
+        }
+      }
+    }
+    return inserts;
   }
 
   clickAddInsert(insert: string, index: number) {
@@ -265,12 +343,7 @@ export class DesignComponent implements OnInit {
         }
       }
     }
-
   }
-
-  profileNonEmptyControl = new FormControl('', Validators.required);
-  categoryNonEmptyControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
   
 }
 
@@ -283,4 +356,28 @@ export class Sequence{
 export class SpecListFields{
   question: string = "";
   options: string = "";
+}
+
+export class NewPdu {
+  realImage: string = "";
+  schemImage: string = "";
+  length: number = 0;
+  profile: string = "";
+  insertsSpecs: InsertSpecs[] = [];
+}
+
+export class InsertSpecs{
+  insertName: string = "";
+  question: string = "";
+  option: string = "";
+}
+
+export class InsertsImages{
+  insertName: string = "";
+  schemImage: string = "";
+  schemX: number = 0;
+  schemY: number = 0;
+  realImage: string = "";
+  realX: number = 0;
+  realY: number = 0;
 }

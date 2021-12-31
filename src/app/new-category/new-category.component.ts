@@ -17,8 +17,8 @@ export class NewCategoryComponent implements OnInit {
   public newCategory: string = "";
   public event_save: string = "";
 
-  public urlCategory = "https://localhost:5001/api/categories";
-  public urlNewCategory = "https://localhost:5001/api/categories/new";
+  public urlCategory = "https://localhost:44387/api/categories";
+  public urlNewCategory = "https://localhost:44387/api/categories/new";
   public get_categories: Category[] = [];
 
   public exist: boolean = false;

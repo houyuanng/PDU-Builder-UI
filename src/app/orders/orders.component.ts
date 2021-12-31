@@ -42,7 +42,7 @@ export class OrdersComponent implements OnInit {
   }
 
   public ngOnInit() {
-    const url = "https://localhost:5001/api/orders";
+    const url = "https://localhost:44387/api/orders";
     const retVal = this.http.get(url).subscribe
     (data => {this.get_ordersData = data as Orders[];
     }, (error: any) => {

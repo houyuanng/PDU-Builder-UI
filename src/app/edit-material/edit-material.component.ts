@@ -18,13 +18,13 @@ export class EditMaterialComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  url_materialsdb = "https://localhost:5001/api/materials";
-  url_process = "https://localhost:5001/api/process";
-  url_editMaterial = "https://localhost:5001/api/materials/edit";
-  url_editProcess = "https://localhost:5001/api/process/edit";
+  url_materialsdb = "https://localhost:44387/api/materials";
+  url_process = "https://localhost:44387/api/process";
+  url_editMaterial = "https://localhost:44387/api/materials/edit";
+  url_editProcess = "https://localhost:44387/api/process/edit";
 
-  url_deleteMaterial = "https://localhost:5001/api/materials/delete";
-  url_deleteProcess = "https://localhost:5001/api/process/delete";
+  url_deleteMaterial = "https://localhost:44387/api/materials/delete";
+  url_deleteProcess = "https://localhost:44387/api/process/delete";
 
   public get_materialsData: Materials[] = []
   public materialsDataCount: number = 0;

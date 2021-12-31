@@ -32,11 +32,11 @@ export class NewInsertComponent implements OnInit {
   public get_processData: InsertProcess[] = [];
   public process_dataCount: number = 0;
 
-  public materialUrl = "https://localhost:5001/api/materials";
-  public categoriesUrl = "https://localhost:5001/api/categories";
-  public processUrl = "https://localhost:5001/api/process";
+  public materialUrl = "https://localhost:44387/api/materials";
+  public categoriesUrl = "https://localhost:44387/api/categories";
+  public processUrl = "https://localhost:44387/api/process";
 
-  public insertProcessUrl = "https://localhost:5001/api/insertprocess/new";
+  public insertProcessUrl = "https://localhost:44387/api/insertprocess/new";
 
   public materialFieldCount: number = 0;
   public materialFields: number[] = [];

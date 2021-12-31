@@ -38,9 +38,9 @@ export class OrderSummaryComponent implements OnInit {
   public get_bom: BOMfields[] = [];
   public get_materials: Materials[] = []
 
-  public ordersUrl: string = "https://localhost:5001/api/orders";
-  public bomUrl: string = "https://localhost:5001/api/orderbom";
-  public materialsUrl: string = "https://localhost:5001/api/materials";
+  public ordersUrl: string = "https://localhost:44387/api/orders";
+  public bomUrl: string = "https://localhost:44387/api/orderbom";
+  public materialsUrl: string = "https://localhost:44387/api/materials";
 
   ngOnInit(): void {
     const retVal = this.http.get(this.ordersUrl).subscribe

@@ -13,8 +13,8 @@ export class OrderBomComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
   
-  url_orderBom = "https://localhost:5001/api/orderbom";
-  url_insertProc = "https://localhost:5001/api/insertprocess";
+  url_orderBom = "https://localhost:44387/api/orderbom";
+  url_insertProc = "https://localhost:44387/api/insertprocess";
 
   public get_bomData: Bom[] = [];
   public bomDataCount: number = 0;

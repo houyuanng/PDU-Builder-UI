@@ -13,8 +13,8 @@ export class EditCategoryComponent{
   constructor(private http: HttpClient) {};
   private subscriptions: Subscription = new Subscription();
 
-  public allCatsUrl = "https://localhost:5001/api/categories";
-  public editCatUrl = "https://localhost:5001/api/categories/edit";
+  public allCatsUrl = "https://localhost:44387/api/categories";
+  public editCatUrl = "https://localhost:44387/api/categories/edit";
 
   public get_categories: Category[] = [];
   public searchedCat: string = "";

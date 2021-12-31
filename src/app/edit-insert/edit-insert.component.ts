@@ -27,11 +27,11 @@ export class EditInsertComponent implements OnInit {
   public get_insertData: InsertInformation[] = [];
   public insert_dataCount: number = 0;
 
-  public materialUrl = "https://localhost:5001/api/materials";
-  public categoriesUrl = "https://localhost:5001/api/categories";
-  public processUrl = "https://localhost:5001/api/process";
-  public insertUrl = "https://localhost:5001/api/inserts";
-  public insertProcessUrl = "https://localhost:5001/api/insertprocess";
+  public materialUrl = "https://localhost:44387/api/materials";
+  public categoriesUrl = "https://localhost:44387/api/categories";
+  public processUrl = "https://localhost:44387/api/process";
+  public insertUrl = "https://localhost:44387/api/inserts";
+  public insertProcessUrl = "https://localhost:44387/api/insertprocess";
 
   public materialFieldCount: number = 0;
   public processFieldCount: number = 0;

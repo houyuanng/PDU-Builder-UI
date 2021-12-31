@@ -33,3 +33,19 @@ export class Orders {
     xl_calculation_addr: string = "";
     insert_id_sequence_addr: string = "";
   }
+
+  export class SchemImages
+  {
+      insert_name: string = "";
+      x_pixel_size: number = 0;
+      y_pixel_size: number = 0;
+      img_addr: string = "";
+  }
+
+  export class RealImages
+    {
+        insert_name: string = "";
+        x_pixel_size: number = 0;
+        y_pixel_size: number = 0;
+        img_addr: string = "";
+    }

@@ -15,10 +15,10 @@ export class NewMaterialComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
 
-  url_materialsdb = "https://localhost:5001/api/masterdatabase";
-  url_process = "https://localhost:5001/api/process";
-  url_pushNewMaterials = "https://localhost:5001/api/materials/new";
-  url_pushNewProcess = "https://localhost:5001/api/process/new";
+  url_materialsdb = "https://localhost:44387/api/masterdatabase";
+  url_process = "https://localhost:44387/api/process";
+  url_pushNewMaterials = "https://localhost:44387/api/materials/new";
+  url_pushNewProcess = "https://localhost:44387/api/process/new";
 
   public get_materialsData: any = {};
   public materialsDataCount: number = 0;
